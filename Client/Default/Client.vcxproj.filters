@@ -40,6 +40,15 @@
     <Filter Include="02.GameObject\Camera\PipeLine">
       <UniqueIdentifier>{af164e92-a22c-48c5-9381-b217db7c6b8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Field">
+      <UniqueIdentifier>{0bbd8e3f-366a-4994-9ddb-8e63b761b8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Wall">
+      <UniqueIdentifier>{463e62b2-f85b-4705-9f41-91b51838508f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Brick">
+      <UniqueIdentifier>{4bfc3608-7b3f-4807-b668-7585476aa4aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -78,6 +87,18 @@
     <ClInclude Include="..\Headers\Camera_Free.h">
       <Filter>02.GameObject\Camera\Camera_Free</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Field.h">
+      <Filter>02.GameObject\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Wall.h">
+      <Filter>02.GameObject\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Brick.h">
+      <Filter>02.GameObject\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Struct.h">
+      <Filter>99.Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -103,6 +124,15 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Camera_Free.cpp">
       <Filter>02.GameObject\Camera\Camera_Free</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Field.cpp">
+      <Filter>02.GameObject\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Wall.cpp">
+      <Filter>02.GameObject\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Brick.cpp">
+      <Filter>02.GameObject\Brick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

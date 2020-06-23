@@ -106,6 +106,20 @@ HRESULT CTransform::Go_Left(_double TimeDelta)
 	return S_OK;
 }
 
+HRESULT CTransform::SetUp_Position(_float3 _vPos)
+{
+	Set_State(STATE_POSITION, _vPos);
+	return S_OK;
+}
+
+HRESULT CTransform::SetUp_Scale(_float3 _vSize)
+{
+	Set_State(STATE_RIGHT, Get_State(STATE_RIGHT) * _vSize.x);
+	Set_State(STATE_UP, Get_State(STATE_UP) * _vSize.y);
+	Set_State(STATE_LOOK, Get_State(STATE_LOOK) * _vSize.z);
+	return S_OK;
+}
+
 // 항등상태에서 내가 원하는 회전값을 부여한다. != 현재 상태에서 내가 원하ㅡㄴㄴ 회전값을 추가로 부옇나다.
 HRESULT CTransform::SetUp_Rotation(_float3 vAxis, _float fRadian)
 {

@@ -82,5 +82,7 @@ HRESULT CCamera::Render_GameObject()
 
 void CCamera::Free()
 {
+	Safe_Release(m_pTransformCom);
+	Safe_Release(m_pPipeLine);
 	CGameObject::Free();
 }
