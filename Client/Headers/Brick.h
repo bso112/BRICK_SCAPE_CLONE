@@ -28,6 +28,7 @@ public:
 	virtual _int Late_Update_GameObject(_double TimeDelta);
 	virtual HRESULT Render_GameObject();
 
+
 private:
 	CTransform*	m_pTransform = nullptr;
 	CVIBuffer*	m_pVIBuffer = nullptr;

@@ -88,6 +88,15 @@
     <Filter Include="01.Utility\03.Component\Component\VIBuffer\Cube">
       <UniqueIdentifier>{54436f3b-19d9-47eb-b800-8644ce4049d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Colider">
+      <UniqueIdentifier>{91465bdd-fa2b-4c3f-ac20-8ef68167d3c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Colider\00.Colider_Rect">
+      <UniqueIdentifier>{40ef5e7e-17c0-429c-9b6b-7b41f22bf720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\05.KeyMgr">
+      <UniqueIdentifier>{bac91c3b-95e4-43f9-9041-4c36605be299}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Headers\Engine_Struct.h">
@@ -168,6 +177,15 @@
     <ClInclude Include="..\Headers\VIBuffer_Cube.h">
       <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Collider.h">
+      <Filter>01.Utility\04.Colider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Collider_Rect.h">
+      <Filter>01.Utility\04.Colider\00.Colider_Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\KeyMgr.h">
+      <Filter>01.Utility\05.KeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\Base.cpp">
@@ -232,6 +250,15 @@
     </ClCompile>
     <ClCompile Include="..\Codes\VIBuffer_Cube.cpp">
       <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Collider.cpp">
+      <Filter>01.Utility\04.Colider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Collider_Rect.cpp">
+      <Filter>01.Utility\04.Colider\00.Colider_Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\KeyMgr.cpp">
+      <Filter>01.Utility\05.KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

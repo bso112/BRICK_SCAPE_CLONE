@@ -64,6 +64,9 @@
     <Filter Include="02.GameObject\Brick">
       <UniqueIdentifier>{4bfc3608-7b3f-4807-b668-7585476aa4aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Button">
+      <UniqueIdentifier>{d1571137-965b-4cea-864e-45c353c6554b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -120,6 +123,9 @@
     <ClInclude Include="Client_Struct.h">
       <Filter>99.Headers</Filter>
     </ClInclude>
+    <ClInclude Include="MyButton.h">
+      <Filter>02.GameObject\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -160,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Brick.cpp">
       <Filter>02.GameObject\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="MyButton.cpp">
+      <Filter>02.GameObject\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

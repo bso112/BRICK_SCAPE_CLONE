@@ -3,6 +3,7 @@
 
 #include "GameManager.h"
 #include "Brick.h"
+#include "MyButton.h"
 
 USING(Client)
 
@@ -63,6 +64,11 @@ HRESULT CLoading::Loading_ForStageOne()
 	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
 		return E_FAIL;
 
+	CMyButton::STATEDESC btnDesc;
+	btnDesc.m_eSceneID = SCENE_STAGE;
+	btnDesc.m_tBaseDesc = BASEDESC(_float3(0.f, 0.f, 0.f), _float3(100.f,100.f,1.f));
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Button", SCENE_STAGE, L"GameObject", &btnDesc)))
+		return E_FAIL;
 
 #pragma endregion
 

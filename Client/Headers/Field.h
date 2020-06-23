@@ -1,12 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
-BEGIN(Engine)
-class CTransform;
-class CVIBuffer;
-class CTexture;
-class CRenderer;
-END
+#include "Management.h"
+#include "Client_Defines.h"
 
 BEGIN(Client)
 class CWall;

@@ -198,6 +198,9 @@ void CManagement::Release_Engine()
 	if (0 != CManagement::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CManagement");
 
+	if (0 != CKeyMgr::Get_Instance()->Destroy_Instance())
+		MSG_BOX("Failed To Release CKeyMgr");
+
 	if (0 != CObject_Manager::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CObject_Manager");
 

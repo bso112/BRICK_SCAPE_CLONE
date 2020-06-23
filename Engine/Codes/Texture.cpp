@@ -1,4 +1,5 @@
 #include "..\Headers\Texture.h"
+#include "Shader.h"
 
 CTexture::CTexture(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CComponent(pGraphic_Device)
@@ -12,6 +13,15 @@ CTexture::CTexture(const CTexture & rhs)
 	for (auto& pTexture : m_Textures)
 		Safe_AddRef(pTexture);
 
+}
+
+HRESULT CTexture::Set_TextureOnShader(CShader * pShader, D3DXHANDLE hParameter, _uint iIndex)
+{
+	if (nullptr == pShader ||
+		m_Textures.size() <= iIndex)
+		return E_FAIL;
+
+	return pShader->Set_Texture(hParameter, m_Textures[iIndex]);
 }
 
 HRESULT CTexture::Ready_Component_Prototype(const _tchar* pTextureFilePath, _uint iNumTextures)
