@@ -4,7 +4,7 @@
 #include "BackGround.h"
 #include "Scene_Loading.h"
 #include "Camera_Free.h"
-
+#include "Brick.h"
 USING(Client)
 
 CMainApp::CMainApp()
@@ -102,6 +102,10 @@ HRESULT CMainApp::Ready_Default_GameObject()
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Camera_Free", CCamera_Free::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
+	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Brick", CBrick::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+
 	return S_OK;
 }
 
@@ -121,9 +125,32 @@ HRESULT CMainApp::Ready_Default_Component()
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_VIBuffer_Rect", CVIBuffer_Rect::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
+
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_VIBuffer_Cube", CVIBuffer_Cube::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Shader_Rect", CShader::Create(m_pGraphic_Device, L"../Bin/ShaderFiles/Shader_Rect.fx"))))
 		return E_FAIL;
 
+
+	/*
+	
+		if (FAILED(Add_Component(SCENE_STATIC, L"Transform", L"Transform", (CComponent**)&m_pTransform, &tTransformDesc)))
+		return E_FAIL;
+
+	//if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
+	//return E_FAIL;
+	//
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"Shader_Rect", L"Shader_Rect", (CComponent**)&m_pShader)))
+		return E_FAIL;
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"VIBuffer_Cube", L"VIBuffer_Cube", (CComponent**)&m_pVIBuffer)))
+		return E_FAIL;
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"Renderer", L"Renderer", (CComponent**)&m_pRenderer)))
+		return E_FAIL;
+	*/
 	return S_OK;
 }
 

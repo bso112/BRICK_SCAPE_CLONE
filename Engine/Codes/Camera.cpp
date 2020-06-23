@@ -85,5 +85,6 @@ void CCamera::Free()
 	Safe_Release(m_pPipeLine);
 	Safe_Release(m_pTransformCom);
 
+
 	CGameObject::Free();
 }

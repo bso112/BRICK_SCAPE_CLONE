@@ -7,7 +7,7 @@
 #include "Object_Manager.h"
 #include "Component_Manager.h"
 #include "PipeLine.h"
-
+#include "VIBuffer_Cube.h"
 BEGIN(Engine)
 
 class ENGINE_DLL CManagement final : public CBase

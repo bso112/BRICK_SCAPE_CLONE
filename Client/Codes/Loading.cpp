@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "..\Headers\Loading.h"
+
 #include "GameManager.h"
+#include "Brick.h"
 
 USING(Client)
 
@@ -52,6 +54,15 @@ HRESULT CLoading::Ready_Loading(SCENEID eSceneID)
 HRESULT CLoading::Loading_ForStageOne()
 {
 #pragma region GAMEOBJECT_PROTOTYPE
+	CManagement* pEngineMgr = CManagement::Get_Instance();
+	if (nullptr == pEngineMgr) return E_FAIL;
+	
+	CBrick::STATEDESC brickDesc;
+	brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, 0.f);
+	brickDesc.tBaseDesc.vSize = _float3(3.f, 3.f, 3.f);
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
+		return E_FAIL;
+
 
 #pragma endregion
 

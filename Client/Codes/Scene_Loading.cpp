@@ -117,8 +117,8 @@ HRESULT CScene_Loading::Ready_Layer_BackGround(const _tchar * pLayerTag)
 
 	Safe_AddRef(pManagement);
 
-	if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_BackGround", SCENE_LOADING, pLayerTag)))
-		return E_FAIL;
+	//if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_BackGround", SCENE_LOADING, pLayerTag)))
+	//	return E_FAIL;
 
 	Safe_Release(pManagement);
 

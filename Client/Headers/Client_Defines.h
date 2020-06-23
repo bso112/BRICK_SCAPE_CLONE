@@ -11,5 +11,11 @@ namespace Client
 
 }	
 
+
+
 using namespace Client;
 extern HWND g_hWnd;
+
+#include <functional>
+#include <time.h>
+#include "Client_Struct.h"

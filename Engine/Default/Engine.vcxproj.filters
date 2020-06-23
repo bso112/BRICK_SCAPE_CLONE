@@ -85,6 +85,9 @@
     <Filter Include="01.Utility\02.GameObject\GameObject\Camera\PipeLine">
       <UniqueIdentifier>{3e00d6b8-0ad4-4898-8ab3-b600dd4bd9f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Component\Component\VIBuffer\Cube">
+      <UniqueIdentifier>{54436f3b-19d9-47eb-b800-8644ce4049d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Headers\Engine_Struct.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="..\Headers\Shader.h">
       <Filter>01.Utility\03.Component\Component\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\VIBuffer_Cube.h">
+      <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\Base.cpp">
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Shader.cpp">
       <Filter>01.Utility\03.Component\Component\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\VIBuffer_Cube.cpp">
+      <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

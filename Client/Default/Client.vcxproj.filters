@@ -55,6 +55,15 @@
     <Filter Include="01.Scene\04.Scene_Stage_4">
       <UniqueIdentifier>{aa797208-8fb4-459d-856b-d30a11deb080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Field">
+      <UniqueIdentifier>{0bbd8e3f-366a-4994-9ddb-8e63b761b8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Wall">
+      <UniqueIdentifier>{463e62b2-f85b-4705-9f41-91b51838508f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Brick">
+      <UniqueIdentifier>{4bfc3608-7b3f-4807-b668-7585476aa4aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +108,18 @@
     <ClInclude Include="..\Headers\Level.h">
       <Filter>04.Level</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Field.h">
+      <Filter>02.GameObject\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Wall.h">
+      <Filter>02.GameObject\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Brick.h">
+      <Filter>02.GameObject\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Struct.h">
+      <Filter>99.Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -130,6 +151,15 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Level.cpp">
       <Filter>04.Level</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Field.cpp">
+      <Filter>02.GameObject\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Wall.cpp">
+      <Filter>02.GameObject\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Brick.cpp">
+      <Filter>02.GameObject\Brick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
