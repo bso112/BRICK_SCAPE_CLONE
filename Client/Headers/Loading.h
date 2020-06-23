@@ -21,7 +21,7 @@ public:
 		return m_isFinished; }
 public:
 	HRESULT Ready_Loading(SCENEID eSceneID); //스레드를 생성한다.
-	HRESULT Loading_ForStage();
+	HRESULT Loading_ForStageOne();
 private:
 	PDIRECT3DDEVICE9	m_pGraphic_Device = nullptr;
 	CRITICAL_SECTION	m_CriticalSection;

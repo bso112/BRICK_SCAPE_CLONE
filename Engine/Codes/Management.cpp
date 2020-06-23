@@ -188,7 +188,7 @@ _matrix CManagement::Get_Transform(D3DTRANSFORMSTATETYPE eType)
 _float3 CManagement::Get_CamPosition()
 {
 	if (nullptr == m_pPipeLine)
-		return _matrix();
+		return _float3();
 
 	return m_pPipeLine->Get_CamPosition();
 }

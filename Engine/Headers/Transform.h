@@ -43,6 +43,9 @@ public: // For.Movement
 	HRESULT Go_Right(_double TimeDelta);
 	HRESULT Go_Left(_double TimeDelta);
 
+public:
+	HRESULT SetUp_Position(_float3 _vPos);
+	HRESULT SetUp_Scale(_float3 _vSize);
 public: // For.Rotation
 	HRESULT SetUp_Rotation(_float3 vAxis, _float fRadian);
 	HRESULT Rotation_Axis(_float3 vAxis, _double TimeDelta);

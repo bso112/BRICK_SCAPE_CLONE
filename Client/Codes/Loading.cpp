@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "..\Headers\Loading.h"
+#include "GameManager.h"
 
 USING(Client)
 
@@ -20,7 +21,7 @@ _uint APIENTRY Thread_Main(void* pArg)
 	switch (pLoading->Get_SceneID())
 	{
 	case SCENE_STAGE:
-		hr = pLoading->Loading_ForStage();
+		hr = pLoading->Loading_ForStageOne();
 		break;
 
 	/*case SCENE_STAGE2:
@@ -48,7 +49,7 @@ HRESULT CLoading::Ready_Loading(SCENEID eSceneID)
 	return S_OK;
 }
 
-HRESULT CLoading::Loading_ForStage()
+HRESULT CLoading::Loading_ForStageOne()
 {
 #pragma region GAMEOBJECT_PROTOTYPE
 
@@ -58,6 +59,8 @@ HRESULT CLoading::Loading_ForStage()
 #pragma region MODULE_PROTOTYPE
 
 #pragma endregion
+
+	CGameManager::Get_Instance()->Set_CurrentLevel(0);
 
 	m_isFinished = true;
 
