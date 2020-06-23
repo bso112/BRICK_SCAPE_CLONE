@@ -42,7 +42,7 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Renderer", L"Com_Renderer", (CComponent**)&m_pRenderer)))
 		return E_FAIL;
 
-	m_pTransform->SetUp_Position(m_tDesc.tBaseDesc.vPos);
+	m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_tDesc.tBaseDesc.vPos.y + 10.f, m_tDesc.tBaseDesc.vPos.z));
 
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
 
@@ -51,6 +51,15 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 
 _int CBrick::Update_GameObject(_double TimeDelta)
 {
+	if (false == m_bIsDoneIntro)
+	{
+		m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - 0.3f, m_tDesc.tBaseDesc.vPos.z));
+		
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).y <= m_tDesc.tBaseDesc.vPos.y)
+			m_bIsDoneIntro = true;
+	}
+
+
 	return _int();
 }
 

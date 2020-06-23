@@ -120,6 +120,15 @@
     <ClInclude Include="Client_Struct.h">
       <Filter>99.Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Scene_Stage2.h">
+      <Filter>01.Scene\02.Scene_Stage_2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Scene_Stage3.h">
+      <Filter>01.Scene\03.Scene_Stage_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Scene_Stage4.h">
+      <Filter>01.Scene\04.Scene_Stage_4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -160,6 +169,15 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Brick.cpp">
       <Filter>02.GameObject\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Scene_Stage2.cpp">
+      <Filter>01.Scene\02.Scene_Stage_2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Scene_Stage3.cpp">
+      <Filter>01.Scene\03.Scene_Stage_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Scene_Stage4.cpp">
+      <Filter>01.Scene\04.Scene_Stage_4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

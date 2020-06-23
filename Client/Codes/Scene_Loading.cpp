@@ -3,6 +3,9 @@
 #include "Management.h"
 
 #include "Scene_Stage.h"
+#include "Scene_Stage2.h"
+#include "Scene_Stage3.h"
+#include "Scene_Stage4.h"
 #include "Camera_Free.h"
 
 CScene_Loading::CScene_Loading(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -66,6 +69,19 @@ HRESULT CScene_Loading::Change_Scene()
 	case SCENE_STAGE:
 		pScene = CScene_Stage::Create(m_pGraphic_Device);
 		break;
+
+	case SCENE_STAGE2:
+		pScene = CScene_Stage2::Create(m_pGraphic_Device);
+		break;
+
+	case SCENE_STAGE3:
+		pScene = CScene_Stage3::Create(m_pGraphic_Device);
+		break;
+
+	case SCENE_STAGE4:
+		pScene = CScene_Stage4::Create(m_pGraphic_Device);
+		break;
+
 	}
 
 	if (nullptr == pScene)

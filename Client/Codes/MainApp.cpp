@@ -174,5 +174,7 @@ void CMainApp::Free()
 
 	Safe_Release(m_pManagement);
 
+	CGameManager::Get_Instance()->Destroy_Instance();
+
 	CManagement::Release_Engine();
 }

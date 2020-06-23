@@ -25,9 +25,15 @@ _uint APIENTRY Thread_Main(void* pArg)
 	case SCENE_STAGE:
 		hr = pLoading->Loading_ForStageOne();
 		break;
-
-	/*case SCENE_STAGE2:
-		break;*/
+	case SCENE_STAGE2:
+		hr = pLoading->Loading_ForStageTwo();
+		break;
+	case SCENE_STAGE3:
+		hr = pLoading->Loading_ForStageTree();
+		break;
+	case SCENE_STAGE4:
+		hr = pLoading->Loading_ForStageFour();
+		break;
 	}
 
 	LeaveCriticalSection(pLoading->Get_CriticalSection());
@@ -72,6 +78,72 @@ HRESULT CLoading::Loading_ForStageOne()
 #pragma endregion
 
 	CGameManager::Get_Instance()->Set_CurrentLevel(0);
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoading::Loading_ForStageTwo()
+{
+#pragma region GAMEOBJECT_PROTOTYPE
+	CManagement* pEngineMgr = CManagement::Get_Instance();
+	if (nullptr == pEngineMgr) return E_FAIL;
+	CGameManager*	pGameManager = CGameManager::Get_Instance();
+	if (nullptr == pGameManager) return E_FAIL;
+
+#pragma endregion
+
+
+#pragma region MODULE_PROTOTYPE
+
+#pragma endregion
+
+	pGameManager->Set_CurrentLevel(1);
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoading::Loading_ForStageTree()
+{
+#pragma region GAMEOBJECT_PROTOTYPE
+	CManagement* pEngineMgr = CManagement::Get_Instance();
+	if (nullptr == pEngineMgr) return E_FAIL;
+	CGameManager*	pGameManager = CGameManager::Get_Instance();
+	if (nullptr == pGameManager) return E_FAIL;
+
+#pragma endregion
+
+
+#pragma region MODULE_PROTOTYPE
+
+#pragma endregion
+
+	pGameManager->Set_CurrentLevel(2);
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoading::Loading_ForStageFour()
+{
+#pragma region GAMEOBJECT_PROTOTYPE
+	CManagement* pEngineMgr = CManagement::Get_Instance();
+	if (nullptr == pEngineMgr) return E_FAIL;
+	CGameManager*	pGameManager = CGameManager::Get_Instance();
+	if (nullptr == pGameManager) return E_FAIL;
+
+#pragma endregion
+
+
+#pragma region MODULE_PROTOTYPE
+
+#pragma endregion
+
+	pGameManager->Set_CurrentLevel(3);
 
 	m_isFinished = true;
 

@@ -22,6 +22,9 @@ public:
 public:
 	HRESULT Ready_Loading(SCENEID eSceneID); //스레드를 생성한다.
 	HRESULT Loading_ForStageOne();
+	HRESULT Loading_ForStageTwo();
+	HRESULT Loading_ForStageTree();
+	HRESULT Loading_ForStageFour();
 private:
 	PDIRECT3DDEVICE9	m_pGraphic_Device = nullptr;
 	CRITICAL_SECTION	m_CriticalSection;

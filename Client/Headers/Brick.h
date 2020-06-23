@@ -36,7 +36,7 @@ private:
 	CShader*	m_pShader = nullptr;
 private:
 	STATEDESC	m_tDesc;
-
+	_bool		m_bIsDoneIntro = false;
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);
