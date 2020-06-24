@@ -15,6 +15,8 @@ private:
 	explicit CTexture(const CTexture& rhs);
 	virtual ~CTexture() = default;
 public:
+	HRESULT Set_TextureOnShader(CShader* pShader, D3DXHANDLE hParameter, _uint iIndex = 0);
+public:
 	virtual HRESULT Ready_Component_Prototype(const _tchar* pTextureFilePath, _uint iNumTextures);
 	virtual HRESULT Ready_Component(void* pArg);
 private:	

@@ -26,6 +26,23 @@ _matrix CTransform::Get_WorldMatrixInverse()
 	return _matrix(InverseMatrix);
 }
 
+RECT CTransform::Get_Rect()
+{
+	//다음 위치의 Rect를 구한다.
+	RECT rc = {};
+	float fX = Get_State(STATE_POSITION).x;
+	float fY = Get_State(STATE_POSITION).y;
+	_float3 vSize = Get_Scaled();
+	int iCX = (int)vSize.x;
+	int iCY = (int)vSize.y;
+
+	rc.left = (LONG)fX - (iCX >> 1);
+	rc.right = (LONG)fX + (iCX >> 1);
+	rc.top = (LONG)fY - (iCY >> 1);
+	rc.bottom = (LONG)fY + (iCY >> 1);
+	return rc;
+}
+
 void CTransform::Set_State(STATE eState, _float3 vState)
 {
 	memcpy(&m_WorldMatrix.m[eState][0], &vState, sizeof(_float3));

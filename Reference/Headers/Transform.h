@@ -29,6 +29,7 @@ public: // Getter
 			D3DXVec3Length(((_float3*)&m_WorldMatrix.m[STATE_LOOK][0]))); }
 	_matrix Get_WorldMatrix();
 	_matrix Get_WorldMatrixInverse();
+	RECT	Get_Rect();
 
 public: // Setter
 	void Set_State(STATE eState, _float3 vState);

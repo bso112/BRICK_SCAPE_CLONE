@@ -19,6 +19,7 @@ public:
 	virtual HRESULT Render_GameObject();
 protected:
 	PDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
+	_bool						m_bActive = true;
 protected:	
 	map<const _tchar*, CComponent*>			m_Components;
 	typedef map<const _tchar*, CComponent*>	COMPONENTS;

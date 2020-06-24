@@ -21,6 +21,8 @@ HRESULT CField::Ready_GameObject_Prototype()
 
 HRESULT CField::Ready_GameObject(void * pArg)
 {
+	
+	
 	return S_OK;
 }
 

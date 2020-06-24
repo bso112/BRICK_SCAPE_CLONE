@@ -2,6 +2,7 @@
 #include "..\Headers\Scene_Stage.h"
 #include "Management.h"
 #include "Camera_Free.h"
+#include "KeyMgr.h"
 
 CScene_Stage::CScene_Stage(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -19,11 +20,17 @@ HRESULT CScene_Stage::Ready_Scene()
 
 _int CScene_Stage::Update_Scene(_double TimeDelta)
 {
+
 	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_LOADING, L"Layer_Camera");
 	//Camera->Set_DestCameraFovy(D3DXToRadian(90.f));
 	Camera->Set_CameraFovy(D3DXToRadian(120.f));
 
+	CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON, SCENE_STAGE);
+
+	CKeyMgr::Get_Instance()->Key_Update();
+
 	return _int();
+
 }
 
 HRESULT CScene_Stage::Render_Scene()

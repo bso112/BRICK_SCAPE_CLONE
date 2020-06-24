@@ -20,6 +20,31 @@ HRESULT CWall::Ready_GameObject_Prototype()
 
 HRESULT CWall::Ready_GameObject(void * pArg)
 {
+	if (nullptr != pArg)
+		memcpy(&m_tDesc, pArg, sizeof(STATEDESC));
+
+	CTransform::STATEDESC tTransformDesc;
+	tTransformDesc.RotatePerSec = D3DXToRadian(90.f);
+	tTransformDesc.SpeedPerSec = 5.0;
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransform, &tTransformDesc)))
+		return E_FAIL;
+
+	//if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
+	//return E_FAIL;
+	//
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Shader_Rect", L"Com_Shader_Rect", (CComponent**)&m_pShader)))
+		return E_FAIL;
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_VIBuffer_Rect", L"Com_VIBuffer_Rect", (CComponent**)&m_pVIBuffer)))
+		return E_FAIL;
+
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Renderer", L"Com_Renderer", (CComponent**)&m_pRenderer)))
+		return E_FAIL;
+
+	m_pTransform->SetUp_Position(m_tDesc.tBaseDesc.vPos);
+
+	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
 	return S_OK;
 }
 
