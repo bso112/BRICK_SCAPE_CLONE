@@ -12,6 +12,7 @@ CMainApp::CMainApp()
 	: m_pManagement(CManagement::Get_Instance())
 {
 	Safe_AddRef(m_pManagement);
+	
 }
 
 HRESULT CMainApp::Ready_MainApp()

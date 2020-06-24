@@ -21,6 +21,14 @@ public:
 	static CCamera_Free* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);
 	virtual void Free();
+private:
+	_float3 m_vDirVec;
+
+	_float3 CurMousePos;
+	_float3 OldMousePos;
+	_float3	fDir;
+
+	_float Angle = 0.f;
 
 };
 

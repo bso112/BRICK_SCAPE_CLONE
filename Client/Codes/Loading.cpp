@@ -86,7 +86,7 @@ HRESULT CLoading::Loading_ForStageOne()
 	btnDesc.m_iTextureSceneID = SCENE_STAGE;
 	btnDesc.m_pTextureTag = L"Texture_Btn";
 
-	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
+	if (FAILED( pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
 		return E_FAIL;
 
 #pragma endregion

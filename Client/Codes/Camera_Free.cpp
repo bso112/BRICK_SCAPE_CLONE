@@ -22,30 +22,78 @@ HRESULT CCamera_Free::Ready_GameObject(void * pArg)
 	if (CCamera::Ready_GameObject(pArg))
 		return E_FAIL;
 
+	m_vDirVec = m_StateDesc.vEye - m_StateDesc.vAt;
+
+
+
 	return S_OK;
 }
 
 _int CCamera_Free::Update_GameObject(_double TimeDelta)
 {
-	if (GetKeyState('W') & 0x8000)
+	POINT		ptMouse;
+
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+	CurMousePos = _float3(ptMouse.x, ptMouse.y, 0.f);
+
+	if (OldMousePos != CurMousePos)
 	{
-		m_pTransformCom->Go_Straight(TimeDelta);
+		fDir = CurMousePos - OldMousePos;
+		//fDir.y *= 1.f;
+
+		OldMousePos = CurMousePos;
 	}
 
-	if (GetKeyState('S') & 0x8000)
-	{
-		m_pTransformCom->Go_BackWard(TimeDelta);
-	}
+	if (!(GetKeyState(VK_LBUTTON) & 0x8000))
+		return CCamera::Update_GameObject(TimeDelta);
 
-	if (GetKeyState('A') & 0x8000)
-	{
-		m_pTransformCom->Go_Left(TimeDelta);
-	}
 
-	if (GetKeyState('D') & 0x8000)
-	{
-		m_pTransformCom->Go_Right(TimeDelta);
-	}
+	_float3		vRight, vUp, vLook;
+
+	vLook = m_vDirVec;
+	D3DXVec3Normalize(&vLook, &vLook);
+	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
+	D3DXVec3Cross(&vUp, &vLook, &vRight);
+	D3DXVec3Normalize(&vRight, &vRight);
+	D3DXVec3Normalize(&vUp, &vUp);
+
+	_matrix		RotationMatrixY;
+	D3DXMatrixRotationAxis(&RotationMatrixY, &vUp, D3DXToRadian(fDir.x / 2));
+
+	_matrix		RotationMatrixX;
+	D3DXMatrixRotationAxis(&RotationMatrixX, &vRight, D3DXToRadian(fDir.y / 2));
+
+
+	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixY);
+	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixY);
+	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixY);
+
+	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixX);
+	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
+	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
+
+	D3DXVec3Normalize(&vLook, &vLook);
+
+
+	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (vLook * 5.f));
+
+	_float3		Right, Up, Look;
+
+	Look = _float3(0.f, 0.f, 0.f) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+	D3DXVec3Normalize(&Look, &Look);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, Look);
+
+	D3DXVec3Cross(&Right, &_float3(0.f, 1.f, 0.f), &Look);
+	D3DXVec3Normalize(&Right, &Right);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, Right);
+
+	D3DXVec3Cross(&Up, &Look, &Right);
+	D3DXVec3Normalize(&Up, &Up);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, Up);
+
+	m_vDirVec = vLook;
+	fDir = _float3(0.f, 0.f, 0.f);
 
 	return CCamera::Update_GameObject(TimeDelta);
 }
