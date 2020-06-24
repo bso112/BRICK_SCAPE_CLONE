@@ -4,6 +4,12 @@ matrix		g_matWorld, g_matView, g_matProj;
 // 1. 정점의 스페이스변환을 반드시 수행해줘야한다.
 // 2. 
 
+texture g_BaseTexture;
+
+sampler BaseSampler = sampler_state
+{
+	texture = g_BaseTexture;
+};
 
 
 struct VS_IN
@@ -54,11 +60,21 @@ PS_OUT PS_MAIN(PS_IN In/*픽셀*/)
 {
 	PS_OUT	Out = (PS_OUT)0;
 
-	Out.vColor = vector(1.f, 0.f, 0.f, 1.f);
+	Out.vColor = tex2D(BaseSampler, In.vTexUV);
 
 	return Out;
 }
 
+PS_OUT PS_WALL(PS_IN In/*픽셀*/)
+{
+	PS_OUT	Out = (PS_OUT)0;
+
+	Out.vColor = tex2D(BaseSampler, In.vTexUV);
+
+	Out.vColor.a *= 0.5f;
+
+	return Out;
+}
 
 
 
@@ -74,8 +90,7 @@ technique Default_Technique
 	pass Wall
 	{
 		VertexShader = compile vs_3_0 VS_MAIN();
-		PixelShader = compile ps_3_0 PS_MAIN();
-		fillmode = wireframe;
+		PixelShader = compile ps_3_0 PS_WALL();
 		cullmode = none;
 	}
 }

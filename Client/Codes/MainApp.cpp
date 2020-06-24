@@ -14,7 +14,7 @@ CMainApp::CMainApp()
 	: m_pManagement(CManagement::Get_Instance())
 {
 	Safe_AddRef(m_pManagement);
-	
+
 }
 
 HRESULT CMainApp::Ready_MainApp()
@@ -44,8 +44,8 @@ _int CMainApp::Update_MainApp(_double TimeDelta)
 
 HRESULT CMainApp::Render_MainApp()
 {
-	if (nullptr == m_pGraphic_Device || 
-		nullptr == m_pManagement || 
+	if (nullptr == m_pGraphic_Device ||
+		nullptr == m_pManagement ||
 		nullptr == m_pRenderer)
 		return E_FAIL;
 
@@ -156,25 +156,15 @@ HRESULT CMainApp::Ready_Default_Component()
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Collider_Rect", CCollider_Rect::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
-
-	/*
-	
-		if (FAILED(Add_Component(SCENE_STATIC, L"Transform", L"Transform", (CComponent**)&m_pTransform, &tTransformDesc)))
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Wall", CTexture::Create(m_pGraphic_Device, L"../Bin/Resources/Textures/Wall/Wall%d.png", 1))))
 		return E_FAIL;
 
-	//if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
-	//return E_FAIL;
-	//
-
-	if (FAILED(Add_Component(SCENE_STATIC, L"Shader_Rect", L"Shader_Rect", (CComponent**)&m_pShader)))
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Background", CTexture::Create(m_pGraphic_Device, L"../Bin/Resources/Textures/Background/background%d.jpg", 3))))
 		return E_FAIL;
 
-	if (FAILED(Add_Component(SCENE_STATIC, L"VIBuffer_Cube", L"VIBuffer_Cube", (CComponent**)&m_pVIBuffer)))
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 1))))
 		return E_FAIL;
 
-	if (FAILED(Add_Component(SCENE_STATIC, L"Renderer", L"Renderer", (CComponent**)&m_pRenderer)))
-		return E_FAIL;
-	*/
 	return S_OK;
 }
 

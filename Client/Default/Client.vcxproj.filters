@@ -22,23 +22,8 @@
     <Filter Include="01.Scene\00.Scene_Loading\Loading">
       <UniqueIdentifier>{5c446131-fe48-4280-80ad-d388ff7acdbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject">
-      <UniqueIdentifier>{fb64fb1d-3a7d-4b82-88d7-be4c9dc80c87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\BackGround">
-      <UniqueIdentifier>{0ccbba01-374a-4c18-9044-f383cdf7a7fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97.ShaderFiles">
       <UniqueIdentifier>{e20ca914-db13-45ea-83ea-f867ccc2de26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\Camera">
-      <UniqueIdentifier>{0f96bf52-5090-4c73-9ca7-0a0468de97e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\Camera\Camera_Free">
-      <UniqueIdentifier>{65143fab-da9f-43cd-aa27-4ddf126fa78e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\Camera\PipeLine">
-      <UniqueIdentifier>{af164e92-a22c-48c5-9381-b217db7c6b8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="03.GameManager">
       <UniqueIdentifier>{e2dfb2ff-b9f8-41a9-9442-5f12b4bd2762}</UniqueIdentifier>
@@ -54,6 +39,21 @@
     </Filter>
     <Filter Include="01.Scene\04.Scene_Stage_4">
       <UniqueIdentifier>{aa797208-8fb4-459d-856b-d30a11deb080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject">
+      <UniqueIdentifier>{fb64fb1d-3a7d-4b82-88d7-be4c9dc80c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\BackGround">
+      <UniqueIdentifier>{0ccbba01-374a-4c18-9044-f383cdf7a7fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Camera">
+      <UniqueIdentifier>{0f96bf52-5090-4c73-9ca7-0a0468de97e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Camera\Camera_Free">
+      <UniqueIdentifier>{65143fab-da9f-43cd-aa27-4ddf126fa78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\Camera\PipeLine">
+      <UniqueIdentifier>{af164e92-a22c-48c5-9381-b217db7c6b8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\Field">
       <UniqueIdentifier>{0bbd8e3f-366a-4994-9ddb-8e63b761b8c2}</UniqueIdentifier>

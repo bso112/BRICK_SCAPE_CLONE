@@ -29,9 +29,9 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransform, &tTransformDesc)))
 		return E_FAIL;
 
-	//if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
-	//return E_FAIL;
-	//
+	if (FAILED(Add_Component(m_tDesc.eTextureSceneID, m_tDesc.pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
+	return E_FAIL;
+	
 
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Shader_Rect", L"Com_Shader_Rect", (CComponent**)&m_pShader)))
 		return E_FAIL;
@@ -71,8 +71,8 @@ HRESULT CWall::Render_GameObject()
 	matView = pEnginMgr->Get_Transform(D3DTS_VIEW);
 	matProj = pEnginMgr->Get_Transform(D3DTS_PROJECTION);
 
-	//if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", m_tDesc.m_iTextureID)))
-	//	return E_FAIL;
+	if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", 0)))
+		return E_FAIL;
 
 	if (FAILED(m_pShader->Set_Value("g_matWorld", &m_pTransform->Get_WorldMatrix(), sizeof(_matrix))))
 		return E_FAIL;
@@ -80,6 +80,8 @@ HRESULT CWall::Render_GameObject()
 		return E_FAIL;
 	if (FAILED(m_pShader->Set_Value("g_matProj", &matProj, sizeof(_matrix))))
 		return E_FAIL;
+
+	ALPHABLEND;
 
 	if (FAILED(m_pShader->Begin_Shader()))
 		return E_FAIL;
@@ -94,6 +96,9 @@ HRESULT CWall::Render_GameObject()
 		return E_FAIL;
 	if (FAILED(m_pShader->End_Shader()))
 		return E_FAIL;
+
+	ALPHABLEND_END;
+
 	return S_OK;
 }
 

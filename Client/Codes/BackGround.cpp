@@ -46,11 +46,15 @@ _int CBackGround::Late_Update_GameObject(_double TimeDelta)
 
 HRESULT CBackGround::Render_GameObject()
 {
-	if (nullptr == m_pVIBufferCom || 
-		nullptr == m_pShaderCom)
+	if (nullptr == m_pVIBufferCom ||
+		nullptr == m_pShaderCom	||
+		nullptr == m_pTextureCom)
 		return E_FAIL;
 
 	if (FAILED(SetUp_ConstantTable()))
+		return E_FAIL;
+
+	if (FAILED(m_pTextureCom->Set_TextureOnShader(m_pShaderCom, "g_BaseTexture", 0)))
 		return E_FAIL;
 
 	m_pShaderCom->Begin_Shader();
@@ -73,6 +77,10 @@ HRESULT CBackGround::Add_Component()
 	// For.Com_Transform
 	if (FAILED(CGameObject::Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransformCom)))
 		return E_FAIL;
+
+	if (FAILED(CGameObject::Add_Component(SCENE_STATIC, L"Component_Texture_Background", L"Com_Texture", (CComponent**)&m_pTextureCom)))
+		return E_FAIL;
+
 
 	// For.Com_VIBuffer
 	if (FAILED(CGameObject::Add_Component(SCENE_STATIC, L"Component_VIBuffer_Rect", L"Com_VIBuffer", (CComponent**)&m_pVIBufferCom)))

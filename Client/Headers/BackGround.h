@@ -8,6 +8,14 @@ BEGIN(Client)
 
 class CBackGround final : public CGameObject
 {
+public:
+	typedef struct tagStatedesc
+	{
+		BASEDESC			tBaseDesc;
+		const _tchar*		pTextureTag = nullptr;
+		SCENEID				eTextureSceneID = SCENE_END;
+
+	}STATEDESC;
 private:
 	explicit CBackGround(PDIRECT3DDEVICE9 pGraphic_Device);
 	explicit CBackGround(const CBackGround& rhs);
@@ -23,6 +31,8 @@ private:
 	CRenderer*			m_pRendererCom = nullptr;
 	CTransform*			m_pTransformCom = nullptr;
 	CVIBuffer_Rect*		m_pVIBufferCom = nullptr;	
+	CTexture*			m_pTextureCom = nullptr;
+	
 private:
 	HRESULT Add_Component();
 	HRESULT SetUp_ConstantTable();

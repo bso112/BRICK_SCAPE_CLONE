@@ -32,6 +32,8 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	_float3 vFieldPos = m_tDesc.tBaseDesc.vPos;
 	_float3	vFieldSize = m_tDesc.tBaseDesc.vSize;
 	CWall::STATEDESC tWallDesc;
+	tWallDesc.eTextureSceneID = SCENE_STATIC;
+	tWallDesc.pTextureTag = L"Component_Texture_Wall";
 	CGameObject* pWall = nullptr;
 	CTransform* pTransform = nullptr;
 

@@ -13,7 +13,9 @@ class CWall : public CGameObject
 public:
 	typedef struct tagStatedesc
 	{
-		BASEDESC tBaseDesc;
+		BASEDESC			tBaseDesc;
+		const _tchar*		pTextureTag = nullptr;
+		SCENEID				eTextureSceneID = SCENE_END;
 
 	}STATEDESC;
 protected:
