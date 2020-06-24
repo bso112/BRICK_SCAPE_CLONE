@@ -50,17 +50,50 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 
 _int CWall::Update_GameObject(_double TimeDelta)
 {
+
 	return _int();
 }
 
 _int CWall::Late_Update_GameObject(_double TimeDelta)
 {
+	if (nullptr == m_pRenderer)
+		return E_FAIL;
+	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
 	return _int();
 }
 
 HRESULT CWall::Render_GameObject()
 {
+	_matrix			matView, matProj;
 
+	CManagement* pEnginMgr = CManagement::Get_Instance();
+	if (nullptr == pEnginMgr) return E_FAIL;
+	matView = pEnginMgr->Get_Transform(D3DTS_VIEW);
+	matProj = pEnginMgr->Get_Transform(D3DTS_PROJECTION);
+
+	//if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", m_tDesc.m_iTextureID)))
+	//	return E_FAIL;
+
+	if (FAILED(m_pShader->Set_Value("g_matWorld", &m_pTransform->Get_WorldMatrix(), sizeof(_matrix))))
+		return E_FAIL;
+	if (FAILED(m_pShader->Set_Value("g_matView", &matView, sizeof(_matrix))))
+		return E_FAIL;
+	if (FAILED(m_pShader->Set_Value("g_matProj", &matProj, sizeof(_matrix))))
+		return E_FAIL;
+
+	if (FAILED(m_pShader->Begin_Shader()))
+		return E_FAIL;
+
+	if (FAILED(m_pShader->Begin_Pass(PASS_WALL)))
+		return E_FAIL;
+
+	if (FAILED(m_pVIBuffer->Render_VIBuffer()))
+		return E_FAIL;
+
+	if (FAILED(m_pShader->End_Pass()))
+		return E_FAIL;
+	if (FAILED(m_pShader->End_Shader()))
+		return E_FAIL;
 	return S_OK;
 }
 
@@ -90,5 +123,10 @@ CGameObject* CWall::Clone_GameObject(void * pArg)
 
 void CWall::Free()
 {
+	Safe_Release(m_pRenderer);
+	Safe_Release(m_pShader);
+	Safe_Release(m_pTexture);
+	Safe_Release(m_pTransform);
+	Safe_Release(m_pVIBuffer);
 	CGameObject::Free();
 }

@@ -25,7 +25,7 @@ protected:
 	typedef map<const _tchar*, CComponent*>	COMPONENTS;
 protected:
 	HRESULT Add_Component(_uint iPrototypeSceneID, const _tchar* pPrototypeTag, const _tchar * pComponentTag, CComponent** ppOut, void* pArg = nullptr);
-private:
+public:
 	CComponent* Find_Component(const _tchar* pComponentTag);
 public:
 	virtual CGameObject* Clone_GameObject(void* pArg) = 0;

@@ -65,18 +65,17 @@ PS_OUT PS_MAIN(PS_IN In/*픽셀*/)
 
 technique Default_Technique
 {
-	// 내가 표현하고자하는 기법들의ㅡ 집합.(명암, 스펙큘러, 그림자, 림라이트, 모션블러)
 	pass Default_Rendering
 	{
 		VertexShader = compile vs_3_0 VS_MAIN();
 		PixelShader = compile ps_3_0 PS_MAIN();
 		//fillmode = wireframe;
 	}
-
-	//// 알파블렌딩 + 왜곡
-	//pass AlphaBlending
-	//{
-	//	VertexShader = ;
-	//	PixelShader = ;
-	//}
+	pass Wall
+	{
+		VertexShader = compile vs_3_0 VS_MAIN();
+		PixelShader = compile ps_3_0 PS_MAIN();
+		fillmode = wireframe;
+		cullmode = none;
+	}
 }

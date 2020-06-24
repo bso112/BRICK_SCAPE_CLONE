@@ -8,6 +8,12 @@ BEGIN(Client)
 class CWall;
 class CField : public CGameObject
 {
+public:
+	typedef struct tagStatedesc
+	{
+		BASEDESC	tBaseDesc;
+		SCENEID		eSceneID = SCENE_END;
+	}STATEDESC;
 protected:
 	explicit CField(PDIRECT3DDEVICE9 pGraphic_Device);
 	explicit CField(const CField& rhs);
@@ -22,7 +28,7 @@ public:
 	virtual HRESULT Render_GameObject();
 
 public:
-	CWall*	Get_Walls();
+	CWall**	Get_Walls();
 
 private:
 	CTransform*	m_pTransform = nullptr;
@@ -32,6 +38,7 @@ private:
 
 private:
 	CWall*	m_Walls[6];
+	STATEDESC	m_tDesc;
 
 public:
 	static CField* Create(PDIRECT3DDEVICE9 pGraphic_Device);
