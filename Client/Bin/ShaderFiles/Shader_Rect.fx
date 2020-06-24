@@ -54,7 +54,7 @@ PS_OUT PS_MAIN(PS_IN In/*ÇÈ¼¿*/)
 {
 	PS_OUT	Out = (PS_OUT)0;
 
-	Out.vColor = vector(1.f, 0.f, 0.f, 1.f);
+	Out.vColor = vector(1.f, 0.7f, 0.2f, 0.8f);
 
 	return Out;
 }

@@ -17,6 +17,8 @@ public:
 	virtual HRESULT Ready_Component_Prototype();
 	virtual HRESULT Ready_Component(void* pArg);
 	virtual HRESULT Render_VIBuffer();	
+public:
+	virtual _bool Pick_Polygon(HWND hWnd, _matrix WorldMatrix, _float3* pOut);
 
 protected: // For.VertexBuffer
 	PDIRECT3DVERTEXBUFFER9		m_pVBuffer = nullptr;

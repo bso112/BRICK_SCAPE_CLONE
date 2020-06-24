@@ -12,6 +12,7 @@ public:
 	typedef struct tagStatedesc
 	{
 		BASEDESC tBaseDesc;
+		SCENEID	eSceneID = SCENE_END;
 		_bool	 bPlayer;
 		_double	 m_dStartFall;
 
@@ -30,6 +31,8 @@ public:
 	virtual HRESULT Render_GameObject();
 
 
+public:
+	virtual HRESULT	OnKeyDown(_int KeyCode);
 private:
 	CTransform*	m_pTransform = nullptr;
 	CVIBuffer*	m_pVIBuffer = nullptr;
@@ -39,6 +42,12 @@ private:
 private:
 	STATEDESC	m_tDesc;
 	_bool		m_bIsDoneIntro = false;
+
+private:
+	_float3 CurMousePos;
+	_float3 OldMousePos;
+	_float3	fDir;
+
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);

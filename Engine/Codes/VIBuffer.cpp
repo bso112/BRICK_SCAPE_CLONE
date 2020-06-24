@@ -59,6 +59,13 @@ HRESULT CVIBuffer::Render_VIBuffer()
 	return S_OK;
 }
 
+_bool CVIBuffer::Pick_Polygon(HWND hWnd, _matrix WorldMatrix, _float3 * pOut)
+{
+	MSG_BOX("Error : Calling Parent VIBuffer Pick");
+
+	return false;
+}
+
 void CVIBuffer::Free()
 {
 	if(false == m_isClone)
