@@ -13,6 +13,7 @@ public:
 	{
 		BASEDESC tBaseDesc;
 		_bool	 bPlayer;
+		_double	 m_dStartFall;
 
 	}STATEDESC;
 protected:

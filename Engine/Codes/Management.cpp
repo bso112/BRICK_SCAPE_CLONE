@@ -143,12 +143,20 @@ HRESULT CManagement::Add_GameObject_Prototype(_uint iSceneID, const _tchar * pPr
 	return m_pObject_Manager->Add_Prototype(iSceneID, pPrototypeTag, pPrototype);
 }
 
-HRESULT CManagement::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iLayerSceneID, const _tchar * pLayerTag, void * pArg)
+CGameObject* CManagement::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iLayerSceneID, const _tchar * pLayerTag, void * pArg)
+{
+	if (nullptr == m_pObject_Manager)
+		return nullptr;
+
+	return m_pObject_Manager->Add_Object_ToLayer(iPrototypeSceneID, pPrototypeTag, iLayerSceneID, pLayerTag, pArg);
+}
+
+HRESULT CManagement::Clear_Object_Manager(_uint iSceneID)
 {
 	if (nullptr == m_pObject_Manager)
 		return E_FAIL;
 
-	return m_pObject_Manager->Add_Object_ToLayer(iPrototypeSceneID, pPrototypeTag, iLayerSceneID, pLayerTag, pArg);
+	return m_pObject_Manager->Clear_Object_Manager(iSceneID);
 }
 
 #pragma endregion

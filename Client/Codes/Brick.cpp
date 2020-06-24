@@ -51,7 +51,11 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 
 _int CBrick::Update_GameObject(_double TimeDelta)
 {
-	if (false == m_bIsDoneIntro)
+	if (0.0 < m_tDesc.m_dStartFall)
+		m_tDesc.m_dStartFall -= TimeDelta;
+
+
+	if (false == m_bIsDoneIntro && m_tDesc.m_dStartFall <= 0.0)
 	{
 		m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - 0.3f, m_tDesc.tBaseDesc.vPos.z));
 		

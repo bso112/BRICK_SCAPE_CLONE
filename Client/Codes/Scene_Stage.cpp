@@ -3,6 +3,8 @@
 #include "Management.h"
 #include "Camera_Free.h"
 #include "KeyMgr.h"
+#include "MyButton.h"
+#include "GameManager.h"
 
 CScene_Stage::CScene_Stage(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -12,7 +14,26 @@ CScene_Stage::CScene_Stage(PDIRECT3DDEVICE9 pGraphic_Device)
 
 HRESULT CScene_Stage::Ready_Scene()
 {
+	CManagement*	pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement)
+		return E_FAIL;
 
+
+	CCamera::STATEDESC			StateDesc;
+	StateDesc.vEye = _float3(5.f, 5.f, -5.f);
+	StateDesc.vAt = _float3(0.f, 0.f, 0.f);
+	StateDesc.vAxisY = _float3(0.f, 1.f, 0.f);
+
+	StateDesc.fFovy = D3DXToRadian(90.0f);
+	StateDesc.fAspect = _float(g_iWinSizeX) / g_iWinSizeY;
+	StateDesc.fNear = 0.2f;
+	StateDesc.fFar = 300.f;
+
+	StateDesc.TransformDesc.SpeedPerSec = 5.f;
+	StateDesc.TransformDesc.RotatePerSec = D3DXToRadian(90.0f);
+
+	if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Camera_Free", SCENE_STAGE, L"Layer_Camera", &StateDesc)))
+		return E_FAIL;
 
 	
 	return S_OK;
@@ -21,9 +42,10 @@ HRESULT CScene_Stage::Ready_Scene()
 _int CScene_Stage::Update_Scene(_double TimeDelta)
 {
 
-	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_LOADING, L"Layer_Camera");
-	//Camera->Set_DestCameraFovy(D3DXToRadian(90.f));
-	//Camera->Set_CameraFovy(D3DXToRadian(120.f));
+	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
+	CMyButton* Btn = (CMyButton*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"GameObject");
+	Btn->Add_Listener([=]() { Camera->Set_DestCameraFovy(D3DXToRadian(60.f)); CGameManager::Get_Instance()->Set_IsGameStart(true); });
+
 
 	CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON, SCENE_STAGE);
 

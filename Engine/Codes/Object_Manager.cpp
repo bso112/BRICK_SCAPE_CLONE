@@ -57,19 +57,19 @@ HRESULT CObject_Manager::Add_Prototype(_uint iPrototypeSceneID, const _tchar * p
 	return S_OK;
 }
 
-HRESULT CObject_Manager::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iSceneID, const _tchar * pLayerTag, void* pArg)
+CGameObject* CObject_Manager::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iSceneID, const _tchar * pLayerTag, void* pArg)
 {
 	if (m_iNumScenes <= iPrototypeSceneID ||
 		m_iNumScenes <= iSceneID)
-		return E_FAIL;
+		return nullptr;
 
 	CGameObject* pPrototype = Find_Prototype(iPrototypeSceneID, pPrototypeTag);
 	if (nullptr == pPrototype)
-		return E_FAIL;
+		return nullptr;
 
 	CGameObject* pGameObject = pPrototype->Clone_GameObject(pArg);
 	if (nullptr == pGameObject)
-		return E_FAIL;
+		return nullptr;
 
 	CLayer* pLayer = Find_Layer(iSceneID, pLayerTag);
 	if (nullptr == pLayer)
@@ -89,11 +89,11 @@ HRESULT CObject_Manager::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tcha
 			goto except;
 	}
 
-	return S_OK;
+	return pGameObject;
 
 except:
 	Safe_Release(pGameObject);
-	return E_FAIL;
+	return nullptr;
 }
 
 _int CObject_Manager::Update_Object_Manager(_double TimeDelta)

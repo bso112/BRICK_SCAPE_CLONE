@@ -14,6 +14,9 @@ private:
 	virtual ~CGameManager() = default;
 public:
 	HRESULT Set_CurrentLevel(_uint _iLevel);
+	void	Set_IsGameStart(_bool IsStart) { m_bGameStart = IsStart; }
+public:
+	_bool	Get_IsGameStart() { return m_bGameStart; }
 
 	CBrick* PickBrick(POINT pt);
 	HRESULT OnGameStart();

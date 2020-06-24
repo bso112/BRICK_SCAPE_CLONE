@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "..\Headers\Camera_Free.h"
+#include "GameManager.h"
 
 CCamera_Free::CCamera_Free(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CCamera(pGraphic_Device)
@@ -23,7 +24,8 @@ HRESULT CCamera_Free::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	m_vDirVec = m_StateDesc.vEye - m_StateDesc.vAt;
-
+	D3DXVec3Normalize(&m_vDirVec, &m_vDirVec);
+	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (m_vDirVec * 10.f));
 
 
 	return S_OK;
@@ -35,17 +37,16 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
-	CurMousePos = _float3(ptMouse.x, ptMouse.y, 0.f);
+	CurMousePos = _float3((_float)ptMouse.x, (_float)ptMouse.y, 0.f);
 
 	if (OldMousePos != CurMousePos)
 	{
 		fDir = CurMousePos - OldMousePos;
-		//fDir.y *= 1.f;
 
 		OldMousePos = CurMousePos;
 	}
 
-	if (!(GetKeyState(VK_LBUTTON) & 0x8000))
+	if (!(GetKeyState(VK_LBUTTON) & 0x8000) || !(CGameManager::Get_Instance()->Get_IsGameStart()))
 		return CCamera::Update_GameObject(TimeDelta);
 
 
@@ -64,19 +65,42 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 	_matrix		RotationMatrixX;
 	D3DXMatrixRotationAxis(&RotationMatrixX, &vRight, D3DXToRadian(fDir.y / 2));
 
-
 	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixY);
 	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixY);
 	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixY);
 
-	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixX);
-	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
-	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
+	if (0.95f >= vLook.y && -0.95f <= vLook.y)
+	{
+		D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixX);
+		D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
+		D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
+	}
+	else
+	{
+		if (0.95f <= vLook.y)
+		{
+			if (0 < fDir.y)
+			{
+				D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixX);
+				D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
+				D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
+			}
+		}
+		else
+		{
+			if (0 > fDir.y)
+			{
+				D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixX);
+				D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
+				D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
+			}
+		}
+	}
 
 	D3DXVec3Normalize(&vLook, &vLook);
 
 
-	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (vLook * 5.f));
+	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (vLook * 10.f));
 
 	_float3		Right, Up, Look;
 

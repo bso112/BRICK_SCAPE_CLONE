@@ -98,29 +98,29 @@ HRESULT CScene_Loading::Change_Scene()
 
 HRESULT CScene_Loading::Ready_Layer_Camera(const _tchar * pLayerTag)
 {
-	CManagement*	pManagement = CManagement::Get_Instance();
-	if (nullptr == pManagement)
-		return E_FAIL;
+	//CManagement*	pManagement = CManagement::Get_Instance();
+	//if (nullptr == pManagement)
+	//	return E_FAIL;
 
-	Safe_AddRef(pManagement);
+	//Safe_AddRef(pManagement);
 
-	CCamera::STATEDESC			StateDesc;
-	StateDesc.vEye = _float3(0.f, 0.0f, -5.f);
-	StateDesc.vAt = _float3(0.f, 0.f, 0.f);
-	StateDesc.vAxisY = _float3(0.f, 1.f, 0.f);
+	//CCamera::STATEDESC			StateDesc;
+	//StateDesc.vEye = _float3(0.f, 0.0f, -5.f);
+	//StateDesc.vAt = _float3(0.f, 0.f, 0.f);
+	//StateDesc.vAxisY = _float3(0.f, 1.f, 0.f);
 
-	StateDesc.fFovy = D3DXToRadian(60.0f);
-	StateDesc.fAspect = _float(g_iWinSizeX) / g_iWinSizeY;
-	StateDesc.fNear = 0.2f;
-	StateDesc.fFar = 300.f;
+	//StateDesc.fFovy = D3DXToRadian(90.0f);
+	//StateDesc.fAspect = _float(g_iWinSizeX) / g_iWinSizeY;
+	//StateDesc.fNear = 0.2f;
+	//StateDesc.fFar = 300.f;
 
-	StateDesc.TransformDesc.SpeedPerSec = 5.f;
-	StateDesc.TransformDesc.RotatePerSec = D3DXToRadian(90.0f);
+	//StateDesc.TransformDesc.SpeedPerSec = 5.f;
+	//StateDesc.TransformDesc.RotatePerSec = D3DXToRadian(90.0f);
 
-	if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Camera_Free", SCENE_LOADING, pLayerTag, &StateDesc)))
-		return E_FAIL;
+	//if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Camera_Free", SCENE_LOADING, pLayerTag, &StateDesc)))
+	//	return E_FAIL;
 
-	Safe_Release(pManagement);
+	//Safe_Release(pManagement);
 
 	return S_OK;
 }
@@ -156,6 +156,10 @@ CScene_Loading * CScene_Loading::Create(PDIRECT3DDEVICE9 pGraphic_Device, SCENEI
 void CScene_Loading::Free()
 {
 	Safe_Release(m_pLoading);
+
+	CManagement*	pManagement = CManagement::Get_Instance();
+	pManagement->Clear_Component_Manager(SCENE_LOADING);
+	pManagement->Clear_Object_Manager(SCENE_LOADING);
 
 	CScene::Free();
 }

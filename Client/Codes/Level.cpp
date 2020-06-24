@@ -38,14 +38,15 @@ HRESULT CLevel::Ready_Level_One()
 	CBrick::STATEDESC brickDesc;
 	brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, 0.f);
 	brickDesc.tBaseDesc.vSize = _float3(1.f, 3.f, 1.f);
-	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
-		return E_FAIL;
+	brickDesc.m_dStartFall = 1.0;
+	m_Bricks.emplace_back((CBrick*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc));
+	Safe_AddRef(m_Bricks.back());
 
 	brickDesc.tBaseDesc.vPos = _float3(1.f, 0.f, 0.f);
 	brickDesc.tBaseDesc.vSize = _float3(1.f, 1.f, 3.f);
-	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
-		return E_FAIL;
-
+	brickDesc.m_dStartFall = 0.5;
+	m_Bricks.emplace_back((CBrick*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc));
+	Safe_AddRef(m_Bricks.back());
 
 	return S_OK;
 }
@@ -79,4 +80,8 @@ CLevel * CLevel::Create(_uint Level)
 
 void CLevel::Free()
 {
+	for (auto& Brick : m_Bricks)
+		Safe_Release(Brick);
+
+	m_Bricks.clear();
 }
