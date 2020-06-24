@@ -24,6 +24,12 @@ HRESULT CBackGround::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
+	if (nullptr != pArg)
+		memcpy(&m_tDesc, pArg, sizeof(STATEDESC));
+
+	m_pTransformCom->SetUp_Position(m_tDesc.tBaseDesc.vPos);
+	m_pTransformCom->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
+
 	return S_OK;
 }
 
@@ -51,16 +57,16 @@ HRESULT CBackGround::Render_GameObject()
 		nullptr == m_pTextureCom)
 		return E_FAIL;
 
-	if (FAILED(SetUp_ConstantTable()))
-		return E_FAIL;
 
-	if (FAILED(m_pTextureCom->Set_TextureOnShader(m_pShaderCom, "g_BaseTexture", 0)))
+
+	m_pVIBufferCom->Set_Transform(m_pTransformCom->Get_WorldMatrix());
+	if (FAILED(m_pTextureCom->Set_TextureOnShader(m_pShaderCom, "g_BaseTexture", m_tDesc.iTextureID)))
 		return E_FAIL;
 
 	m_pShaderCom->Begin_Shader();
 	m_pShaderCom->Begin_Pass(0);
 
-	m_pVIBufferCom->Render_VIBuffer();	
+	m_pVIBufferCom->Render();	
 
 	m_pShaderCom->End_Pass();
 	m_pShaderCom->End_Shader();
@@ -83,7 +89,7 @@ HRESULT CBackGround::Add_Component()
 
 
 	// For.Com_VIBuffer
-	if (FAILED(CGameObject::Add_Component(SCENE_STATIC, L"Component_VIBuffer_Rect", L"Com_VIBuffer", (CComponent**)&m_pVIBufferCom)))
+	if (FAILED(CGameObject::Add_Component(SCENE_STATIC, L"Component_VIBuffer_ViewPort", L"Com_VIBuffer", (CComponent**)&m_pVIBufferCom)))
 		return E_FAIL;
 
 	// For.Com_Shader
@@ -136,10 +142,12 @@ CGameObject * CBackGround::Clone_GameObject(void * pArg)
 
 void CBackGround::Free()
 {
+
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pVIBufferCom);
 	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pTransformCom);
+	Safe_Release(m_pTextureCom);
 
 	CGameObject::Free();
 }

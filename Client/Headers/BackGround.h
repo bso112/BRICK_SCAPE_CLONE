@@ -14,6 +14,7 @@ public:
 		BASEDESC			tBaseDesc;
 		const _tchar*		pTextureTag = nullptr;
 		SCENEID				eTextureSceneID = SCENE_END;
+		_int				iTextureID = 0;
 
 	}STATEDESC;
 private:
@@ -30,8 +31,11 @@ private:
 	CShader*			m_pShaderCom = nullptr;
 	CRenderer*			m_pRendererCom = nullptr;
 	CTransform*			m_pTransformCom = nullptr;
-	CVIBuffer_Rect*		m_pVIBufferCom = nullptr;	
+	CVIBuffer_ViewPort*	m_pVIBufferCom = nullptr;	
 	CTexture*			m_pTextureCom = nullptr;
+
+private:
+	STATEDESC			m_tDesc;
 	
 private:
 	HRESULT Add_Component();

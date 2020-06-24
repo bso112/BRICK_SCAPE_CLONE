@@ -116,6 +116,8 @@ HRESULT CMainApp::Ready_Default_GameObject()
 
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Wall", CWall::Create(m_pGraphic_Device))))
 		return E_FAIL;
+	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Background", CBackGround::Create(m_pGraphic_Device))))
+		return E_FAIL;
 
 
 
