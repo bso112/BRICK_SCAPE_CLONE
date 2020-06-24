@@ -3,6 +3,7 @@
 
 #include "GameManager.h"
 #include "Brick.h"
+#include "MyButton.h"
 
 USING(Client)
 
@@ -34,6 +35,9 @@ _uint APIENTRY Thread_Main(void* pArg)
 	case SCENE_STAGE4:
 		hr = pLoading->Loading_ForStageFour();
 		break;
+
+		/*case SCENE_STAGE2:
+			break;*/
 	}
 
 	LeaveCriticalSection(pLoading->Get_CriticalSection());
@@ -59,23 +63,34 @@ HRESULT CLoading::Ready_Loading(SCENEID eSceneID)
 
 HRESULT CLoading::Loading_ForStageOne()
 {
-#pragma region GAMEOBJECT_PROTOTYPE
 	CManagement* pEngineMgr = CManagement::Get_Instance();
 	if (nullptr == pEngineMgr) return E_FAIL;
-	
-	CBrick::STATEDESC brickDesc;
-	brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, 0.f);
-	brickDesc.tBaseDesc.vSize = _float3(3.f, 3.f, 3.f);
-	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
+
+#pragma region MODULE_PROTOTYPE
+	if (FAILED(pEngineMgr->Add_Component_Prototype(SCENE_STAGE, L"Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 1))))
 		return E_FAIL;
 
 
 #pragma endregion
 
+#pragma region GAMEOBJECT_PROTOTYPE
+	//CBrick::STATEDESC brickDesc;
+	//brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, 0.f);
+	//brickDesc.tBaseDesc.vSize = _float3(3.f, 3.f, 3.f);
+	//if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc)))
+	//	return E_FAIL;
 
-#pragma region MODULE_PROTOTYPE
+	CMyButton::STATEDESC btnDesc;
+	btnDesc.m_eSceneID = SCENE_STAGE;
+	btnDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX >>1 ,(g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+	btnDesc.m_iTextureSceneID = SCENE_STAGE;
+	btnDesc.m_pTextureTag = L"Texture_Btn";
+
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
+		return E_FAIL;
 
 #pragma endregion
+
 
 	CGameManager::Get_Instance()->Set_CurrentLevel(0);
 

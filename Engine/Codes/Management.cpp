@@ -9,6 +9,7 @@ CManagement::CManagement()
 	, m_pObject_Manager(CObject_Manager::Get_Instance())
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 	, m_pPipeLine(CPipeLine::Get_Instance())
+	, m_pKeyMgr(CKeyMgr::Get_Instance())
 {
 	Safe_AddRef(m_pPipeLine);
 	Safe_AddRef(m_pComponent_Manager);
@@ -16,6 +17,7 @@ CManagement::CManagement()
 	Safe_AddRef(m_pScene_Manager);
 	Safe_AddRef(m_pTimer_Manager);
 	Safe_AddRef(m_pGraphic_Device);
+	Safe_AddRef(m_pKeyMgr);
 }
 
 
@@ -29,6 +31,9 @@ HRESULT CManagement::Ready_Engine(_uint iNumScenes)
 		return E_FAIL;
 
 	if (FAILED(m_pComponent_Manager->Reserve_Component_Manager(iNumScenes)))
+		return E_FAIL;
+
+	if (FAILED(m_pKeyMgr->Reserve_Key_Manager(iNumScenes)))
 		return E_FAIL;
 
 	return S_OK;
@@ -198,6 +203,9 @@ void CManagement::Release_Engine()
 	if (0 != CManagement::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CManagement");
 
+	if (0 != CKeyMgr::Get_Instance()->Destroy_Instance())
+		MSG_BOX("Failed To Release CKeyMgr");
+
 	if (0 != CObject_Manager::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CObject_Manager");
 
@@ -225,5 +233,6 @@ void CManagement::Free()
 	Safe_Release(m_pObject_Manager);
 	Safe_Release(m_pScene_Manager);
 	Safe_Release(m_pTimer_Manager);
+	Safe_Release(m_pKeyMgr);
 	Safe_Release(m_pGraphic_Device);
 }

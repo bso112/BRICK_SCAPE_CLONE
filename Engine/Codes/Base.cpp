@@ -25,3 +25,23 @@ unsigned long CBase::Release()
 		return m_dwRefCnt--;
 	
 }
+
+HRESULT CBase::OnKeyDown(_int KeyCode)
+{
+	return S_OK;
+}
+
+HRESULT CBase::OnKeyPressing(_int KeyCode)
+{
+	return S_OK;
+}
+
+HRESULT CBase::OnKeyUp(_int KeyCode)
+{
+	return S_OK;
+}
+
+HRESULT CBase::OnMoveTurn()
+{
+	return S_OK;
+}

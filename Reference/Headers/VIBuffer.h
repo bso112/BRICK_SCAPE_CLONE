@@ -17,6 +17,7 @@ public:
 	virtual HRESULT Ready_Component_Prototype();
 	virtual HRESULT Ready_Component(void* pArg);
 	virtual HRESULT Render_VIBuffer();	
+
 protected: // For.VertexBuffer
 	PDIRECT3DVERTEXBUFFER9		m_pVBuffer = nullptr;
 	_uint						m_iStride = 0;

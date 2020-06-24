@@ -64,6 +64,9 @@
     <Filter Include="02.GameObject\Brick">
       <UniqueIdentifier>{4bfc3608-7b3f-4807-b668-7585476aa4aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Button">
+      <UniqueIdentifier>{d1571137-965b-4cea-864e-45c353c6554b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -129,6 +132,9 @@
     <ClInclude Include="..\Headers\Scene_Stage4.h">
       <Filter>01.Scene\04.Scene_Stage_4</Filter>
     </ClInclude>
+    <ClInclude Include="MyButton.h">
+      <Filter>02.GameObject\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -179,6 +185,12 @@
     <ClCompile Include="..\Codes\Scene_Stage4.cpp">
       <Filter>01.Scene\04.Scene_Stage_4</Filter>
     </ClCompile>
+    <ClCompile Include="MyButton.cpp">
+      <Filter>02.GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Engine\Codes\globFuc.cpp">
+      <Filter>99.Headers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -195,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_Rect.fx">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_ViewPort.fx">
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

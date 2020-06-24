@@ -21,6 +21,7 @@ HRESULT CPipeLine::Set_Transform(D3DTRANSFORMSTATETYPE eType, _matrix StateMatri
 	return S_OK;
 }
 
+
 HRESULT CPipeLine::Update_PipeLine()
 {
 	D3DXMatrixInverse(&m_CameraWorldMatrix, nullptr, &m_ViewMatrix);

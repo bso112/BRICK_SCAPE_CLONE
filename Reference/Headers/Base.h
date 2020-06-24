@@ -16,6 +16,14 @@ public:
 	unsigned long Release(); // 레퍼런스카운트를 감소시킨다(레카가 0이 아닐때). or 삭제한다.(레카가 0일때)
 public:
 	virtual void Free() = 0;
+
+
+public:
+	virtual HRESULT	OnKeyDown(_int KeyCode);
+	virtual HRESULT OnKeyPressing(_int KeyCode);
+	virtual HRESULT	OnKeyUp(_int KeyCode);
+	virtual	HRESULT OnMoveTurn();
+
 };
 
 END

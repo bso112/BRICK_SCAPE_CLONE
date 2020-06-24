@@ -1,4 +1,5 @@
 #include "..\Headers\Texture.h"
+#include "Shader.h"
 
 CTexture::CTexture(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CComponent(pGraphic_Device)
@@ -12,6 +13,15 @@ CTexture::CTexture(const CTexture & rhs)
 	for (auto& pTexture : m_Textures)
 		Safe_AddRef(pTexture);
 
+}
+
+HRESULT CTexture::Set_TextureOnShader(CShader * pShader, D3DXHANDLE hParameter, _uint iIndex)
+{
+	if (nullptr == pShader ||
+		m_Textures.size() <= iIndex)
+		return E_FAIL;
+
+	return pShader->Set_Texture(hParameter, m_Textures[iIndex]);
 }
 
 HRESULT CTexture::Ready_Component_Prototype(const _tchar* pTextureFilePath, _uint iNumTextures)
@@ -46,7 +56,7 @@ CTexture * CTexture::Create(LPDIRECT3DDEVICE9 pGraphic_Device, const _tchar * pT
 
 	if (FAILED(pInstance->Ready_Component_Prototype(pTextureFilePath, iNumTextures)))
 	{
-		MessageBox(0, L"Failed To Creating CVIBuffer", L"System Message", MB_OK);
+		MessageBox(0, L"Failed To Creating CTexture", L"System Message", MB_OK);
 			
 		Safe_Release(pInstance);
 	}
@@ -60,7 +70,7 @@ CComponent* CTexture::Clone_Component(void * pArg)
 
 	if (FAILED(pInstance->Ready_Component(pArg)))
 	{
-		MessageBox(0, L"Failed To Creating CVIBuffer", L"System Message", MB_OK);
+		MessageBox(0, L"Failed To Clone CTexture", L"System Message", MB_OK);
 		
 		Safe_Release(pInstance);
 	}
