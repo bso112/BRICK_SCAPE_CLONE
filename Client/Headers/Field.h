@@ -28,7 +28,7 @@ public:
 	virtual HRESULT Render_GameObject();
 
 public:
-	CWall*	Get_Walls();
+	CWall**	Get_Walls();
 
 private:
 	CTransform*	m_pTransform = nullptr;

@@ -44,6 +44,9 @@ HRESULT CField::Ready_GameObject(void * pArg)
 
 	pTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
 
+	if (nullptr == (m_Walls[0] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
+
 	//¿À¸¥ÂÊ¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x + vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
@@ -53,6 +56,9 @@ HRESULT CField::Ready_GameObject(void * pArg)
 
 	pTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
 
+	if (nullptr == (m_Walls[1] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
+
 	//¾Õ¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 1.f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
@@ -60,6 +66,8 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
 		return E_FAIL;
 
+	if (nullptr == (m_Walls[2] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
 
 	//µÞ¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z + vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 1.f));
@@ -68,6 +76,8 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
 		return E_FAIL;
 
+	if (nullptr == (m_Walls[3] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
 	//À­¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y + vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
@@ -77,6 +87,9 @@ HRESULT CField::Ready_GameObject(void * pArg)
 
 	pTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
 
+	if (nullptr == (m_Walls[4] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
+
 	//¹Ø¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y - vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
@@ -85,6 +98,9 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	pTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+
+	if (nullptr == (m_Walls[5] = dynamic_cast<CWall*>(pWall)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -104,9 +120,9 @@ HRESULT CField::Render_GameObject()
 	return S_OK;
 }
 
-CWall * CField::Get_Walls()
+CWall** CField::Get_Walls()
 {
-	return nullptr;
+	return m_Walls;
 }
 
 CField * CField::Create(PDIRECT3DDEVICE9 pGraphic_Device)
