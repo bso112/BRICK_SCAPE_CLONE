@@ -72,6 +72,9 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixX);
 	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrixX);
 
+	_float val = D3DXToDegree(acos(D3DXVec3Dot(D3DXVec3Normalize(&vUp, &vUp), &_float3(1.f, 0.f, 0.f))));
+
+
 	D3DXVec3Normalize(&vLook, &vLook);
 	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (vLook * 5.f));
 
