@@ -20,7 +20,7 @@ public:
 public:
 	HRESULT Reserve_Object_Manager(_uint iNumScene);
 	HRESULT Add_Prototype(_uint iSceneID, const _tchar* pPrototypeTag, CGameObject* pPrototype);
-	HRESULT Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar* pPrototypeTag, _uint iLayerSceneID, const _tchar* pLayerTag, void* pArg = nullptr);
+	CGameObject* Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar* pPrototypeTag, _uint iLayerSceneID, const _tchar* pLayerTag, void* pArg = nullptr);
 	_int Update_Object_Manager(_double TimeDelta);
 	HRESULT Clear_Object_Manager(_uint iSceneID);
 private:

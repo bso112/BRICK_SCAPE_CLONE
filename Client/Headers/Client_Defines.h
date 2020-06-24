@@ -19,3 +19,7 @@ extern HWND g_hWnd;
 #include "Client_Struct.h"
 
 extern RECT Make_Rect(D3DXVECTOR4 _vPos, D3DXVECTOR4 _vSize);
+
+
+#define PASS_DEFAULT 0
+#define PASS_WALL 1

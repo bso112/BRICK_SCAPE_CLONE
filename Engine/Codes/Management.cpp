@@ -143,10 +143,10 @@ HRESULT CManagement::Add_GameObject_Prototype(_uint iSceneID, const _tchar * pPr
 	return m_pObject_Manager->Add_Prototype(iSceneID, pPrototypeTag, pPrototype);
 }
 
-HRESULT CManagement::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iLayerSceneID, const _tchar * pLayerTag, void * pArg)
+CGameObject* CManagement::Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar * pPrototypeTag, _uint iLayerSceneID, const _tchar * pLayerTag, void * pArg)
 {
 	if (nullptr == m_pObject_Manager)
-		return E_FAIL;
+		return nullptr;
 
 	return m_pObject_Manager->Add_Object_ToLayer(iPrototypeSceneID, pPrototypeTag, iLayerSceneID, pLayerTag, pArg);
 }

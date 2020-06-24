@@ -4,7 +4,7 @@
 #include "GameManager.h"
 #include "Brick.h"
 #include "MyButton.h"
-
+#include "Field.h"
 USING(Client)
 
 CLoading::CLoading(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -71,6 +71,8 @@ HRESULT CLoading::Loading_ForStageOne()
 		return E_FAIL;
 
 
+
+
 #pragma endregion
 
 #pragma region GAMEOBJECT_PROTOTYPE
@@ -89,10 +91,17 @@ HRESULT CLoading::Loading_ForStageOne()
 	if (FAILED( pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
 		return E_FAIL;
 
+	CField::STATEDESC fieldDesc;
+	fieldDesc.tBaseDesc = BASEDESC(_float3(0.f, 0.f, 0.f), _float3(3.f, 3.f, 3.f));
+	fieldDesc.eSceneID = SCENE_STAGE;
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE, L"GameObject", &fieldDesc)))
+		return E_FAIL;
+
+
 #pragma endregion
 
 
-	CGameManager::Get_Instance()->Set_CurrentLevel(0);
+//	CGameManager::Get_Instance()->Set_CurrentLevel(0);
 
 	m_isFinished = true;
 
