@@ -56,7 +56,7 @@ CTexture * CTexture::Create(LPDIRECT3DDEVICE9 pGraphic_Device, const _tchar * pT
 
 	if (FAILED(pInstance->Ready_Component_Prototype(pTextureFilePath, iNumTextures)))
 	{
-		MessageBox(0, L"Failed To Creating CVIBuffer", L"System Message", MB_OK);
+		MessageBox(0, L"Failed To Creating CTexture", L"System Message", MB_OK);
 			
 		Safe_Release(pInstance);
 	}
@@ -70,7 +70,7 @@ CComponent* CTexture::Clone_Component(void * pArg)
 
 	if (FAILED(pInstance->Ready_Component(pArg)))
 	{
-		MessageBox(0, L"Failed To Creating CVIBuffer", L"System Message", MB_OK);
+		MessageBox(0, L"Failed To Clone CTexture", L"System Message", MB_OK);
 		
 		Safe_Release(pInstance);
 	}

@@ -19,3 +19,5 @@ extern HWND g_hWnd;
 #include <functional>
 #include <time.h>
 #include "Client_Struct.h"
+
+extern RECT Make_Rect(D3DXVECTOR4 _vPos, D3DXVECTOR4 _vSize);

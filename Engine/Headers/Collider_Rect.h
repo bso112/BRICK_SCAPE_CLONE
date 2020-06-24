@@ -10,8 +10,8 @@ class ENGINE_DLL CCollider_Rect final : public CCollider
 public:
 	typedef struct tagStateDesc : public CCollider::STATEDESC
 	{
-		_float	fWidth, fHeight;
-		_float	fOffSetX, fOffSetY;
+		_float	fWidth = 0.f, fHeight = 0.f;
+		_float	fOffSetX = 0.f, fOffSetY = 0.f;
 	}STATEDESC_DERIVED;
 private:
 	explicit CCollider_Rect(PDIRECT3DDEVICE9 pGraphic_Device);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyButton.h"
 #include "Management.h"
-#include "VIBuffer.h"
+#include "VIBuffer_ViewPort.h"
 #include "KeyMgr.h"
 USING(Client)
 
@@ -23,16 +23,17 @@ HRESULT CMyButton::Ready_GameObject(void* pArg)
 		memcpy(&m_tDesc, pArg, sizeof(STATEDESC));
 
 
-	if (FAILED(Add_Component(SCENE_STATIC, L"Transform", L"Transform", (CComponent**)&m_pTransform)))
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransform)))
 		return E_FAIL;
-	if (FAILED(Add_Component(SCENE_STATIC, L"VIBuffer_Rect", L"VIBuffer_Rect", (CComponent**)&m_pVIBuffer)))
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_VIBuffer_ViewPort", L"Com_VIBuffer_ViewPort", (CComponent**)&m_pVIBuffer)))
 		return E_FAIL;
 	if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
 		return E_FAIL;
-	if (FAILED(Add_Component(SCENE_STATIC, L"Shader_Rect", L"Shader_Rect", (CComponent**)&m_pShader)))
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Shader_ViewPort", L"Shader_ViewPort", (CComponent**)&m_pShader)))
 		return E_FAIL;
-	if (FAILED(Add_Component(SCENE_STATIC, L"Renderer", L"Renderer", (CComponent**)&m_pRenderer)))
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Renderer", L"Com_Renderer", (CComponent**)&m_pRenderer)))
 		return E_FAIL;
+
 
 
 	CKeyMgr::Get_Instance()->RegisterObserver(m_tDesc.m_eSceneID, this);
@@ -75,14 +76,17 @@ HRESULT CMyButton::Render_GameObject()
 		return 0;
 
 	if (nullptr == m_pVIBuffer ||
-		nullptr == m_pTransform)
+		nullptr == m_pTransform	||
+		nullptr == m_pTexture)
 		return E_FAIL;
 
+	CManagement* pEngineMgr = CManagement::Get_Instance();
 
-	//if (FAILED(m_pVIBuffer->Set_Transform(m_pTransform->Get_WorldMatrix())))
-	//	return E_FAIL;
 
-	ALPHATEST;
+	if (FAILED(m_pVIBuffer->Set_Transform(m_pTransform->Get_WorldMatrix())))
+		return E_FAIL;
+
+	ALPHABLEND;
 
 	if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", 0)))
 		return E_FAIL;
@@ -93,7 +97,7 @@ HRESULT CMyButton::Render_GameObject()
 		return E_FAIL;
 
 
-	if (FAILED(m_pVIBuffer->Render_VIBuffer()))
+	if (FAILED(m_pVIBuffer->Render()))
 		return E_FAIL;
 
 
@@ -104,7 +108,7 @@ HRESULT CMyButton::Render_GameObject()
 		return E_FAIL;
 
 
-	ALPHATEST_END;
+	ALPHABLEND_END;
 
 	return S_OK;
 }
@@ -147,7 +151,7 @@ void CMyButton::Free()
 	Safe_Release(m_pVIBuffer);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pTexture);
-	Safe_Release(m_pRcCollider);
+	Safe_Release(m_pRenderer);
 
 	CGameObject::Free();
 
@@ -155,6 +159,9 @@ void CMyButton::Free()
 
 HRESULT CMyButton::OnKeyDown(_int KeyCode)
 {
+	if (nullptr == m_pTransform)
+		return E_FAIL;
+
 	if (!m_bActive)
 		return S_OK;
 
@@ -162,7 +169,7 @@ HRESULT CMyButton::OnKeyDown(_int KeyCode)
 	GetCursorPos(&cursorPos);
 	ScreenToClient(g_hWnd, &cursorPos);
 
-	if (PtInRect(&m_pRcCollider->Get_Rect(), cursorPos))
+	if (PtInRect(&m_pTransform->Get_Rect(), cursorPos))
 	{
 		//리스너 목록을 호출한다.
 		for (auto& listener : m_vecOnListener)

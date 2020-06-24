@@ -8,7 +8,8 @@ CGameObject::CGameObject(PDIRECT3DDEVICE9 pGraphic_Device)
 }
 
 CGameObject::CGameObject(const CGameObject & rhs)
-	: m_pGraphic_Device(rhs.m_pGraphic_Device)
+	: m_pGraphic_Device(rhs.m_pGraphic_Device),
+	m_bActive(rhs.m_bActive)
 {
 	Safe_AddRef(m_pGraphic_Device);
 }

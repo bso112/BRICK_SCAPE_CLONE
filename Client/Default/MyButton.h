@@ -28,12 +28,11 @@ protected:
 
 
 protected:
-	CVIBuffer*			m_pVIBuffer = nullptr;
+	CVIBuffer_ViewPort*			m_pVIBuffer = nullptr;
 	CTransform*			m_pTransform = nullptr;
 	CTexture*			m_pTexture = nullptr;
 	CShader*			m_pShader = nullptr;
 	CRenderer*			m_pRenderer = nullptr;
-	CCollider_Rect*		m_pRcCollider = nullptr;
 
 protected:
 	STATEDESC		m_tDesc;

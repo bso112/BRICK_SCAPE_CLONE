@@ -8,6 +8,7 @@
 #include "Component_Manager.h"
 #include "PipeLine.h"
 #include "VIBuffer_Cube.h"
+#include "VIBuffer_ViewPort.h"
 #include "Collider.h"
 #include "Collider_Rect.h"
 #include "KeyMgr.h"
@@ -75,6 +76,7 @@ private:
 	CObject_Manager*	m_pObject_Manager = nullptr;
 	CComponent_Manager*	m_pComponent_Manager = nullptr;
 	CPipeLine*			m_pPipeLine = nullptr;
+	CKeyMgr*			m_pKeyMgr = nullptr;
 
 
 public:

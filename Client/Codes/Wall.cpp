@@ -45,6 +45,7 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 	m_pTransform->SetUp_Position(m_tDesc.tBaseDesc.vPos);
 
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
+	return S_OK;
 }
 
 _int CWall::Update_GameObject(_double TimeDelta)
