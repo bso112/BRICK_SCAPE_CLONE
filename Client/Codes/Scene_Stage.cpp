@@ -21,7 +21,7 @@ _int CScene_Stage::Update_Scene(_double TimeDelta)
 {
 	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_LOADING, L"Layer_Camera");
 	//Camera->Set_DestCameraFovy(D3DXToRadian(90.f));
-	Camera->Set_CameraFovy(D3DXToRadian(120.f));
+	//Camera->Set_CameraFovy(D3DXToRadian(120.f));
 
 	return _int();
 }
