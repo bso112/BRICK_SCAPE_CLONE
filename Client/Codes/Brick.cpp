@@ -43,6 +43,9 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Renderer", L"Com_Renderer", (CComponent**)&m_pRenderer)))
 		return E_FAIL;
 
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_BoxCollider", L"Com_Collider", (CComponent**)&m_pBoxCollider)))
+		return E_FAIL;
+
 	m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_tDesc.tBaseDesc.vPos.y + 10.f, m_tDesc.tBaseDesc.vPos.z));
 
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
@@ -65,6 +68,11 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 			m_bIsDoneIntro = true;
 	}
 
+	if (nullptr == m_pBoxCollider	||
+		nullptr == m_pTransform)
+		return E_FAIL;
+
+	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
 	return _int();
 }
 
@@ -156,5 +164,6 @@ void CBrick::Free()
 	Safe_Release(m_pTexture);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pVIBuffer);
+	Safe_Release(m_pBoxCollider);
 	CGameObject::Free();
 }

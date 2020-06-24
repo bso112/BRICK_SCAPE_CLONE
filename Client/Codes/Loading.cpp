@@ -78,7 +78,7 @@ HRESULT CLoading::Loading_ForStageOne()
 	btnDesc.m_eSceneID = SCENE_STAGE;
 	btnDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX >>1 ,(g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
 	btnDesc.m_iTextureSceneID = SCENE_STATIC;
-	btnDesc.m_pTextureTag = L"Texture_Btn";
+	btnDesc.m_pTextureTag = L"Component_Texture_Btn";
 
 	if (FAILED( pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
 		return E_FAIL;

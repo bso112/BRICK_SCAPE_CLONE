@@ -88,17 +88,23 @@
     <Filter Include="01.Utility\03.Component\Component\VIBuffer\Cube">
       <UniqueIdentifier>{54436f3b-19d9-47eb-b800-8644ce4049d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\04.Colider">
-      <UniqueIdentifier>{91465bdd-fa2b-4c3f-ac20-8ef68167d3c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\04.Colider\00.Colider_Rect">
-      <UniqueIdentifier>{40ef5e7e-17c0-429c-9b6b-7b41f22bf720}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\05.KeyMgr">
       <UniqueIdentifier>{bac91c3b-95e4-43f9-9041-4c36605be299}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\03.Component\Component\VIBuffer\ViewPort">
       <UniqueIdentifier>{9e1734b1-b47a-4a24-9b81-6f29ac3f25d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\06.CollisionMgr">
+      <UniqueIdentifier>{28867c22-794a-4dbf-995e-f28cac05d9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\Component\Colider">
+      <UniqueIdentifier>{91465bdd-fa2b-4c3f-ac20-8ef68167d3c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\Component\Colider\00.Colider_Rect">
+      <UniqueIdentifier>{40ef5e7e-17c0-429c-9b6b-7b41f22bf720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\Component\Colider\01.Collider_Box">
+      <UniqueIdentifier>{153d2ab1-9d11-4940-98fd-6bbec4b5a255}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,10 +184,10 @@
       <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Collider.h">
-      <Filter>01.Utility\04.Colider</Filter>
+      <Filter>01.Utility\03.Component\Component\Colider</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Collider_Rect.h">
-      <Filter>01.Utility\04.Colider\00.Colider_Rect</Filter>
+      <Filter>01.Utility\03.Component\Component\Colider\00.Colider_Rect</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\KeyMgr.h">
       <Filter>01.Utility\05.KeyMgr</Filter>
@@ -191,6 +197,12 @@
     </ClInclude>
     <ClInclude Include="..\Headers\VIBuffer_Rect.h">
       <Filter>01.Utility\03.Component\Component\VIBuffer\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\Collider_Box.h">
+      <Filter>01.Utility\03.Component\Component\Colider\01.Collider_Box</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\CollisionMgr.h">
+      <Filter>01.Utility\06.CollisionMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -255,10 +267,10 @@
       <Filter>01.Utility\03.Component\Component\VIBuffer\Cube</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Collider.cpp">
-      <Filter>01.Utility\04.Colider</Filter>
+      <Filter>01.Utility\03.Component\Component\Colider</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Collider_Rect.cpp">
-      <Filter>01.Utility\04.Colider\00.Colider_Rect</Filter>
+      <Filter>01.Utility\03.Component\Component\Colider\00.Colider_Rect</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\KeyMgr.cpp">
       <Filter>01.Utility\05.KeyMgr</Filter>
@@ -268,6 +280,12 @@
     </ClCompile>
     <ClCompile Include="..\Codes\VIBuffer_Rect.cpp">
       <Filter>01.Utility\03.Component\Component\VIBuffer\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Collider_Box.cpp">
+      <Filter>01.Utility\03.Component\Component\Colider\01.Collider_Box</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\CollisionMgr.cpp">
+      <Filter>01.Utility\06.CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

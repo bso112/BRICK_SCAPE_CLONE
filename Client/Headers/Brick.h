@@ -37,11 +37,12 @@ public:
 public:
 	virtual HRESULT	OnKeyDown(_int KeyCode);
 private:
-	CTransform*	m_pTransform = nullptr;
-	CVIBuffer*	m_pVIBuffer = nullptr;
-	CTexture*	m_pTexture = nullptr;
-	CRenderer*	m_pRenderer = nullptr;
-	CShader*	m_pShader = nullptr;
+	CTransform*		m_pTransform = nullptr;
+	CVIBuffer*		m_pVIBuffer = nullptr;
+	CTexture*		m_pTexture = nullptr;
+	CRenderer*		m_pRenderer = nullptr;
+	CShader*		m_pShader = nullptr;
+	CCollider_Box*	m_pBoxCollider = nullptr;
 private:
 	STATEDESC	m_tDesc;
 	_bool		m_bIsDoneIntro = false;

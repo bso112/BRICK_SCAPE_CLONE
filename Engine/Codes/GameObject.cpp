@@ -45,6 +45,18 @@ HRESULT CGameObject::Render_GameObject()
 	return S_OK;
 }
 
+void CGameObject::OnCollisionEnter(CGameObject * _pOther)
+{
+}
+
+void CGameObject::OnCollisionStay(CGameObject * _pOther)
+{
+}
+
+void CGameObject::OnCollisionExit(CGameObject * _pOther)
+{
+}
+
 HRESULT CGameObject::Add_Component(_uint iPrototypeSceneID, const _tchar* pPrototypeTag, const _tchar * pComponentTag, CComponent** ppOut, void* pArg)
 {
 	if (nullptr != Find_Component(pComponentTag))

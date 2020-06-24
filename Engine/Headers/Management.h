@@ -11,6 +11,7 @@
 #include "VIBuffer_ViewPort.h"
 #include "Collider.h"
 #include "Collider_Rect.h"
+#include "Collider_Box.h"
 #include "KeyMgr.h"
 
 BEGIN(Engine)
