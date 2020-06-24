@@ -58,6 +58,8 @@ HRESULT CBackGround::Render_GameObject()
 		return E_FAIL;
 
 
+	m_pGraphic_Device->SetRenderState(D3DRS_ZENABLE, false);
+	m_pGraphic_Device->SetRenderState(D3DRS_ZWRITEENABLE, false);
 
 	m_pVIBufferCom->Set_Transform(m_pTransformCom->Get_WorldMatrix());
 	if (FAILED(m_pTextureCom->Set_TextureOnShader(m_pShaderCom, "g_BaseTexture", m_tDesc.iTextureID)))
@@ -70,6 +72,9 @@ HRESULT CBackGround::Render_GameObject()
 
 	m_pShaderCom->End_Pass();
 	m_pShaderCom->End_Shader();
+
+	m_pGraphic_Device->SetRenderState(D3DRS_ZENABLE, true);
+	m_pGraphic_Device->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
 	return S_OK;
 }

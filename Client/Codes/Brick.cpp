@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "..\Headers\Brick.h"
-
+#include "KeyMgr.h"
+#include "GameManager.h"
 USING(Client)
 
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -9,7 +10,7 @@ CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
 }
 
 CBrick::CBrick(const CBrick & rhs)
-	:CGameObject(rhs)
+	: CGameObject(rhs)
 {
 }
 
@@ -29,9 +30,9 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransform, &tTransformDesc)))
 		return E_FAIL;
 
-	//if (FAILED(Add_Component(m_tDesc.m_iTextureSceneID, m_tDesc.m_pTextureTag, L"Texture", (CComponent**)&m_pTexture)))
-	//return E_FAIL;
-	//
+	if (FAILED(Add_Component(m_tDesc.eTextureSceneID, m_tDesc.pTextureTag, L"Com_Texture", (CComponent**)&m_pTexture)))
+	return E_FAIL;
+	
 
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Shader_Rect", L"Com_Shader_Rect", (CComponent**)&m_pShader)))
 		return E_FAIL;
@@ -46,23 +47,23 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
 
+	CKeyMgr::Get_Instance()->RegisterObserver(m_tDesc.eSceneID, this);
 	return S_OK;
 }
 
 _int CBrick::Update_GameObject(_double TimeDelta)
 {
+
 	if (0.0 < m_tDesc.m_dStartFall)
 		m_tDesc.m_dStartFall -= TimeDelta;
-
 
 	if (false == m_bIsDoneIntro && m_tDesc.m_dStartFall <= 0.0)
 	{
 		m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - 0.3f, m_tDesc.tBaseDesc.vPos.z));
-		
+
 		if (m_pTransform->Get_State(CTransform::STATE_POSITION).y <= m_tDesc.tBaseDesc.vPos.y)
 			m_bIsDoneIntro = true;
 	}
-
 
 	return _int();
 }
@@ -76,7 +77,7 @@ _int CBrick::Late_Update_GameObject(_double TimeDelta)
 
 HRESULT CBrick::Render_GameObject()
 {
-	
+
 	_matrix			matView, matProj;
 
 	CManagement* pEnginMgr = CManagement::Get_Instance();
@@ -84,8 +85,8 @@ HRESULT CBrick::Render_GameObject()
 	matView = pEnginMgr->Get_Transform(D3DTS_VIEW);
 	matProj = pEnginMgr->Get_Transform(D3DTS_PROJECTION);
 
-	//if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", m_tDesc.m_iTextureID)))
-	//	return E_FAIL;
+	if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", m_tDesc.iTextureID)))
+		return E_FAIL;
 
 	if (FAILED(m_pShader->Set_Value("g_matWorld", &m_pTransform->Get_WorldMatrix(), sizeof(_matrix))))
 		return E_FAIL;
@@ -110,6 +111,17 @@ HRESULT CBrick::Render_GameObject()
 	return S_OK;
 
 
+}
+
+HRESULT CBrick::OnKeyDown(_int KeyCode)
+{
+	if (KeyCode == VK_LBUTTON)
+	{
+		//if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
+		//	CGameManager::Get_Instance()->Set_PickObject(true);
+	}
+
+	return S_OK;
 }
 
 CBrick * CBrick::Create(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -138,6 +150,7 @@ CGameObject * CBrick::Clone_GameObject(void * pArg)
 
 void CBrick::Free()
 {
+	CKeyMgr::Get_Instance()->UnRegisterObserver(m_tDesc.eSceneID, this);
 	Safe_Release(m_pRenderer);
 	Safe_Release(m_pShader);
 	Safe_Release(m_pTexture);

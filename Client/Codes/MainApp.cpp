@@ -164,6 +164,9 @@ HRESULT CMainApp::Ready_Default_Component()
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Background", CTexture::Create(m_pGraphic_Device, L"../Bin/Resources/Textures/Background/background%d.jpg", 3))))
 		return E_FAIL;
 
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Brick", CTexture::Create(m_pGraphic_Device, L"../Bin/Resources/Textures/Brick/brick%d.jpg", 5))))
+		return E_FAIL;
+
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 1))))
 		return E_FAIL;
 

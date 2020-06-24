@@ -61,6 +61,9 @@ PS_OUT PS_MAIN(PS_IN In/*ÇÈ¼¿*/)
 	PS_OUT	Out = (PS_OUT)0;
 
 	Out.vColor = tex2D(BaseSampler, In.vTexUV);
+//=======
+//	Out.vColor = vector(1.f, 0.7f, 0.2f, 0.8f);
+//>>>>>>> f9eb3ca3b20100070b9c2513f24096209f9362f4
 
 	return Out;
 }

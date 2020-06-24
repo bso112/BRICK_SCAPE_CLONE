@@ -46,11 +46,13 @@ _int CManagement::Update_Engine(_double TimeDelta)
 		nullptr == m_pPipeLine)
 		return -1;
 
+	if (0x80000000 & m_pScene_Manager->Update_CurrentScene(TimeDelta))
+		return -1;
+
+
 	if (0x80000000 & m_pObject_Manager->Update_Object_Manager(TimeDelta))
 		return -1;
 
-	if (0x80000000 & m_pScene_Manager->Update_CurrentScene(TimeDelta))
-		return -1;
 
 	if (FAILED(m_pPipeLine->Update_PipeLine()))
 		return -1;
@@ -66,6 +68,17 @@ HRESULT CManagement::Render_Engine()
 	if (FAILED(m_pScene_Manager->Render_CurrentScene()))
 		return E_FAIL;
 
+	return S_OK;
+}
+
+HRESULT CManagement::Clear_Engine(_uint iSceneID)
+{
+	if (FAILED(Clear_Object_Manager(iSceneID)))
+		return E_FAIL;
+	if (FAILED(Clear_Component_Manager(iSceneID)))
+		return E_FAIL;
+	if (FAILED(Clear_Key_Manager(iSceneID)))
+		return E_FAIL;
 	return S_OK;
 }
 
@@ -204,6 +217,13 @@ _float3 CManagement::Get_CamPosition()
 		return _float3();
 
 	return m_pPipeLine->Get_CamPosition();
+}
+
+HRESULT CManagement::Clear_Key_Manager(_uint eSceneID)
+{
+	if (nullptr == m_pKeyMgr)
+		return E_FAIL;
+	return m_pKeyMgr->ClearObservers(eSceneID);
 }
 
 void CManagement::Release_Engine()

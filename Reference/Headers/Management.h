@@ -25,6 +25,7 @@ public:
 	HRESULT Ready_Engine(_uint iNumScenes);
 	_int Update_Engine(_double TimeDelta);
 	HRESULT Render_Engine();
+	HRESULT	Clear_Engine(_uint iSceneID);
 
 #pragma region DEVICE
 public:
@@ -67,6 +68,11 @@ public:
 	_matrix Get_Transform(D3DTRANSFORMSTATETYPE eType);	
 	_float3 Get_CamPosition();
 #pragma endregion
+
+#pragma region KeyMgr
+	HRESULT		Clear_Key_Manager(_uint	eSceneID);
+#pragma endregion
+
 public:
 	static void Release_Engine();
 

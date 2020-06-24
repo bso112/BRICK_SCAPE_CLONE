@@ -27,7 +27,6 @@ HRESULT CCamera_Free::Ready_GameObject(void * pArg)
 	D3DXVec3Normalize(&m_vDirVec, &m_vDirVec);
 	m_pTransformCom->SetUp_Position(_float3(0.f, 0.f, 0.f) + (m_vDirVec * 10.f));
 
-
 	return S_OK;
 }
 
@@ -46,7 +45,7 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 		OldMousePos = CurMousePos;
 	}
 
-	if (!(GetKeyState(VK_LBUTTON) & 0x8000) || !(CGameManager::Get_Instance()->Get_IsGameStart()))
+	if (!(GetKeyState(VK_LBUTTON) & 0x8000) || !(CGameManager::Get_Instance()->Get_IsGameStart()) || CGameManager::Get_Instance()->Get_IsPickObject())
 		return CCamera::Update_GameObject(TimeDelta);
 
 
@@ -60,10 +59,10 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 	D3DXVec3Normalize(&vUp, &vUp);
 
 	_matrix		RotationMatrixY;
-	D3DXMatrixRotationAxis(&RotationMatrixY, &vUp, D3DXToRadian(fDir.x / 2));
+	D3DXMatrixRotationAxis(&RotationMatrixY, &vUp, D3DXToRadian(fDir.x / 3));
 
 	_matrix		RotationMatrixX;
-	D3DXMatrixRotationAxis(&RotationMatrixX, &vRight, D3DXToRadian(fDir.y / 2));
+	D3DXMatrixRotationAxis(&RotationMatrixX, &vRight, D3DXToRadian(fDir.y / 3));
 
 	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrixY);
 	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrixY);
