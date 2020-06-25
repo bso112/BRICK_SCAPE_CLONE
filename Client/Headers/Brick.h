@@ -16,7 +16,7 @@ public:
 		const _tchar*	pTextureTag = nullptr;
 		SCENEID			eTextureSceneID = SCENE_END;
 		_uint			iTextureID = 0;
-		_bool			bPlayer;
+		_bool			bPlayer = false;
 		_double			m_dStartFall;
 
 		_float3			m_vAxis;
@@ -39,6 +39,7 @@ public:
 
 public:
 	_bool	IsPlayer() { return m_tDesc.bPlayer; }
+	static void Set_ZBuffer(_float Z) { ZBuffer = Z; }
 
 public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\Headers\Goal.h"
 #include "Brick.h"
-
+#include "GameManager.h"
 
 CGoal::CGoal(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
@@ -109,19 +109,20 @@ HRESULT CGoal::Render_GameObject()
 
 void CGoal::OnCollisionEnter(CGameObject * _pOther)
 {
-	//CBrick* pBrick = dynamic_cast<CBrick*>(_pOther);
-	//if (nullptr != pBrick)
-	//{
-	//	if (pBrick->IsPlayer())
-	//	{
-	//		CManagement* pManagement = CManagement::Get_Instance();
-	//		if (nullptr == pManagement) return;
+	CBrick* pBrick = dynamic_cast<CBrick*>(_pOther);
+	if (nullptr != pBrick)
+	{
+		if (pBrick->IsPlayer())
+		{
+			CManagement* pManagement = CManagement::Get_Instance();
+			if (nullptr == pManagement) return;
 
-	//		if (nullptr == pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_GameEndPanel", m_tDesc.eSceneID, L"Layer_UI"))
-	//			return;
+			if (nullptr == pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_GameEndPanel", m_tDesc.eSceneID, L"Layer_UI"))
+				return;
 
-	//	}
-	//}
+			CGameManager::Get_Instance()->Set_IsGoal(true);
+		}
+	}
 
 }
 

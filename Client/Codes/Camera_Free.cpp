@@ -57,9 +57,13 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 		OldMousePos = CurMousePos;
 	}
 
-	if (!(CGameManager::Get_Instance()->Get_IsGameStart()) || CGameManager::Get_Instance()->Get_IsPickObject())
-		return CCamera::Update_GameObject(TimeDelta);
+	return CCamera::Update_GameObject(TimeDelta);
+}
 
+_int CCamera_Free::Late_Update_GameObject(_double TimeDelta)
+{
+	if (!(CGameManager::Get_Instance()->Get_IsGameStart()) || CGameManager::Get_Instance()->Get_IsPickObject())
+		return CCamera::Late_Update_GameObject(TimeDelta);
 
 	_float3		vRight, vUp, vLook;
 
@@ -132,11 +136,7 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 	m_vDirVec = vLook;
 	fDir = _float3(0.f, 0.f, 0.f);
 
-	return CCamera::Update_GameObject(TimeDelta);
-}
 
-_int CCamera_Free::Late_Update_GameObject(_double TimeDelta)
-{
 	return CCamera::Late_Update_GameObject(TimeDelta);
 }
 

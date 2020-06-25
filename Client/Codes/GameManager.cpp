@@ -12,7 +12,6 @@ CGameManager::CGameManager()
 
 HRESULT CGameManager::Set_CurrentLevel(_uint _iLevel)
 {
-	// ¾À·Îµù¿¡¼­ ºÒ·¯µµ ±¦ÂúÀ»Áöµµ?
 	Safe_Release(m_pCurrentLevel);
 
 	m_pCurrentLevel = CLevel::Create(_iLevel);
