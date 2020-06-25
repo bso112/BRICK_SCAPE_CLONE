@@ -36,6 +36,9 @@ public:
 public:
 	virtual HRESULT	OnKeyDown(_int KeyCode);
 	virtual HRESULT	OnKeyUp(_int KeyCode);
+
+public:
+	virtual void OnCollisionEnter(CGameObject* _pOther);
 private:
 	CTransform*		m_pTransform = nullptr;
 	CVIBuffer*		m_pVIBuffer = nullptr;

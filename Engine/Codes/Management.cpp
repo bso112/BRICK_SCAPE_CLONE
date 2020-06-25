@@ -10,6 +10,7 @@ CManagement::CManagement()
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 	, m_pPipeLine(CPipeLine::Get_Instance())
 	, m_pKeyMgr(CKeyMgr::Get_Instance())
+	, m_pCollisionMgr(CCollisionMgr::Get_Instance())
 {
 	Safe_AddRef(m_pPipeLine);
 	Safe_AddRef(m_pComponent_Manager);
@@ -18,12 +19,13 @@ CManagement::CManagement()
 	Safe_AddRef(m_pTimer_Manager);
 	Safe_AddRef(m_pGraphic_Device);
 	Safe_AddRef(m_pKeyMgr);
+	Safe_AddRef(m_pCollisionMgr);
 }
 
 
 HRESULT CManagement::Ready_Engine(_uint iNumScenes)
 {
-	if (nullptr == m_pObject_Manager || 
+	if (nullptr == m_pObject_Manager ||
 		nullptr == m_pComponent_Manager)
 		return E_FAIL;
 
@@ -42,7 +44,7 @@ HRESULT CManagement::Ready_Engine(_uint iNumScenes)
 _int CManagement::Update_Engine(_double TimeDelta)
 {
 	if (nullptr == m_pScene_Manager ||
-		nullptr == m_pObject_Manager || 
+		nullptr == m_pObject_Manager ||
 		nullptr == m_pPipeLine)
 		return -1;
 
@@ -53,6 +55,13 @@ _int CManagement::Update_Engine(_double TimeDelta)
 	if (0x80000000 & m_pObject_Manager->Update_Object_Manager(TimeDelta))
 		return -1;
 
+	//Obj가 LateUpdate에서 콜리전매니저에 등록하기 때문에, 그 이후에 충돌체크해야한다.
+	//반대로 하면 오브젝트가 삭제될 경우 콜리전매니저에 dangling pointer가 생길것이다. 
+	if (FAILED(m_pCollisionMgr->CheckCollision()))
+	{
+		MSG_BOX("충돌처리 실패");
+		return -1;
+	}
 
 	if (FAILED(m_pPipeLine->Update_PipeLine()))
 		return -1;
@@ -92,7 +101,7 @@ HRESULT CManagement::Ready_Graphic_Device(HWND hWnd, CGraphic_Device::WINMODE eM
 	if (nullptr == m_pGraphic_Device)
 		return E_FAIL;
 
-	return m_pGraphic_Device->Ready_Graphic_Device(hWnd, eMode, iBackSizeX, iBackSizeY, ppGraphic_Device);	
+	return m_pGraphic_Device->Ready_Graphic_Device(hWnd, eMode, iBackSizeX, iBackSizeY, ppGraphic_Device);
 }
 
 #pragma endregion
@@ -104,7 +113,7 @@ HRESULT CManagement::Add_Timers(const _tchar * pTimerTag)
 	if (nullptr == m_pTimer_Manager)
 		return E_FAIL;
 
-	return m_pTimer_Manager->Add_Timers(pTimerTag);	
+	return m_pTimer_Manager->Add_Timers(pTimerTag);
 }
 
 _double CManagement::Compute_TimeDelta(const _tchar * pTimerTag)
@@ -190,7 +199,7 @@ HRESULT CManagement::Add_Component_Prototype(_uint eSceneID, const _tchar * pCom
 	if (nullptr == m_pComponent_Manager)
 		return E_FAIL;
 
-	return m_pComponent_Manager->Add_Component(eSceneID, pComponentTag, pComponent);	
+	return m_pComponent_Manager->Add_Component(eSceneID, pComponentTag, pComponent);
 }
 
 HRESULT CManagement::Clear_Component_Manager(_uint eSceneID)
@@ -226,6 +235,16 @@ HRESULT CManagement::Clear_Key_Manager(_uint eSceneID)
 	return m_pKeyMgr->ClearObservers(eSceneID);
 }
 
+HRESULT CManagement::Add_CollisionGroup(CCollisionMgr::COLLISION_GROUP eGroup, CGameObject * pCollider)
+{
+	return m_pCollisionMgr->Add_CollisionGroup(eGroup, pCollider);
+}
+
+HRESULT CManagement::CheckCollision()
+{
+	return m_pCollisionMgr->CheckCollision();
+}
+
 void CManagement::Release_Engine()
 {
 	if (0 != CManagement::Get_Instance()->Destroy_Instance())
@@ -233,6 +252,9 @@ void CManagement::Release_Engine()
 
 	if (0 != CKeyMgr::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CKeyMgr");
+
+	if (0 != CCollisionMgr::Get_Instance()->Destroy_Instance())
+		MSG_BOX("Failed To Release CCollisionMgr");
 
 	if (0 != CObject_Manager::Get_Instance()->Destroy_Instance())
 		MSG_BOX("Failed To Release CObject_Manager");
@@ -263,4 +285,5 @@ void CManagement::Free()
 	Safe_Release(m_pTimer_Manager);
 	Safe_Release(m_pKeyMgr);
 	Safe_Release(m_pGraphic_Device);
+	Safe_Release(m_pCollisionMgr);
 }

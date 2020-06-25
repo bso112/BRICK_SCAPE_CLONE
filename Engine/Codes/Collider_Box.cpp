@@ -6,7 +6,7 @@ CCollider_Box::CCollider_Box(PDIRECT3DDEVICE9 pGraphic_Device)
 }
 
 CCollider_Box::CCollider_Box(const CCollider_Box & rhs)
-	:CCollider(rhs)
+	: CCollider(rhs)
 {
 	memcpy(&m_vOriginalPoint, &rhs.m_vOriginalPoint, sizeof(_float3) * 8);
 	memcpy(&m_vCurrPoint, &rhs.m_vCurrPoint, sizeof(_float3) * 8);
@@ -22,7 +22,7 @@ HRESULT CCollider_Box::Ready_Component_Prototype()
 	m_vOriginalPoint[5] = _float3(0.5f, 0.5f, 0.5f);
 	m_vOriginalPoint[6] = _float3(0.5f, -0.5f, 0.5f);
 	m_vOriginalPoint[7] = _float3(-0.5f, -0.5f, 0.5f);
-	
+
 	memcpy(&m_vCurrPoint, &m_vOriginalPoint, sizeof(_float3) * 8);
 	return S_OK;
 }
@@ -52,6 +52,8 @@ HRESULT CCollider_Box::Render_Collider()
 
 _bool CCollider_Box::Check_Collision(CCollider* pTarget)
 {
+	if (!m_bEnable)
+		return false;
 	CCollider_Box* pOther = dynamic_cast<CCollider_Box*>(pTarget);
 	if (nullptr == pOther)
 	{

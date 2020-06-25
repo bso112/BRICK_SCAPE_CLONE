@@ -20,25 +20,41 @@ public:
 
 
 public:
+	//충돌리스트안에 있지만 죽은 오브젝트들을 리스트에서 제거한다.
+	void Clear_DeadObject();
 	bool Get_isCollided() { return m_bCollided; }
 	void Set_isCollided(bool _bCollided) { m_bCollided = _bCollided; }
 	//충돌한 오브젝트를 저장한다.
-	void Add_Collided(CGameObject* _pColided) { m_setCollided.insert(_pColided); }
+	void Add_Collided(CGameObject* _pColided) { m_listCollided.push_back(_pColided); }
 	//충돌한 오브젝트 셋의 사이즈를 가져온다.
-	size_t Get_CollidedSize() { return m_setCollided.size(); }
+	size_t Get_CollidedSize() { return m_listCollided.size(); }
 	//충돌한 오브젝트 셋에 _pCollied가 있는지 검사한다.
 	bool Contain_Collided(CGameObject* _pCollided)
 	{
-		return m_setCollided.find(_pCollided) != m_setCollided.end();
+		for (auto& go : m_listCollided)
+		{
+			if (go == _pCollided)
+				return true;
+		}
+		return false;
 	}
 
 	bool Erase_Collided(CGameObject* _pCollided)
 	{
-		//returns the number of elements removed
-		return m_setCollided.erase(_pCollided) ? true : false;
-
+		auto& iter = m_listCollided.begin();
+		while (iter != m_listCollided.end())
+		{
+			if (*iter == _pCollided)
+			{
+				iter = m_listCollided.erase(iter);
+				return true;
+			}
+			else
+				++iter;
+		}
+		return false;
 	}
-	void Set_Dead() { m_bDead = true;  }
+	void Set_Dead() { m_bDead = true; }
 	const bool& Get_Dead() const { return m_bDead; }
 
 protected:
@@ -56,7 +72,7 @@ protected:
 	_bool						m_bActive = true;
 	_bool						m_bDead = false;
 
-protected:	
+protected:
 	map<const _tchar*, CComponent*>			m_Components;
 	typedef map<const _tchar*, CComponent*>	COMPONENTS;
 
@@ -64,7 +80,7 @@ private:
 	//충돌했나
 	bool	m_bCollided = false;
 	//충돌한 오브젝트 셋
-	set<CGameObject*> m_setCollided;
+	list<CGameObject*> m_listCollided;
 
 public:
 	virtual CGameObject* Clone_GameObject(void* pArg) = 0;

@@ -23,7 +23,7 @@ HRESULT CGameObject::Ready_GameObject_Prototype()
 HRESULT CGameObject::Ready_GameObject(void * pArg)
 {
 
-		
+
 	return S_OK;
 }
 
@@ -43,6 +43,20 @@ HRESULT CGameObject::Render_GameObject()
 {
 
 	return S_OK;
+}
+
+void CGameObject::Clear_DeadObject()
+{
+	auto& iter = m_listCollided.begin();
+	while (iter != m_listCollided.end())
+	{
+		if ((*iter)->Get_Dead())
+		{
+			iter = m_listCollided.erase(iter);
+		}
+		else
+			++iter;
+	}
 }
 
 void CGameObject::OnCollisionEnter(CGameObject * _pOther)
@@ -87,7 +101,7 @@ CComponent * CGameObject::Find_Component(const _tchar * pComponentTag)
 {
 	auto	iter = find_if(m_Components.begin(), m_Components.end(), CFinder_Tag(pComponentTag));
 
-	if(iter == m_Components.end())		
+	if (iter == m_Components.end())
 		return nullptr;
 
 	return iter->second;

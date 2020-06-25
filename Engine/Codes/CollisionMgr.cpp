@@ -18,21 +18,30 @@ HRESULT CCollisionMgr::Ready_Component(void * pArg)
 	return S_OK;
 }
 
-HRESULT CCollisionMgr::Add_CollisionGroup(COLLISION_GROUP eGroup, CGameObject* pCollider)
+HRESULT CCollisionMgr::Add_CollisionGroup(COLLISION_GROUP eGroup, CGameObject* pGameObject)
 {
 	if (COL_END <= eGroup ||
-		nullptr == pCollider)
+		nullptr == pGameObject)
 		return E_FAIL;
 
-	m_CollisionGroup[eGroup].push_back(pCollider);
+	m_CollisionGroup[eGroup].push_back(pGameObject);
 
-	Safe_AddRef(pCollider);
+	Safe_AddRef(pGameObject);
 
 	return S_OK;
 }
 
 HRESULT CCollisionMgr::CheckCollision()
 {
+	//죽은 오브젝트들은 GameObject 안의 충돌list에서 제거한다.(콜리전매니저의 리스트에서 제거하는게 아니다!)
+	for (auto& group : m_CollisionGroup)
+	{
+		for (auto& go : group)
+		{
+			go->Clear_DeadObject();
+		}
+	}
+
 	if (FAILED(CheckCollision_Box()))
 		return E_FAIL;
 
@@ -42,16 +51,19 @@ HRESULT CCollisionMgr::CheckCollision()
 HRESULT CCollisionMgr::CheckCollision_Box()
 {
 
-
 	for (size_t i = 0; i < m_CollisionGroup[COL_BOX].size(); ++i)
 	{
 		for (size_t j = i + 1; j < m_CollisionGroup[COL_BOX].size(); ++j)
 		{
 			CGameObject* pSrc = m_CollisionGroup[COL_BOX][i];
 			CGameObject* pDst = m_CollisionGroup[COL_BOX][j];
-			
+
 			CCollider* pColliderA = (CCollider*)pSrc->Find_Component(L"Com_Collider");
 			CCollider* pColliderB = (CCollider*)pDst->Find_Component(L"Com_Collider");
+
+			if (nullptr == pColliderA ||
+				nullptr == pColliderB)
+				return E_FAIL;
 
 			if (pColliderA->Check_Collision(pColliderB))
 			{
