@@ -35,6 +35,8 @@ private:
 
 	_float Angle = 0.f;
 
+	_bool InitOnce = false;
+
 };
 
 END

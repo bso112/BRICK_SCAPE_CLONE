@@ -166,20 +166,48 @@ HRESULT CLoading::Loading_ForStageTwo()
 
 HRESULT CLoading::Loading_ForStageTree()
 {
-#pragma region GAMEOBJECT_PROTOTYPE
 	CManagement* pEngineMgr = CManagement::Get_Instance();
 	if (nullptr == pEngineMgr) return E_FAIL;
-	CGameManager*	pGameManager = CGameManager::Get_Instance();
-	if (nullptr == pGameManager) return E_FAIL;
+
+#pragma region MODULE
+
 
 #pragma endregion
 
+#pragma region GAMEOBJECT
 
-#pragma region MODULE_PROTOTYPE
+	CMyButton::STATEDESC btnDesc;
+	btnDesc.m_eSceneID = SCENE_STAGE3;
+	btnDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX >> 1, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+	btnDesc.m_iTextureSceneID = SCENE_STATIC;
+	btnDesc.m_pTextureTag = L"Component_Texture_Btn";
+
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE3, L"GameObject", &btnDesc)))
+		return E_FAIL;
+
+	CField::STATEDESC fieldDesc;
+	fieldDesc.iBrickNumX = 6;
+	fieldDesc.iBrickNumY = 6;
+	fieldDesc.iBrickNumZ = 6;
+	fieldDesc.eSceneID = SCENE_STAGE3;
+	fieldDesc.eWhereGoal = CField::WALL_FRONT;
+	fieldDesc.iGoalX = 1;
+	fieldDesc.iGoalY = 1;
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE3, L"Layer_Field", &fieldDesc)))
+		return E_FAIL;
+
+	CBackGround::STATEDESC tBackgroundDesc;
+	tBackgroundDesc.eTextureSceneID = SCENE_STATIC;
+	tBackgroundDesc.pTextureTag = L"Component_Texture_Background";
+	tBackgroundDesc.iTextureID = 2;
+	tBackgroundDesc.tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f), _float3((_float)g_iWinSizeX, (_float)g_iWinSizeY, 1.f));
+
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Background", SCENE_STAGE3, L"Layer_Background", &tBackgroundDesc)))
+		return E_FAIL;
 
 #pragma endregion
 
-	pGameManager->Set_CurrentLevel(2);
+	CGameManager::Get_Instance()->Set_CurrentLevel(2);
 
 	m_isFinished = true;
 
@@ -188,20 +216,48 @@ HRESULT CLoading::Loading_ForStageTree()
 
 HRESULT CLoading::Loading_ForStageFour()
 {
-#pragma region GAMEOBJECT_PROTOTYPE
 	CManagement* pEngineMgr = CManagement::Get_Instance();
 	if (nullptr == pEngineMgr) return E_FAIL;
-	CGameManager*	pGameManager = CGameManager::Get_Instance();
-	if (nullptr == pGameManager) return E_FAIL;
+
+#pragma region MODULE
+
 
 #pragma endregion
 
+#pragma region GAMEOBJECT
 
-#pragma region MODULE_PROTOTYPE
+	CMyButton::STATEDESC btnDesc;
+	btnDesc.m_eSceneID = SCENE_STAGE4;
+	btnDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX >> 1, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+	btnDesc.m_iTextureSceneID = SCENE_STATIC;
+	btnDesc.m_pTextureTag = L"Component_Texture_Btn";
+
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE4, L"GameObject", &btnDesc)))
+		return E_FAIL;
+
+	CField::STATEDESC fieldDesc;
+	fieldDesc.iBrickNumX = 6;
+	fieldDesc.iBrickNumY = 6;
+	fieldDesc.iBrickNumZ = 6;
+	fieldDesc.eSceneID = SCENE_STAGE4;
+	fieldDesc.eWhereGoal = CField::WALL_FRONT;
+	fieldDesc.iGoalX = 1;
+	fieldDesc.iGoalY = 1;
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE4, L"Layer_Field", &fieldDesc)))
+		return E_FAIL;
+
+	CBackGround::STATEDESC tBackgroundDesc;
+	tBackgroundDesc.eTextureSceneID = SCENE_STATIC;
+	tBackgroundDesc.pTextureTag = L"Component_Texture_Background";
+	tBackgroundDesc.iTextureID = 2;
+	tBackgroundDesc.tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f), _float3((_float)g_iWinSizeX, (_float)g_iWinSizeY, 1.f));
+
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Background", SCENE_STAGE4, L"Layer_Background", &tBackgroundDesc)))
+		return E_FAIL;
 
 #pragma endregion
 
-	pGameManager->Set_CurrentLevel(3);
+	CGameManager::Get_Instance()->Set_CurrentLevel(3);
 
 	m_isFinished = true;
 

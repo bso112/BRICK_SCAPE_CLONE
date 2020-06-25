@@ -7,6 +7,7 @@
 #include "Scene_Stage3.h"
 #include "Scene_Stage4.h"
 #include "Camera_Free.h"
+#include "BackGround.h"
 
 CScene_Loading::CScene_Loading(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)
@@ -133,8 +134,14 @@ HRESULT CScene_Loading::Ready_Layer_BackGround(const _tchar * pLayerTag)
 
 	Safe_AddRef(pManagement);
 
-	//if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_BackGround", SCENE_LOADING, pLayerTag)))
-	//	return E_FAIL;
+	CBackGround::STATEDESC tBackgroundDesc;
+	tBackgroundDesc.eTextureSceneID = SCENE_STATIC;
+	tBackgroundDesc.pTextureTag = L"Component_Texture_Background";
+	tBackgroundDesc.iTextureID = 2;
+	tBackgroundDesc.tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f), _float3((_float)g_iWinSizeX, (_float)g_iWinSizeY, 1.f));
+
+	if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Background", SCENE_LOADING, L"Layer_Background", &tBackgroundDesc)))
+		return E_FAIL;
 
 	Safe_Release(pManagement);
 
@@ -156,6 +163,8 @@ CScene_Loading * CScene_Loading::Create(PDIRECT3DDEVICE9 pGraphic_Device, SCENEI
 void CScene_Loading::Free()
 {
 	Safe_Release(m_pLoading);
+
+	CManagement::Get_Instance()->Clear_Object_Manager(SCENE_LOADING);
 
 	CScene::Free();
 }

@@ -55,6 +55,11 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 		fDir = CurMousePos - OldMousePos;
 
 		OldMousePos = CurMousePos;
+		if (false == InitOnce)
+		{
+			fDir = _float3(0.f, 0.f, 0.f);
+			InitOnce = true;
+		}
 	}
 
 	return CCamera::Update_GameObject(TimeDelta);
