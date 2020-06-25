@@ -30,9 +30,10 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return E_FAIL;
 
+
 #pragma region 필드만들기
-	_float3 vFieldPos = m_tDesc.tBaseDesc.vPos;
-	_float3	vFieldSize = m_tDesc.tBaseDesc.vSize;
+	_float3 vFieldPos = _float3(0.f, 0.f, 0.f);
+	_float3	vFieldSize = _float3(m_tDesc.iBrickNumX + BRICK_MARGIN * (m_tDesc.iBrickNumX + 1), m_tDesc.iBrickNumY + BRICK_MARGIN * (m_tDesc.iBrickNumY + 1), m_tDesc.iBrickNumZ + BRICK_MARGIN * (m_tDesc.iBrickNumZ + 1));
 	CWall::STATEDESC tWallDesc;
 	tWallDesc.eTextureSceneID = SCENE_STATIC;
 	tWallDesc.pTextureTag = L"Component_Texture_Wall";
@@ -116,6 +117,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	desc.pTextureTag = L"Component_Texture_Goal";
 	desc.iTextureID = 0;
 	desc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(1.f, 1.f, 0.01f));
+	desc.eSceneID = m_tDesc.eSceneID;
 	pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Goal", m_tDesc.eSceneID, L"Layer_Goal", &desc);
 
 

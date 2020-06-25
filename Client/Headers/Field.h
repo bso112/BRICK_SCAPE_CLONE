@@ -5,6 +5,7 @@
 #include "Client_Defines.h"
 
 BEGIN(Client)
+#define BRICK_MARGIN 0.05f
 class CWall;
 class CGoal;
 class CField : public CGameObject
@@ -12,10 +13,10 @@ class CField : public CGameObject
 public:
 	typedef struct tagStatedesc
 	{
-		BASEDESC	tBaseDesc;
 		SCENEID		eSceneID = SCENE_END;
 		_uint		iBrickNumX = 0;
 		_uint		iBrickNumY = 0;
+		_uint		iBrickNumZ = 0;
 	}STATEDESC;
 protected:
 	explicit CField(PDIRECT3DDEVICE9 pGraphic_Device);

@@ -109,19 +109,19 @@ HRESULT CGoal::Render_GameObject()
 
 void CGoal::OnCollisionEnter(CGameObject * _pOther)
 {
-	//CBrick* pBrick = dynamic_cast<CBrick*>(_pOther);
-	//if (nullptr != pBrick)
-	//{
-	//	if (pBrick->IsPlayer())
-	//	{
-	//		CManagement* pManagement = CManagement::Get_Instance();
-	//		if (nullptr == pManagement) return;
+	CBrick* pBrick = dynamic_cast<CBrick*>(_pOther);
+	if (nullptr != pBrick)
+	{
+		if (pBrick->IsPlayer())
+		{
+			CManagement* pManagement = CManagement::Get_Instance();
+			if (nullptr == pManagement) return;
 
-	//		if (nullptr == pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_GameEndPanel", m_tDesc.eSceneID, L"Layer_UI"))
-	//			return;
+			if (nullptr == pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_GameEndPanel", m_tDesc.eSceneID, L"Layer_UI"))
+				return;
 
-	//	}
-	//}
+		}
+	}
 
 }
 
