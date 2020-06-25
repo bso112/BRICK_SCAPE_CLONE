@@ -57,9 +57,11 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 
 _int CBrick::Update_GameObject(_double TimeDelta)
 {
+	if(m_bIsPick == true)
+		CGameManager::Get_Instance()->Set_PickObject(true);
 
-	CGameManager::Get_Instance()->Set_PickObject(true);
-
+	if (m_bIsPick)
+		MoveToMouseDrag();
 
 	if (0.0 < m_tDesc.m_dStartFall)
 		m_tDesc.m_dStartFall -= TimeDelta;
@@ -130,8 +132,28 @@ HRESULT CBrick::Render_GameObject()
 
 HRESULT CBrick::OnKeyDown(_int KeyCode)
 {
+	if (VK_LBUTTON == KeyCode)
+	{
+		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
+			m_bIsPick = true;
+		else
+			m_bIsPick = false;
+	}
+
 	return S_OK;
 }
+
+HRESULT CBrick::OnKeyUp(_int KeyCode)
+{
+	if (VK_LBUTTON == KeyCode)
+	{
+		m_bIsPick = false;
+	}
+
+	return S_OK;
+}
+
+
 
 HRESULT CBrick::MoveToMouseDrag()
 {
@@ -174,7 +196,31 @@ HRESULT CBrick::MoveToMouseDrag()
 	D3DXVec3TransformNormal(&vMouseRay, &vMouseRay, &ViewMatrix);
 
 	D3DXVec3Normalize(&vMouseRay, & vMouseRay);
-	m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f) ); 
+
+	/*if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+	{
+		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+	{
+		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+	{
+		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
+	}*/
+
+	_float X = (vMousePivot + (vMouseRay * 10.f )).x;
+	_float Y = (vMousePivot + (vMouseRay * 10.f )).y;
+	_float Z = (vMousePivot + (vMouseRay * 10.f )).z;
+
+	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+		m_pTransform->SetUp_Position(_float3(X, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, Y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+	else if(m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, Z));
+
 
 	Safe_Release(pManagement);
 

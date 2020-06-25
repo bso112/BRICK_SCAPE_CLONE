@@ -35,6 +35,7 @@ public:
 	virtual HRESULT Render_GameObject();
 public:
 	virtual HRESULT	OnKeyDown(_int KeyCode);
+	virtual HRESULT	OnKeyUp(_int KeyCode);
 private:
 	CTransform*		m_pTransform = nullptr;
 	CVIBuffer*		m_pVIBuffer = nullptr;
@@ -50,9 +51,11 @@ private:
 	_float3 CurMousePos;
 	_float3 OldMousePos;
 	_float3	fDir;
+
+private:
+	_bool	m_bIsPick = false;
 private:
 	HRESULT	MoveToMouseDrag();
-
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);

@@ -38,7 +38,7 @@ _int CMainApp::Update_MainApp(_double TimeDelta)
 {
 	if (nullptr == m_pManagement)
 		return -1;
-
+	CGameManager::Get_Instance()->Set_PickObject(false);
 	return m_pManagement->Update_Engine(TimeDelta);
 }
 

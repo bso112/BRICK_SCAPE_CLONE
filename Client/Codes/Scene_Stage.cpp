@@ -48,6 +48,8 @@ _int CScene_Stage::Update_Scene(_double TimeDelta)
 
 
 	CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON, SCENE_STAGE);
+	CKeyMgr::Get_Instance()->Key_Up(VK_LBUTTON, SCENE_STAGE);
+
 	CKeyMgr::Get_Instance()->Key_Update();
 
 	return _int();

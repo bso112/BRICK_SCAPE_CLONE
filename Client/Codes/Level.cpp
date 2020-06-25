@@ -43,6 +43,7 @@ HRESULT CLevel::Ready_Level_One()
 	brickDesc.eTextureSceneID = SCENE_STATIC;
 	brickDesc.iTextureID = 0;
 	brickDesc.pTextureTag = L"Component_Texture_Brick";
+	brickDesc.m_vAxis = _float3(0.f, 0.f, 1.f);
 	m_Bricks.emplace_back((CBrick*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc));
 	Safe_AddRef(m_Bricks.back());
 
@@ -54,6 +55,7 @@ HRESULT CLevel::Ready_Level_One()
 	brickDesc.eTextureSceneID = SCENE_STATIC;
 	brickDesc.iTextureID = 0;
 	brickDesc.pTextureTag = L"Component_Texture_Brick";
+	brickDesc.m_vAxis = _float3(0.f, 1.f, 0.f);
 	m_Bricks.emplace_back((CBrick*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc));
 	Safe_AddRef(m_Bricks.back());
 
