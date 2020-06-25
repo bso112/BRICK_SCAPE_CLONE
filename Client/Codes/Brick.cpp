@@ -2,10 +2,10 @@
 #include "..\Headers\Brick.h"
 #include "KeyMgr.h"
 #include "GameManager.h"
-
+#include "Camera_Free.h"
 USING(Client)
 
-_float CBrick::ZBuffer = 0.f;
+_float CBrick::ZBuffer = 999999.f;
 
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
@@ -84,7 +84,7 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 
 	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
 
-	if(true == m_bIsDoneIntro)
+	if(true == m_bIsDoneIntro && !(CGameManager::Get_Instance()->Get_IsGoal()))
 		MoveLimitXY();
 
 
@@ -142,10 +142,16 @@ HRESULT CBrick::Render_GameObject()
 
 HRESULT CBrick::OnKeyDown(_int KeyCode)
 {
+
 	if (VK_LBUTTON == KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
 		{
+			CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
+			CameraDis = Camera->GetCameraDistance(m_pTransform->Get_State(CTransform::STATE_POSITION));
+			if (ZBuffer >= CameraDis)
+				ZBuffer = CameraDis;
+
 			m_bIsPick = true;
 		}
 		else
@@ -160,6 +166,7 @@ HRESULT CBrick::OnKeyUp(_int KeyCode)
 	if (VK_LBUTTON == KeyCode)
 	{
 		m_bIsPick = false;
+		ZBuffer = 9999.f;
 	}
 
 	return S_OK;
@@ -173,6 +180,11 @@ void CBrick::OnCollisionStay(CGameObject * _pOther)
 {
 	if (false == m_bIsPick)
 		return;
+
+	if (CGameManager::Get_Instance()->Get_IsGoal())
+		return;
+
+
 	CTransform* TargetTransform = (CTransform*)_pOther->Find_Component(L"Com_Transform");
 
 	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
@@ -242,19 +254,6 @@ HRESULT CBrick::MoveToMouseDrag()
 
 	D3DXVec3Normalize(&vMouseRay, & vMouseRay);
 
-	/*if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
-	{
-		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
-	}
-	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
-	{
-		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
-	}
-	else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
-	{
-		m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f));
-	}*/
-
 	_float X = (vMousePivot + (vMouseRay * 10.f )).x;
 	_float Y = (vMousePivot + (vMouseRay * 10.f )).y;
 	_float Z = (vMousePivot + (vMouseRay * 10.f )).z;
@@ -272,7 +271,7 @@ HRESULT CBrick::MoveToMouseDrag()
 
 		OldMousePos = CurMousePos;
 	}
-	if (m_bIsPick)
+	if (m_bIsPick && (ZBuffer == CameraDis))
 	{
 		if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
 			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x + fDir.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
@@ -281,7 +280,6 @@ HRESULT CBrick::MoveToMouseDrag()
 		else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
 			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z + fDir.z));
 	}
-
 
 	Safe_Release(pManagement);
 

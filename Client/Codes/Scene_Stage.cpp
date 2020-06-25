@@ -5,6 +5,7 @@
 #include "KeyMgr.h"
 #include "MyButton.h"
 #include "GameManager.h"
+#include "Brick.h"
 
 CScene_Stage::CScene_Stage(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CScene(pGraphic_Device)

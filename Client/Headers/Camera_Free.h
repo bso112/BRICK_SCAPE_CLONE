@@ -12,6 +12,9 @@ private:
 	explicit CCamera_Free(const CCamera_Free& rhs);
 	virtual ~CCamera_Free() = default; 
 public:
+	_float GetCameraDistance(_float3 Pos);
+
+public:
 	virtual HRESULT Ready_GameObject_Prototype();
 	virtual HRESULT Ready_GameObject(void* pArg);
 	virtual _int Update_GameObject(_double TimeDelta);

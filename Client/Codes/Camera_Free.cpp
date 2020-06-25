@@ -13,6 +13,13 @@ CCamera_Free::CCamera_Free(const CCamera_Free & rhs)
 
 }
 
+_float CCamera_Free::GetCameraDistance(_float3 Pos)
+{
+	_float3 DirVec = Pos - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+
+	return D3DXVec3Length(&DirVec);
+}
+
 HRESULT CCamera_Free::Ready_GameObject_Prototype()
 {
 	return S_OK;
@@ -50,9 +57,13 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 		OldMousePos = CurMousePos;
 	}
 
-	if (!(CGameManager::Get_Instance()->Get_IsGameStart()) || CGameManager::Get_Instance()->Get_IsPickObject())
-		return CCamera::Update_GameObject(TimeDelta);
+	return CCamera::Update_GameObject(TimeDelta);
+}
 
+_int CCamera_Free::Late_Update_GameObject(_double TimeDelta)
+{
+	if (!(CGameManager::Get_Instance()->Get_IsGameStart()) || CGameManager::Get_Instance()->Get_IsPickObject())
+		return CCamera::Late_Update_GameObject(TimeDelta);
 
 	_float3		vRight, vUp, vLook;
 
@@ -125,11 +136,7 @@ _int CCamera_Free::Update_GameObject(_double TimeDelta)
 	m_vDirVec = vLook;
 	fDir = _float3(0.f, 0.f, 0.f);
 
-	return CCamera::Update_GameObject(TimeDelta);
-}
 
-_int CCamera_Free::Late_Update_GameObject(_double TimeDelta)
-{
 	return CCamera::Late_Update_GameObject(TimeDelta);
 }
 

@@ -51,7 +51,6 @@ _int CManagement::Update_Engine(_double TimeDelta)
 	if (0x80000000 & m_pScene_Manager->Update_CurrentScene(TimeDelta))
 		return -1;
 
-
 	if (0x80000000 & m_pObject_Manager->Update_Object_Manager(TimeDelta))
 		return -1;
 

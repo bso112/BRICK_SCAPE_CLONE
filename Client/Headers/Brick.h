@@ -39,6 +39,7 @@ public:
 
 public:
 	_bool	IsPlayer() { return m_tDesc.bPlayer; }
+	static void Set_ZBuffer(_float Z) { ZBuffer = Z; }
 
 public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);
@@ -66,7 +67,10 @@ private:
 private:
 	HRESULT	MoveToMouseDrag();
 	HRESULT	MoveLimitXY();
+
+private:
 	static _float ZBuffer;
+	_float	CameraDis;
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);
