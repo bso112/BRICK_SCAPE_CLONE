@@ -5,6 +5,8 @@
 #include "Client_Defines.h"
 
 BEGIN(Client)
+class CWall;
+class CImage3D;
 class CGoal : public CGameObject
 {
 public:
@@ -39,6 +41,7 @@ private:
 	CRenderer*	m_pRenderer = nullptr;
 	CShader*		m_pShader = nullptr;
 	CCollider_Box*	m_pBoxCollider = nullptr;
+	CImage3D*		m_pLight[4];
 
 private:
 	STATEDESC	m_tDesc;

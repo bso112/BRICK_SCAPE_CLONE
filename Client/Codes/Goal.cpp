@@ -2,6 +2,8 @@
 #include "..\Headers\Goal.h"
 #include "Brick.h"
 #include "GameManager.h"
+#include "Wall.h"
+#include "Image3D.h"
 
 CGoal::CGoal(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
@@ -45,7 +47,80 @@ HRESULT CGoal::Ready_GameObject(void * pArg)
 	m_pTransform->SetUp_Position(m_tDesc.tBaseDesc.vPos);
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
 
+	_float3 vGoalPos = m_tDesc.tBaseDesc.vPos;
+	_float3 vGoalSize = m_tDesc.tBaseDesc.vSize;
+	
+	
+	CManagement* pManagment = CManagement::Get_Instance();
+	if (nullptr == pManagment) return E_FAIL;
 
+	CTransform* pLightTransform = nullptr;
+	CGameObject* pLightImage = nullptr;
+
+	CImage3D::STATEDESC tImgDesc;
+	tImgDesc.eTextureSceneID = SCENE_STATIC;
+	tImgDesc.pTextureTag = L"Component_Texture_Goal";
+	tImgDesc.iTextureID = 1;
+	tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x + vGoalSize.x * 0.5f, vGoalPos.y, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+	
+	if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+		return E_FAIL;
+
+	pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	if (nullptr == pLightTransform) return E_FAIL;
+	pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
+
+
+	tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x - vGoalSize.x * 0.5f, vGoalPos.y, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+
+	if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+		return E_FAIL;
+
+	pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	if (nullptr == pLightTransform) return E_FAIL;
+	pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
+
+
+
+
+	//tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y + vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+
+	//if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+	//	return E_FAIL;
+
+	//pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	//if (nullptr == pLightTransform) return E_FAIL;
+	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+	//pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
+	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+
+
+
+
+
+
+
+	//tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y - vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+
+	//if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+	//	return E_FAIL;
+
+	//pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	//if (nullptr == pLightTransform) return E_FAIL;
+	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+	//pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
+
+
+
+
+
+
+
+
+
+
+
+	
 	return S_OK;
 }
 

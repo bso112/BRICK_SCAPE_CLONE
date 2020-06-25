@@ -11,6 +11,7 @@
 #include "Goal.h"
 #include "MyImage.h"
 #include "GameEndPanel.h"
+#include "Image3D.h"
 USING(Client)
 
 CMainApp::CMainApp()
@@ -31,7 +32,7 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Default_GameObject()))
 		return E_FAIL;
 
-	if (FAILED(Ready_Start_Scene(SCENE_STAGE)))
+	if (FAILED(Ready_Start_Scene(SCENE_STAGE4)))
 		return E_FAIL;
 
 	return S_OK;
@@ -135,6 +136,9 @@ HRESULT CMainApp::Ready_Default_GameObject()
 		return E_FAIL;
 
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_GameEndPanel", CGameEndPanel::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Image3D", CImage3D::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
 
