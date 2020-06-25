@@ -236,9 +236,9 @@ HRESULT CLoading::Loading_ForStageFour()
 		return E_FAIL;
 
 	CField::STATEDESC fieldDesc;
-	fieldDesc.iBrickNumX = 6;
-	fieldDesc.iBrickNumY = 6;
-	fieldDesc.iBrickNumZ = 6;
+	fieldDesc.iBrickNumX = 5;
+	fieldDesc.iBrickNumY = 5;
+	fieldDesc.iBrickNumZ = 5;
 	fieldDesc.eSceneID = SCENE_STAGE4;
 	fieldDesc.eWhereGoal = CField::WALL_FRONT;
 	fieldDesc.iGoalX = 1;
