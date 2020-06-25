@@ -60,8 +60,7 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 	if(m_bIsPick == true)
 		CGameManager::Get_Instance()->Set_PickObject(true);
 
-	if (m_bIsPick)
-		MoveToMouseDrag();
+	MoveToMouseDrag();
 
 	if (0.0 < m_tDesc.m_dStartFall)
 		m_tDesc.m_dStartFall -= TimeDelta;
@@ -89,8 +88,10 @@ _int CBrick::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer) return -1;
 	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
+
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return -1;
+	//if(true == m_bIsDoneIntro)
 	pManagement->Add_CollisionGroup(CCollisionMgr::COL_BOX, this);
 	return 0;
 }
@@ -158,7 +159,37 @@ HRESULT CBrick::OnKeyUp(_int KeyCode)
 
 void CBrick::OnCollisionEnter(CGameObject * _pOther)
 {
-	int i = 0; 
+}
+
+void CBrick::OnCollisionStay(CGameObject * _pOther)
+{
+	if (false == m_bIsPick)
+		return;
+	CTransform* TargetTransform = (CTransform*)_pOther->Find_Component(L"Com_Transform");
+
+	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).x < TargetTransform->Get_State(CTransform::STATE_POSITION).x)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x - m_pBoxCollider->Get_CollDistance().x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).x > TargetTransform->Get_State(CTransform::STATE_POSITION).x)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x + m_pBoxCollider->Get_CollDistance().x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).y < TargetTransform->Get_State(CTransform::STATE_POSITION).y)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - m_pBoxCollider->Get_CollDistance().y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).y > TargetTransform->Get_State(CTransform::STATE_POSITION).y)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y + m_pBoxCollider->Get_CollDistance().y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).z < TargetTransform->Get_State(CTransform::STATE_POSITION).z)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z - m_pBoxCollider->Get_CollDistance().z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).z > TargetTransform->Get_State(CTransform::STATE_POSITION).z)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z + m_pBoxCollider->Get_CollDistance().z));
+	}
+
 }
 
 HRESULT CBrick::MoveToMouseDrag()
@@ -220,12 +251,28 @@ HRESULT CBrick::MoveToMouseDrag()
 	_float Y = (vMousePivot + (vMouseRay * 10.f )).y;
 	_float Z = (vMousePivot + (vMouseRay * 10.f )).z;
 
-	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
-		m_pTransform->SetUp_Position(_float3(X, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
-	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
-		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, Y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
-	else if(m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
-		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, Z));
+	CurMousePos = _float3(X, Y, Z);
+	if (false == OldSetOnece)
+	{
+		OldMousePos = CurMousePos;
+		OldSetOnece = true;
+	}
+	fDir = _float3(0.f, 0.f, 0.f);
+	if (OldMousePos != CurMousePos)
+	{
+		fDir = CurMousePos - OldMousePos;
+
+		OldMousePos = CurMousePos;
+	}
+	if (m_bIsPick)
+	{
+		if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x + fDir.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y + fDir.y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z + fDir.z));
+	}
 
 
 	Safe_Release(pManagement);

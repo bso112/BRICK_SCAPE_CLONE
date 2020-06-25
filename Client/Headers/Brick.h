@@ -39,6 +39,7 @@ public:
 
 public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionStay(CGameObject* _pOther);
 private:
 	CTransform*		m_pTransform = nullptr;
 	CVIBuffer*		m_pVIBuffer = nullptr;
@@ -54,6 +55,8 @@ private:
 	_float3 CurMousePos;
 	_float3 OldMousePos;
 	_float3	fDir;
+
+	_bool OldSetOnece = false;
 
 private:
 	_bool	m_bIsPick = false;

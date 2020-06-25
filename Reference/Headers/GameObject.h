@@ -20,6 +20,7 @@ public:
 
 
 public:
+	//충돌리스트안에 있지만 죽은 오브젝트들을 리스트에서 제거한다.
 	void Clear_DeadObject();
 	bool Get_isCollided() { return m_bCollided; }
 	void Set_isCollided(bool _bCollided) { m_bCollided = _bCollided; }
@@ -75,7 +76,7 @@ protected:
 	map<const _tchar*, CComponent*>			m_Components;
 	typedef map<const _tchar*, CComponent*>	COMPONENTS;
 
-private:
+protected:
 	//충돌했나
 	bool	m_bCollided = false;
 	//충돌한 오브젝트 셋

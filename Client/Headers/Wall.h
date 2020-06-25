@@ -22,7 +22,9 @@ protected:
 	explicit CWall(PDIRECT3DDEVICE9 pGraphic_Device);
 	explicit CWall(const CWall& rhs);
 	virtual ~CWall() = default;
-
+public:
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+	virtual void OnCollisionStay(CGameObject* _pOther);
 
 public:
 	virtual HRESULT Ready_GameObject_Prototype();
@@ -32,11 +34,13 @@ public:
 	virtual HRESULT Render_GameObject();
 
 private:
-	CTransform*	m_pTransform = nullptr;
-	CVIBuffer*	m_pVIBuffer = nullptr;
-	CTexture*	m_pTexture = nullptr;
-	CRenderer*	m_pRenderer = nullptr;
-	CShader*	m_pShader = nullptr;
+	CTransform*		m_pTransform = nullptr;
+	CVIBuffer*		m_pVIBuffer = nullptr;
+	CTexture*		m_pTexture = nullptr;
+	CRenderer*		m_pRenderer = nullptr;
+	CShader*		m_pShader = nullptr;
+
+	CCollider_Box*	m_pBoxCollider = nullptr;
 
 private:
 	STATEDESC	m_tDesc;

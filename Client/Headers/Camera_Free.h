@@ -28,6 +28,8 @@ private:
 	_float3 OldMousePos;
 	_float3	fDir;
 
+	_float	fCameraZommDist = 10.f;
+
 	_float Angle = 0.f;
 
 };

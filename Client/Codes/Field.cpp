@@ -38,7 +38,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	CTransform* pTransform = nullptr;
 
 	//¿ÞÂÊ ¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x - vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x - vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
@@ -50,7 +50,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	//¿À¸¥ÂÊ¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x + vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x + vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
@@ -62,7 +62,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	//¾Õ¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
@@ -72,7 +72,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	//µÞ¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z + vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z + vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
@@ -81,7 +81,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	if (nullptr == (m_Walls[3] = dynamic_cast<CWall*>(pWall)))
 		return E_FAIL;
 	//À­¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y + vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y + vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
@@ -93,7 +93,7 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 
 	//¹Ø¸é
-	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y - vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 1.f));
+	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y - vFieldSize.y * 0.5f, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
 	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
