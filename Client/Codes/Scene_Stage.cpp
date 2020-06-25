@@ -38,7 +38,7 @@ HRESULT CScene_Stage::Ready_Scene()
 	
 	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
 	CMyButton* Btn = (CMyButton*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"GameObject");
-	Btn->Add_Listener([=]() { Camera->Set_DestCameraFovy(D3DXToRadian(60.f)); CGameManager::Get_Instance()->Set_IsGameStart(true);  });
+	Btn->Add_Listener([=]() { Camera->Set_DestCameraFovy(D3DXToRadian(60.f)); CGameManager::Get_Instance()->Set_IsGameStart(true);  Btn->Set_Dead(); });
 
 
 	return S_OK;
@@ -80,7 +80,6 @@ CScene_Stage * CScene_Stage::Create(PDIRECT3DDEVICE9 pGraphic_Device)
 
 void CScene_Stage::Free()
 {
-
 
 	CScene::Free();
 }

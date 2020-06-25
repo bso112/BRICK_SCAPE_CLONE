@@ -37,7 +37,7 @@ HRESULT CLevel::Ready_Level_One()
 
 	CBrick::STATEDESC brickDesc;
 	brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, -2.5f);
-	brickDesc.tBaseDesc.vSize = _float3(1.f, 3.f, 1.f);
+	brickDesc.tBaseDesc.vSize = _float3(1.f, 6.f, 1.f);
 	brickDesc.m_dStartFall = 0.2;
 	brickDesc.eSceneID = SCENE_STAGE;
 	brickDesc.eTextureSceneID = SCENE_STATIC;
@@ -47,7 +47,7 @@ HRESULT CLevel::Ready_Level_One()
 	m_Bricks.emplace_back((CBrick*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Brick", SCENE_STAGE, L"GameObject", &brickDesc));
 	Safe_AddRef(m_Bricks.back());
 
-	brickDesc.tBaseDesc.vPos = _float3(0.f, 0.f, 0.f);
+	brickDesc.tBaseDesc.vPos = _float3(1.f, 1.f, 0.f);
 	brickDesc.tBaseDesc.vSize = _float3(1.f, 1.f, 2.f);
 	brickDesc.m_dStartFall = 0.5;
 	brickDesc.eSceneID = SCENE_STAGE;

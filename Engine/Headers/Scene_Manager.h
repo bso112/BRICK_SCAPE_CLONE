@@ -11,11 +11,13 @@ private:
 	explicit CScene_Manager();
 	virtual ~CScene_Manager() = default;
 public:
-	HRESULT SetUp_CurrentScene(CScene* pCurrentScene);
+	HRESULT SetUp_CurrentScene(CScene* pCurrentScene, _uint _iSceneID);
 	_int Update_CurrentScene(_double TimeDelta);
 	HRESULT Render_CurrentScene();
+	_uint	Get_CurrScene();
 private:
 	CScene*			m_pCurrentScene = nullptr;
+	_uint			m_iCurrScene = 0;
 public:
 	virtual void Free();
 };

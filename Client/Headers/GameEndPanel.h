@@ -24,7 +24,7 @@ private:
 	STATEDESC		m_tDesc;
 	CMyImage*		m_pWinBanner = nullptr;
 	CMyButton*		m_pNextStageBtn = nullptr;
-
+	_bool			m_bSceneChange = false;
 
 public:
 	virtual HRESULT Ready_GameObject_Prototype();

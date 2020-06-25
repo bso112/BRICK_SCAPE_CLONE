@@ -81,6 +81,7 @@ PS_OUT PS_GOAL(PS_IN In/*ÇÈ¼¿*/)
 	PS_OUT	Out = (PS_OUT)0;
 
 	Out.vColor = tex2D(BaseSampler, In.vTexUV);
+	
 	return Out;
 }
 
