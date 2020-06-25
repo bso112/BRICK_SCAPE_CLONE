@@ -7,7 +7,7 @@
 BEGIN(Engine)
 
 class CGameObject;
-class ENGINE_DLL CCollisionMgr final : public CBase
+class  ENGINE_DLL CCollisionMgr final : public CBase
 {
 	DECLARE_SINGLETON(CCollisionMgr)
 public:
@@ -25,11 +25,12 @@ public:
 private:
 	HRESULT	CheckCollision_Box();
 
+
 private:
 	vector<CGameObject*>			m_CollisionGroup[COL_END];
 	typedef vector<CGameObject*>	COLLISIONVECTOR;
 
-	
+
 public:
 	virtual void Free();
 };

@@ -13,6 +13,7 @@
 #include "Collider_Rect.h"
 #include "Collider_Box.h"
 #include "KeyMgr.h"
+#include "CollisionMgr.h"
 
 BEGIN(Engine)
 
@@ -66,12 +67,17 @@ public:
 
 
 #pragma region PIPELINE
-	_matrix Get_Transform(D3DTRANSFORMSTATETYPE eType);	
+	_matrix Get_Transform(D3DTRANSFORMSTATETYPE eType);
 	_float3 Get_CamPosition();
 #pragma endregion
 
 #pragma region KeyMgr
 	HRESULT		Clear_Key_Manager(_uint	eSceneID);
+#pragma endregion
+
+#pragma region CollisionMgr
+	HRESULT		Add_CollisionGroup(CCollisionMgr::COLLISION_GROUP eGroup, CGameObject* pCollider);
+	HRESULT		CheckCollision();
 #pragma endregion
 
 public:
@@ -85,6 +91,7 @@ private:
 	CComponent_Manager*	m_pComponent_Manager = nullptr;
 	CPipeLine*			m_pPipeLine = nullptr;
 	CKeyMgr*			m_pKeyMgr = nullptr;
+	CCollisionMgr*		m_pCollisionMgr = nullptr;
 
 
 public:

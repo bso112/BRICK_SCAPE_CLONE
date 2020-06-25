@@ -87,6 +87,9 @@ _int CBrick::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer) return -1;
 	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
+	CManagement* pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement) return -1;
+	pManagement->Add_CollisionGroup(CCollisionMgr::COL_BOX, this);
 	return 0;
 }
 
@@ -131,6 +134,11 @@ HRESULT CBrick::Render_GameObject()
 HRESULT CBrick::OnKeyDown(_int KeyCode)
 {
 	return S_OK;
+}
+
+void CBrick::OnCollisionEnter(CGameObject * _pOther)
+{
+	int i = 0;
 }
 
 HRESULT CBrick::MoveToMouseDrag()

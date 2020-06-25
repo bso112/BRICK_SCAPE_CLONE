@@ -14,20 +14,20 @@ CCollider::CCollider(PDIRECT3DDEVICE9 pGraphic_Device)
 CCollider::CCollider(const CCollider & rhs)
 	: CComponent(rhs)
 	, m_pPipeLine(rhs.m_pPipeLine)
-{	
+{
 	Safe_AddRef(m_pPipeLine);
 }
 
 HRESULT CCollider::Ready_Component_Prototype()
 {
-	
+
 
 	return S_OK;
 }
 
 HRESULT CCollider::Ready_Component(void * pArg)
 {
-	
+
 
 	return S_OK;
 }
