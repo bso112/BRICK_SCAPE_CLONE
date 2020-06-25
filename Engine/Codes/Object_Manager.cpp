@@ -104,8 +104,11 @@ _int CObject_Manager::Update_Object_Manager(_double TimeDelta)
 		{
 			if (nullptr != Pair.second)
 			{
-				Pair.second->Update_Layer(TimeDelta);
+				_int Event = 0;
+				Event = Pair.second->Update_Layer(TimeDelta);
 
+				if (Event & 0x8000 || Event == 1)
+					return Event;
 			}
 		}
 	}

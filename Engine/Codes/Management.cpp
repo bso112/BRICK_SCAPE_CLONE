@@ -51,8 +51,12 @@ _int CManagement::Update_Engine(_double TimeDelta)
 	if (0x80000000 & m_pScene_Manager->Update_CurrentScene(TimeDelta))
 		return -1;
 
-	if (0x80000000 & m_pObject_Manager->Update_Object_Manager(TimeDelta))
-		return -1;
+	_int Event = 0;
+
+	Event = m_pObject_Manager->Update_Object_Manager(TimeDelta);
+
+	if (Event & 0x8000 || Event == 1)
+		return Event;
 
 	//Obj가 LateUpdate에서 콜리전매니저에 등록하기 때문에, 그 이후에 충돌체크해야한다.
 	//반대로 하면 오브젝트가 삭제될 경우 콜리전매니저에 dangling pointer가 생길것이다. 
@@ -140,6 +144,7 @@ HRESULT CManagement::SetUp_CurrentScene(CScene * pCurrentScene, _uint iSceneID)
 {
 	if (nullptr == m_pScene_Manager)
 		return E_FAIL;
+
 
 	return m_pScene_Manager->SetUp_CurrentScene(pCurrentScene, iSceneID);
 }

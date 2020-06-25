@@ -1,6 +1,7 @@
 #include "..\Headers\Renderer.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "PipeLine.h"
 
 CRenderer::CRenderer(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CComponent(pGraphic_Device)
@@ -84,9 +85,19 @@ HRESULT CRenderer::Render_AlphaBlend()
 		CTransform* pTransformB = (CTransform*)pB->Find_Component(L"Com_Transform");
 		if (nullptr == pTransformA || nullptr == pTransformB)
 			return false;
-		return pTransformA->Get_State(CTransform::STATE_POSITION).z > pTransformB->Get_State(CTransform::STATE_POSITION).z;
+
+		_float3 pPosA = pTransformA->Get_State(CTransform::STATE_POSITION);
+		_float3 pPosB = pTransformB->Get_State(CTransform::STATE_POSITION);
+
+		D3DXVec3TransformCoord(&pPosA, &pPosA, &CPipeLine::Get_Instance()->Get_Transform(D3DTS_VIEW));
+		D3DXVec3TransformCoord(&pPosB, &pPosB, &CPipeLine::Get_Instance()->Get_Transform(D3DTS_VIEW));
+
+
+		return pPosA.z > pPosB.z;
 	});
 
+
+	
 	for (auto& pGameObject : m_RenderGroup[RENDER_ALPHABLEND])
 	{
 		if (FAILED(pGameObject->Render_GameObject()))
