@@ -5,6 +5,8 @@
 
 USING(Client)
 
+_float CBrick::ZBuffer = 0.f;
+
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
 {
@@ -143,7 +145,10 @@ HRESULT CBrick::OnKeyDown(_int KeyCode)
 	if (VK_LBUTTON == KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
+		{
+			if(ZBuffer m
 			m_bIsPick = true;
+		}
 		else
 			m_bIsPick = false;
 	}
