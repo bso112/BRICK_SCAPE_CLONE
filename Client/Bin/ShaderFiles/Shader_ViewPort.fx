@@ -7,6 +7,7 @@ float	g_Alpha;
 float	g_fMaxHp;
 float	g_fCurrHp;
 vector	g_vColor = (vector)0.f;
+
 sampler BaseSampler = sampler_state
 {
 	texture = g_BaseTexture;

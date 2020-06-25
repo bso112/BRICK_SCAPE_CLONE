@@ -23,6 +23,7 @@ public:
 	CGameObject* Add_Object_ToLayer(_uint iPrototypeSceneID, const _tchar* pPrototypeTag, _uint iLayerSceneID, const _tchar* pLayerTag, void* pArg = nullptr);
 	_int	Update_Object_Manager(_double TimeDelta);
 	HRESULT Clear_Object_Manager(_uint iSceneID);
+	HRESULT	Clear_DeadObject(_uint iSceneID);
 private:
 	_uint			m_iNumScenes = 0;
 

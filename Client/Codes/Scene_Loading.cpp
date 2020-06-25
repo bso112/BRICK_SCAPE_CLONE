@@ -87,7 +87,7 @@ HRESULT CScene_Loading::Change_Scene()
 	if (nullptr == pScene)
 		return E_FAIL;
 
-	if (FAILED(pManagement->SetUp_CurrentScene(pScene)))
+	if (FAILED(pManagement->SetUp_CurrentScene(pScene, (_uint)m_eNextSceneID)))
 		return E_FAIL;
 
 	Safe_Release(pManagement);

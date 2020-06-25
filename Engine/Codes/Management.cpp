@@ -77,6 +77,10 @@ HRESULT CManagement::Render_Engine()
 	if (FAILED(m_pScene_Manager->Render_CurrentScene()))
 		return E_FAIL;
 
+	//렌더 끝나고 죽은 오브젝트 클리어
+	if (FAILED(m_pObject_Manager->Clear_DeadObject(m_pScene_Manager->Get_CurrScene())))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -133,12 +137,12 @@ _double CManagement::Get_TimeDelta(const _tchar * pTimerTag)
 
 #pragma  region SCENE
 
-HRESULT CManagement::SetUp_CurrentScene(CScene * pCurrentScene)
+HRESULT CManagement::SetUp_CurrentScene(CScene * pCurrentScene, _uint iSceneID)
 {
 	if (nullptr == m_pScene_Manager)
 		return E_FAIL;
 
-	return m_pScene_Manager->SetUp_CurrentScene(pCurrentScene);
+	return m_pScene_Manager->SetUp_CurrentScene(pCurrentScene, iSceneID);
 }
 
 #pragma endregion

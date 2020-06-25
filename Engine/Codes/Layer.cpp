@@ -26,7 +26,7 @@ CComponent * CLayer::Get_ComponentPointer(const _tchar * pComponentTag, _uint iI
 	auto	iter = m_ObjectList.begin();
 
 	for (size_t i = 0; i < iIndex; ++i)
-		++iter;	
+		++iter;
 
 	return (*iter)->Find_Component(pComponentTag);
 
@@ -50,7 +50,7 @@ HRESULT CLayer::Add_Object(CGameObject * pGameObject)
 
 _int CLayer::Update_Layer(_double TimeDelta)
 {
-	
+
 
 	for (auto& pGameObject : m_ObjectList)
 	{
@@ -58,7 +58,7 @@ _int CLayer::Update_Layer(_double TimeDelta)
 		{
 			if (0x80000000 & pGameObject->Update_GameObject(TimeDelta))
 				return -1;
-		}			
+		}
 	}
 
 	return _int(0);
@@ -75,6 +75,22 @@ _int CLayer::Late_Update_Layer(_double TimeDelta)
 		}
 	}
 	return 0;
+}
+
+HRESULT CLayer::Clear_DeadObject()
+{
+	auto& iter = m_ObjectList.begin();
+	while (iter != m_ObjectList.end())
+	{
+		if ((*iter)->Get_Dead())
+		{
+			Safe_Release(*iter);
+			iter = m_ObjectList.erase(iter);
+		}
+		else
+			++iter;
+	}
+	return S_OK;
 }
 
 CLayer * CLayer::Create()

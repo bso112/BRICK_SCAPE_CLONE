@@ -92,7 +92,7 @@ HRESULT CMainApp::Ready_Start_Scene(SCENEID eNextSceneID)
 	if (nullptr == m_pManagement)
 		return E_FAIL;
 
-	if (FAILED(m_pManagement->SetUp_CurrentScene(CScene_Loading::Create(m_pGraphic_Device, eNextSceneID))))
+	if (FAILED(m_pManagement->SetUp_CurrentScene(CScene_Loading::Create(m_pGraphic_Device, eNextSceneID), eNextSceneID)))
 		return E_FAIL;
 
 	return S_OK;
@@ -183,7 +183,7 @@ HRESULT CMainApp::Ready_Default_Component()
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Brick", CTexture::Create(m_pGraphic_Device, L"../Bin/Resources/Textures/Brick/brick%d.jpg", 5))))
 		return E_FAIL;
 
-	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 1))))
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 2))))
 		return E_FAIL;
 
 

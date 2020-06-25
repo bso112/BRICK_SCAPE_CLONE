@@ -28,7 +28,7 @@ HRESULT CGameEndPanel::Ready_GameObject(void* pArg)
 
 	CMyImage::STATEDESC bannerDesc;
 	bannerDesc.m_eSceneID = SCENE_STAGE;
-	bannerDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f), _float3((_float)g_iWinSizeX, 1.f, 1.f));
+	bannerDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f - 100.f, 0.f), _float3((_float)g_iWinSizeX, 1.f, 1.f));
 	bannerDesc.m_iTextureSceneID = SCENE_STATIC;
 	bannerDesc.m_pTextureTag = L"Component_Texture_Banner";
 	CMyImage* pWinBanner = nullptr;
@@ -36,6 +36,18 @@ HRESULT CGameEndPanel::Ready_GameObject(void* pArg)
 		return E_FAIL;
 
 	pWinBanner->Expand(_float3(g_iWinSizeX, 128.f, 1.f), _float3(0.f, 500.f, 0.f));
+
+
+	CMyButton::STATEDESC btnDesc;
+	btnDesc.m_eSceneID = SCENE_STAGE;
+	btnDesc.m_tBaseDesc = BASEDESC(_float3((g_iWinSizeX >> 1) + 100.f, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+	btnDesc.m_iTextureSceneID = SCENE_STATIC;
+	btnDesc.m_pTextureTag = L"Component_Texture_Btn";
+	btnDesc.m_iTextureID = 1;
+
+	CGameObject* pObj;
+	if (nullptr == (pObj = pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
+		return E_FAIL;
 
 	return S_OK;
 }

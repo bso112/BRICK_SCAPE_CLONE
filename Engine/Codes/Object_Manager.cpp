@@ -28,12 +28,12 @@ CComponent* CObject_Manager::Get_ComponentPointer(_uint iSceneID, const _tchar *
 	if (nullptr == pLayer)
 		return nullptr;
 
-	return pLayer->Get_ComponentPointer(pComponentTag, iIndex);	
+	return pLayer->Get_ComponentPointer(pComponentTag, iIndex);
 }
 
 HRESULT CObject_Manager::Reserve_Object_Manager(_uint iNumScene)
 {
-	if (nullptr != m_pPrototypes || 
+	if (nullptr != m_pPrototypes ||
 		nullptr != m_pLayers)
 		return E_FAIL;
 
@@ -104,8 +104,8 @@ _int CObject_Manager::Update_Object_Manager(_double TimeDelta)
 		{
 			if (nullptr != Pair.second)
 			{
-				if (0x80000000 & Pair.second->Update_Layer(TimeDelta))
-					return -1;
+				Pair.second->Update_Layer(TimeDelta);
+
 			}
 		}
 	}
@@ -116,8 +116,8 @@ _int CObject_Manager::Update_Object_Manager(_double TimeDelta)
 		{
 			if (nullptr != Pair.second)
 			{
-				if (0x80000000 & Pair.second->Late_Update_Layer(TimeDelta))
-					return -1;
+				Pair.second->Late_Update_Layer(TimeDelta);
+
 			}
 		}
 	}
@@ -140,6 +140,18 @@ HRESULT CObject_Manager::Clear_Object_Manager(_uint iSceneID)
 
 	m_pPrototypes[iSceneID].clear();
 
+	return S_OK;
+}
+
+HRESULT CObject_Manager::Clear_DeadObject(_uint iSceneID)
+{
+	if (m_iNumScenes <= iSceneID)
+		return E_FAIL;
+
+	for (auto& map : m_pLayers[iSceneID])
+	{
+		map.second->Clear_DeadObject();
+	}
 	return S_OK;
 }
 
