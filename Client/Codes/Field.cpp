@@ -111,14 +111,17 @@ HRESULT CField::Ready_GameObject(void * pArg)
 		return E_FAIL;
 #pragma endregion
 
-	CGoal::STATEDESC desc;
-	desc.eTextureSceneID = SCENE_STATIC;
-	desc.iTextureID = 0;
-	desc.pTextureTag = L"Component_Texture_Goal";
-	desc.iTextureID = 0;
-	desc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(1.f, 1.f, 0.01f));
-	desc.eSceneID = m_tDesc.eSceneID;
-	pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Goal", m_tDesc.eSceneID, L"Layer_Goal", &desc);
+	CGoal::STATEDESC tGoalDesc;
+	tGoalDesc.eTextureSceneID = SCENE_STATIC;
+	tGoalDesc.iTextureID = 0;
+	tGoalDesc.pTextureTag = L"Component_Texture_Goal";
+	CTransform* pWallTransform = (CTransform*)m_Walls[m_tDesc.eWhereGoal]->Find_Component(L"Com_Transform");
+	if (nullptr == pWallTransform)
+		return E_FAIL;
+	_float3 vBaseGoalPos = pWallTransform->Get_State(CTransform::STATE_POSITION);
+	tGoalDesc.tBaseDesc = BASEDESC(_float3(vBaseGoalPos.x + m_tDesc.iGoalX, vBaseGoalPos.y + m_tDesc.iGoalY, vBaseGoalPos.z), _float3(1.f, 1.f, 0.01f));
+	tGoalDesc.eSceneID = m_tDesc.eSceneID;
+	pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Goal", m_tDesc.eSceneID, L"Layer_Goal", &tGoalDesc);
 
 
 	return S_OK;

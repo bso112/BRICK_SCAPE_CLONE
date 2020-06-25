@@ -100,8 +100,9 @@ HRESULT CMyButton::Render_GameObject()
 
 	ALPHABLEND;
 
-	if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", 0)))
+	if (FAILED(m_pTexture->Set_TextureOnShader(m_pShader, "g_BaseTexture", m_tDesc.m_iTextureID)))
 		return E_FAIL;
+
 
 	if (FAILED(m_pShader->Begin_Shader()))
 		return E_FAIL;
@@ -121,6 +122,7 @@ HRESULT CMyButton::Render_GameObject()
 
 
 	ALPHABLEND_END;
+
 
 	return S_OK;
 }

@@ -19,6 +19,7 @@ public:
 	HRESULT Add_Object(CGameObject* pGameObject);
 	_int Update_Layer(_double TimeDelta);
 	_int Late_Update_Layer(_double TimeDelta);
+	HRESULT	Clear_DeadObject();
 private:
 	list<CGameObject*>			m_ObjectList;
 	typedef list<CGameObject*>	OBJECTLIST;

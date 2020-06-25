@@ -11,12 +11,19 @@ class CGoal;
 class CField : public CGameObject
 {
 public:
+	enum WALL { WALL_LEFT, WALL_RIGHT, WALL_FRONT, WALL_BACK, WALL_TOP, WALL_BOTTOM, WALL_END};
+public:
 	typedef struct tagStatedesc
 	{
 		SCENEID		eSceneID = SCENE_END;
 		_uint		iBrickNumX = 0;
 		_uint		iBrickNumY = 0;
 		_uint		iBrickNumZ = 0;
+		//어느 벽에 붙을건지
+		WALL		eWhereGoal = WALL_END;
+		//그 벽의 중점에서 떨어진 정도
+		_uint		iGoalX = 0;
+		_uint		iGoalY = 0;
 	}STATEDESC;
 protected:
 	explicit CField(PDIRECT3DDEVICE9 pGraphic_Device);

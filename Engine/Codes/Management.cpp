@@ -51,8 +51,9 @@ _int CManagement::Update_Engine(_double TimeDelta)
 	if (0x80000000 & m_pScene_Manager->Update_CurrentScene(TimeDelta))
 		return -1;
 
-	if (0x80000000 & m_pObject_Manager->Update_Object_Manager(TimeDelta))
-		return -1;
+
+	if (1 == m_pObject_Manager->Update_Object_Manager(TimeDelta))
+		return 1;
 
 	//Obj가 LateUpdate에서 콜리전매니저에 등록하기 때문에, 그 이후에 충돌체크해야한다.
 	//반대로 하면 오브젝트가 삭제될 경우 콜리전매니저에 dangling pointer가 생길것이다. 
@@ -74,6 +75,10 @@ HRESULT CManagement::Render_Engine()
 		return E_FAIL;
 
 	if (FAILED(m_pScene_Manager->Render_CurrentScene()))
+		return E_FAIL;
+
+	//렌더 끝나고 죽은 오브젝트 클리어
+	if (FAILED(m_pObject_Manager->Clear_DeadObject(m_pScene_Manager->Get_CurrScene())))
 		return E_FAIL;
 
 	return S_OK;
@@ -132,12 +137,18 @@ _double CManagement::Get_TimeDelta(const _tchar * pTimerTag)
 
 #pragma  region SCENE
 
-HRESULT CManagement::SetUp_CurrentScene(CScene * pCurrentScene)
+HRESULT CManagement::SetUp_CurrentScene(CScene * pCurrentScene, _uint iSceneID)
 {
 	if (nullptr == m_pScene_Manager)
 		return E_FAIL;
 
-	return m_pScene_Manager->SetUp_CurrentScene(pCurrentScene);
+
+	return m_pScene_Manager->SetUp_CurrentScene(pCurrentScene, iSceneID);
+}
+
+_uint CManagement::Get_CurrScene()
+{
+	return m_pScene_Manager->Get_CurrScene();
 }
 
 #pragma endregion

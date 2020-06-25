@@ -87,7 +87,7 @@ HRESULT CScene_Loading::Change_Scene()
 	if (nullptr == pScene)
 		return E_FAIL;
 
-	if (FAILED(pManagement->SetUp_CurrentScene(pScene)))
+	if (FAILED(pManagement->SetUp_CurrentScene(pScene, (_uint)m_eNextSceneID)))
 		return E_FAIL;
 
 	Safe_Release(pManagement);
@@ -156,10 +156,6 @@ CScene_Loading * CScene_Loading::Create(PDIRECT3DDEVICE9 pGraphic_Device, SCENEI
 void CScene_Loading::Free()
 {
 	Safe_Release(m_pLoading);
-
-	CManagement*	pManagement = CManagement::Get_Instance();
-	pManagement->Clear_Component_Manager(SCENE_LOADING);
-	pManagement->Clear_Object_Manager(SCENE_LOADING);
 
 	CScene::Free();
 }

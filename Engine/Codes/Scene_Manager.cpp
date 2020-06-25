@@ -7,11 +7,12 @@ CScene_Manager::CScene_Manager()
 
 }
 
-HRESULT CScene_Manager::SetUp_CurrentScene(CScene * pCurrentScene)
+HRESULT CScene_Manager::SetUp_CurrentScene(CScene * pCurrentScene, _uint _iSceneID)
 {
 	Safe_Release(m_pCurrentScene);
 
 	m_pCurrentScene = pCurrentScene;
+	m_iCurrScene = _iSceneID;
 
 	return S_OK;
 }
@@ -33,6 +34,11 @@ HRESULT CScene_Manager::Render_CurrentScene()
 		return E_FAIL;
 
 	return S_OK;
+}
+
+_uint CScene_Manager::Get_CurrScene()
+{
+	return m_iCurrScene;
 }
 
 void CScene_Manager::Free()
