@@ -22,11 +22,13 @@ public:
 public:
 	virtual	_bool	Check_Collision(CCollider* pTarget);
 
+	_float3 Get_CollDistance() { return m_vCollDistance; }
+
 private:
 	STATEDESC_DERIVED	m_tDesc;
 	_float3				m_vOriginalPoint[8];
 	_float3				m_vCurrPoint[8];
-
+	_float3				m_vCollDistance;
 public:
 	static CCollider_Box* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CComponent* Clone_Component(void* pArg);

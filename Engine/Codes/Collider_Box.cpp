@@ -70,18 +70,94 @@ _bool CCollider_Box::Check_Collision(CCollider* pTarget)
 	vDestMin = pOther->m_vCurrPoint[3];
 	vDestMax = pOther->m_vCurrPoint[5];
 
+	_bool AxisX = false, AxisY = false, AxisZ = false;
+
+
+
 	// x축선상에서 안겹쳤니?
 	//더 작은 놈의 Max < 더 큰 놈의 Min 이면 false
 	if (min(vSourMax.x, vDestMax.x) < max(vSourMin.x, vDestMin.x))
 		return false;
+	else
+		AxisX = true;
 
 	// y축선상에서 안겹쳤니?
 	//더 작은놈의 Max < 더 큰놈의 Min 이면 false
 	if (min(vSourMax.y, vDestMax.y) < max(vSourMin.y, vDestMin.y))
 		return false;
+	else
+		AxisY = true;
 
 	if (min(vSourMax.z, vDestMax.z) < max(vSourMin.z, vDestMin.z))
 		return false;
+	else
+		AxisZ = true;
+
+	// 충돌 길이 초기화
+	m_vCollDistance = _float3(0.f, 0.f, 0.f);
+	if (AxisX)
+	{
+		// Sour, Dest 의 X축 길이 
+		_float SourLengthX = vSourMax.x - vSourMin.x;
+		_float DestLengthX = vDestMax.x - vDestMin.x;
+
+		// Sour, Dest의 X축 중점
+		_float SourPivot = vSourMin.x + SourLengthX / 2.f;
+		_float DestPivot = vDestMin.x + DestLengthX / 2.f;
+
+		_float Distance = 0.f;
+
+		// 중점간의 비교로 Sour의 우측일때 Sour의 좌측일때의 충돌 범위(길이)
+		if (SourPivot < DestPivot)
+			Distance = vSourMax.x - vDestMin.x;
+		else if (SourPivot > DestPivot)
+			Distance = vDestMax.x - vSourMin.x;
+
+		m_vCollDistance.x = (Distance + 0.01f);
+		pOther->m_vCollDistance.x = (Distance + 0.01f);
+	}
+	if (AxisY)
+	{
+		// Sour, Dest 의 X축 길이 
+		_float SourLengthY = vSourMax.y - vSourMin.y;
+		_float DestLengthY = vDestMax.y - vDestMin.y;
+
+		// Sour, Dest의 X축 중점
+		_float SourPivot = vSourMin.y + SourLengthY / 2.f;
+		_float DestPivot = vDestMin.y + DestLengthY / 2.f;
+
+		_float Distance = 0.f;
+
+		// 중점간의 비교로 Sour의 우측일때 Sour의 좌측일때의 충돌 범위(길이)
+		if (SourPivot < DestPivot)
+			Distance = vSourMax.y - vDestMin.y;
+		else if (SourPivot > DestPivot)
+			Distance = vDestMax.y - vSourMin.y;
+
+		m_vCollDistance.y = (Distance + 0.01f);
+		pOther->m_vCollDistance.y = (Distance + 0.01f);
+	}
+	if (AxisZ)
+	{
+		// Sour, Dest 의 X축 길이 
+		_float SourLengthZ = vSourMax.z - vSourMin.z;
+		_float DestLengthZ = vDestMax.z - vDestMin.z;
+
+		// Sour, Dest의 X축 중점
+		_float SourPivot = vSourMin.z + SourLengthZ / 2.f;
+		_float DestPivot = vDestMin.z + DestLengthZ / 2.f;
+
+		_float Distance = 0.f;
+
+		// 중점간의 비교로 Sour의 우측일때 Sour의 좌측일때의 충돌 범위(길이)
+		if (SourPivot < DestPivot)
+			Distance = vSourMax.z - vDestMin.z;
+		else if (SourPivot > DestPivot)
+			Distance = vDestMax.z - vSourMin.z;
+
+		m_vCollDistance.z = (Distance + 0.01f);
+		pOther->m_vCollDistance.z = (Distance + 0.01f);
+	}
 
 	return true;
 }

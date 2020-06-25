@@ -18,7 +18,7 @@ public:
 		return *(_float3*)&m_CameraWorldMatrix.m[3][0]; }
 public:
 	HRESULT Set_Transform(D3DTRANSFORMSTATETYPE eType, _matrix StateMatrix);
-
+	
 public:
 	HRESULT Update_PipeLine();
 private:

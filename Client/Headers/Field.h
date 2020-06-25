@@ -35,6 +35,9 @@ public:
 
 
 private:
+	CTransform*	m_pTransform = nullptr;
+
+private:
 	STATEDESC	m_tDesc;
 	CWall*	m_Walls[6];
 	CGoal*	m_pGoal = nullptr;

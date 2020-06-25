@@ -5,6 +5,8 @@
 
 USING(Client)
 
+_float CBrick::ZBuffer = 0.f;
+
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
 {
@@ -60,8 +62,7 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 	if(m_bIsPick == true)
 		CGameManager::Get_Instance()->Set_PickObject(true);
 
-	if (m_bIsPick)
-		MoveToMouseDrag();
+	MoveToMouseDrag();
 
 	if (0.0 < m_tDesc.m_dStartFall)
 		m_tDesc.m_dStartFall -= TimeDelta;
@@ -82,6 +83,11 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 		return E_FAIL;
 
 	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
+
+	if(true == m_bIsDoneIntro)
+		MoveLimitXY();
+
+
 	return _int();
 }
 
@@ -89,6 +95,7 @@ _int CBrick::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer) return -1;
 	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
+
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return -1;
 	pManagement->Add_CollisionGroup(CCollisionMgr::COL_BOX, this);
@@ -138,7 +145,9 @@ HRESULT CBrick::OnKeyDown(_int KeyCode)
 	if (VK_LBUTTON == KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
+		{
 			m_bIsPick = true;
+		}
 		else
 			m_bIsPick = false;
 	}
@@ -158,7 +167,37 @@ HRESULT CBrick::OnKeyUp(_int KeyCode)
 
 void CBrick::OnCollisionEnter(CGameObject * _pOther)
 {
-	int i = 0; 
+}
+
+void CBrick::OnCollisionStay(CGameObject * _pOther)
+{
+	if (false == m_bIsPick)
+		return;
+	CTransform* TargetTransform = (CTransform*)_pOther->Find_Component(L"Com_Transform");
+
+	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).x < TargetTransform->Get_State(CTransform::STATE_POSITION).x)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x - m_pBoxCollider->Get_CollDistance().x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).x > TargetTransform->Get_State(CTransform::STATE_POSITION).x)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x + m_pBoxCollider->Get_CollDistance().x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).y < TargetTransform->Get_State(CTransform::STATE_POSITION).y)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - m_pBoxCollider->Get_CollDistance().y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).y > TargetTransform->Get_State(CTransform::STATE_POSITION).y)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y + m_pBoxCollider->Get_CollDistance().y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+
+	}
+	else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+	{
+		if (m_pTransform->Get_State(CTransform::STATE_POSITION).z < TargetTransform->Get_State(CTransform::STATE_POSITION).z)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z - m_pBoxCollider->Get_CollDistance().z));
+		else if (m_pTransform->Get_State(CTransform::STATE_POSITION).z > TargetTransform->Get_State(CTransform::STATE_POSITION).z)
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z + m_pBoxCollider->Get_CollDistance().z));
+	}
+
 }
 
 HRESULT CBrick::MoveToMouseDrag()
@@ -220,15 +259,64 @@ HRESULT CBrick::MoveToMouseDrag()
 	_float Y = (vMousePivot + (vMouseRay * 10.f )).y;
 	_float Z = (vMousePivot + (vMouseRay * 10.f )).z;
 
-	if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
-		m_pTransform->SetUp_Position(_float3(X, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
-	else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
-		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, Y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
-	else if(m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
-		m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, Z));
+	CurMousePos = _float3(X, Y, Z);
+	if (false == OldSetOnece)
+	{
+		OldMousePos = CurMousePos;
+		OldSetOnece = true;
+	}
+	fDir = _float3(0.f, 0.f, 0.f);
+	if (OldMousePos != CurMousePos)
+	{
+		fDir = CurMousePos - OldMousePos;
+
+		OldMousePos = CurMousePos;
+	}
+	if (m_bIsPick)
+	{
+		if (m_tDesc.m_vAxis == _float3(1.f, 0.f, 0.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x + fDir.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_tDesc.m_vAxis == _float3(0.f, 1.f, 0.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y + fDir.y, m_pTransform->Get_State(CTransform::STATE_POSITION).z));
+		else if (m_tDesc.m_vAxis == _float3(0.f, 0.f, 1.f))
+			m_pTransform->SetUp_Position(_float3(m_pTransform->Get_State(CTransform::STATE_POSITION).x, m_pTransform->Get_State(CTransform::STATE_POSITION).y, m_pTransform->Get_State(CTransform::STATE_POSITION).z + fDir.z));
+	}
 
 
 	Safe_Release(pManagement);
+
+	return S_OK;
+}
+
+HRESULT CBrick::MoveLimitXY()
+{
+	CManagement* pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement) return -1;
+
+	CTransform* pTargetTransform = (CTransform*)(pManagement->Get_ObjectPointer(SCENE_STAGE, L"Layer_Field")->Find_Component(L"Com_Transform"));
+	_float3	MyPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
+
+	_float FieldCX = pTargetTransform->Get_State(CTransform::STATE_RIGHT).x / 2.f;
+	_float FieldCY = pTargetTransform->Get_State(CTransform::STATE_UP).y / 2.f;
+	
+	_float MyTopY = m_pTransform->Get_State(CTransform::STATE_POSITION).y + (m_pTransform->Get_State(CTransform::STATE_UP).y / 2);
+	_float MyBottomY = m_pTransform->Get_State(CTransform::STATE_POSITION).y - (m_pTransform->Get_State(CTransform::STATE_UP).y / 2);
+
+	_float MyRightX = m_pTransform->Get_State(CTransform::STATE_POSITION).x + (m_pTransform->Get_State(CTransform::STATE_RIGHT).x / 2);
+	_float MyLeftX = m_pTransform->Get_State(CTransform::STATE_POSITION).x - (m_pTransform->Get_State(CTransform::STATE_RIGHT).x / 2);
+
+	if (_float3(0.f, FieldCY, 0.f).y < MyTopY)
+		m_pTransform->SetUp_Position(_float3(MyPos.x, MyPos.y - (MyTopY - FieldCY), MyPos.z));
+
+	if (_float3(0.f, -FieldCY, 0.f).y > MyBottomY)
+		m_pTransform->SetUp_Position(_float3(MyPos.x, MyPos.y + -(MyBottomY + FieldCY), MyPos.z));
+
+	if (_float3(FieldCX, 0.f, 0.f).x < MyRightX)
+		m_pTransform->SetUp_Position(_float3(MyPos.x - (MyRightX - FieldCX), MyPos.y, MyPos.z));
+
+	if (_float3(-FieldCX, 0.f, 0.f).x > MyLeftX)
+		m_pTransform->SetUp_Position(_float3(MyPos.x + -(MyLeftX + FieldCX), MyPos.y, MyPos.z));
+
 
 	return S_OK;
 }

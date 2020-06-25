@@ -13,6 +13,16 @@ CWall::CWall(const CWall & rhs)
 {
 }
 
+void CWall::OnCollisionEnter(CGameObject * _pOther)
+{
+	int a = 10;
+}
+
+void CWall::OnCollisionStay(CGameObject * _pOther)
+{
+	int a = 10;
+}
+
 HRESULT CWall::Ready_GameObject_Prototype()
 {
 	return S_OK;
@@ -54,6 +64,7 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 _int CWall::Update_GameObject(_double TimeDelta)
 {
 	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
+
 	return _int();
 }
 
@@ -61,6 +72,8 @@ _int CWall::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer)
 		return E_FAIL;
+
+
 	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_ALPHABLEND, this);
 
 	CManagement* pManagement = CManagement::Get_Instance();
@@ -110,11 +123,6 @@ HRESULT CWall::Render_GameObject()
 	return S_OK;
 }
 
-void CWall::OnCollisionEnter(CGameObject * _pOther)
-{
-	int i = 3;
-}
-
 CWall * CWall::Create(PDIRECT3DDEVICE9 pGraphic_Device)
 {
 	CWall*	pInstance = new CWall(pGraphic_Device);
@@ -147,5 +155,6 @@ void CWall::Free()
 	Safe_Release(m_pTexture);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pVIBuffer);
+	Safe_Release(m_pBoxCollider);
 	CGameObject::Free();
 }

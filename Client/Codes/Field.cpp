@@ -39,6 +39,13 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	CGameObject* pWall = nullptr;
 	CTransform* pTransform = nullptr;
 
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Transform", L"Com_Transform", (CComponent**)&m_pTransform)))
+		return E_FAIL;
+
+
+	m_pTransform->SetUp_Position(vFieldPos);
+	m_pTransform->SetUp_Scale(vFieldSize);
+
 	//¿ÞÂÊ ¸é
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x - vFieldSize.x * 0.5f, vFieldPos.y, vFieldPos.z), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
@@ -164,5 +171,6 @@ CField * CField::Clone_GameObject(void * pArg)
 
 void CField::Free()
 {
+	Safe_Release(m_pTransform);
 	CGameObject::Free();
 }

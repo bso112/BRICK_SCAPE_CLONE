@@ -77,7 +77,7 @@ protected:
 	map<const _tchar*, CComponent*>			m_Components;
 	typedef map<const _tchar*, CComponent*>	COMPONENTS;
 
-private:
+protected:
 	//충돌했나
 	bool	m_bCollided = false;
 	//충돌한 오브젝트 셋
