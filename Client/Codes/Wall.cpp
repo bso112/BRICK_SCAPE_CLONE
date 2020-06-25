@@ -72,7 +72,9 @@ _int CWall::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer)
 		return E_FAIL;
-	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
+
+
+	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_ALPHABLEND, this);
 
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return -1;
@@ -147,6 +149,7 @@ CGameObject* CWall::Clone_GameObject(void * pArg)
 
 void CWall::Free()
 {
+	Safe_Release(m_pBoxCollider);
 	Safe_Release(m_pRenderer);
 	Safe_Release(m_pShader);
 	Safe_Release(m_pTexture);

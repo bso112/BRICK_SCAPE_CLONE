@@ -76,6 +76,14 @@ PS_OUT PS_WALL(PS_IN In/*ÇÈ¼¿*/)
 	return Out;
 }
 
+PS_OUT PS_GOAL(PS_IN In/*ÇÈ¼¿*/)
+{
+	PS_OUT	Out = (PS_OUT)0;
+
+	Out.vColor = tex2D(BaseSampler, In.vTexUV);
+	return Out;
+}
+
 
 
 
@@ -91,6 +99,12 @@ technique Default_Technique
 	{
 		VertexShader = compile vs_3_0 VS_MAIN();
 		PixelShader = compile ps_3_0 PS_WALL();
+		cullmode = none;
+	}
+	pass Goal
+	{
+		VertexShader = compile vs_3_0 VS_MAIN();
+		PixelShader = compile ps_3_0 PS_GOAL();
 		cullmode = none;
 	}
 }

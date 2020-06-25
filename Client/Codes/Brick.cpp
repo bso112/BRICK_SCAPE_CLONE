@@ -146,7 +146,6 @@ HRESULT CBrick::OnKeyDown(_int KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
 		{
-			if(ZBuffer m
 			m_bIsPick = true;
 		}
 		else

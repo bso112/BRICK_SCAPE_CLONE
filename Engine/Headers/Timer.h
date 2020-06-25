@@ -21,6 +21,7 @@ private:
 public:
 	HRESULT Ready_Timer();
 	_double Compute_TimeDelta();
+	_double Get_TimeDelta() { return m_TimeDelta; }
 private:
 	_double			m_TimeDelta = 0.0;
 private:

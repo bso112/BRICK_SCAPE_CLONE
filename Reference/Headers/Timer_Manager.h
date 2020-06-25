@@ -14,6 +14,7 @@ private:
 public:
 	HRESULT Add_Timers(const _tchar* pTimerTag);
 	_double Compute_TimeDelta(const _tchar* pTimerTag);
+	_double	Get_TimeDelta(const _tchar* pTimerTag);
 private:
 	map<const _tchar*, CTimer*>			m_Timers;
 	typedef map<const _tchar*, CTimer*>	TIMERS;

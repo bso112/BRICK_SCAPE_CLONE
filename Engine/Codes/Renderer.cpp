@@ -1,5 +1,6 @@
 #include "..\Headers\Renderer.h"
 #include "GameObject.h"
+#include "Transform.h"
 
 CRenderer::CRenderer(PDIRECT3DDEVICE9 pGraphic_Device)
 	: CComponent(pGraphic_Device)
@@ -76,6 +77,16 @@ HRESULT CRenderer::Render_NonAlpha()
 
 HRESULT CRenderer::Render_AlphaBlend()
 {
+	//깊이를 내림차순으로 정렬
+	m_RenderGroup[RENDER_ALPHABLEND].sort([](CGameObject* pA, CGameObject* pB) 
+	{
+		CTransform* pTransformA = (CTransform*)pA->Find_Component(L"Com_Transform");
+		CTransform* pTransformB = (CTransform*)pB->Find_Component(L"Com_Transform");
+		if (nullptr == pTransformA || nullptr == pTransformB)
+			return false;
+		return pTransformA->Get_State(CTransform::STATE_POSITION).z > pTransformB->Get_State(CTransform::STATE_POSITION).z;
+	});
+
 	for (auto& pGameObject : m_RenderGroup[RENDER_ALPHABLEND])
 	{
 		if (FAILED(pGameObject->Render_GameObject()))

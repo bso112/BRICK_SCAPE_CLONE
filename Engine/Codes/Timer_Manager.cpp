@@ -30,6 +30,15 @@ _double CTimer_Manager::Compute_TimeDelta(const _tchar * pTimerTag)
 	return pTimer->Compute_TimeDelta();	
 }
 
+_double CTimer_Manager::Get_TimeDelta(const _tchar * pTimerTag)
+{
+	CTimer*	pTimer = Find_Timers(pTimerTag);
+	if (nullptr == pTimer)
+		return E_FAIL;
+
+	return pTimer->Get_TimeDelta();
+}
+
 CTimer * CTimer_Manager::Find_Timers(const _tchar * pTimerTag)
 {
 	auto	iter = find_if(m_Timers.begin(), m_Timers.end(), CFinder_Tag(pTimerTag));

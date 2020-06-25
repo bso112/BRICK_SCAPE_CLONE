@@ -20,3 +20,4 @@ extern HWND g_hWnd;
 
 #define PASS_DEFAULT 0
 #define PASS_WALL 1
+#define PASS_GOAL 2

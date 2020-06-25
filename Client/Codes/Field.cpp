@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\Headers\Field.h"
 #include "Wall.h"
-
+#include "Goal.h"
 USING(Client)
 
 CField::CField(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -26,9 +26,11 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	if (nullptr != pArg)
 		memcpy(&m_tDesc, pArg, sizeof(STATEDESC));
 
+	
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return E_FAIL;
 
+#pragma region 필드만들기
 	_float3 vFieldPos = m_tDesc.tBaseDesc.vPos;
 	_float3	vFieldSize = m_tDesc.tBaseDesc.vSize;
 	CWall::STATEDESC tWallDesc;
@@ -72,8 +74,6 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
 		return E_FAIL;
-	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
-		return E_FAIL;
 
 	if (nullptr == (m_Walls[2] = dynamic_cast<CWall*>(pWall)))
 		return E_FAIL;
@@ -81,8 +81,6 @@ HRESULT CField::Ready_GameObject(void * pArg)
 	//뒷면
 	tWallDesc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z + vFieldSize.z * 0.5f), _float3(vFieldSize.x, vFieldSize.y, 0.01f));
 	if (nullptr == (pWall = pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Wall", m_tDesc.eSceneID, L"Layer_Wall", &tWallDesc)))
-		return E_FAIL;
-	if (nullptr == (pTransform = dynamic_cast<CTransform*>(pWall->Find_Component(L"Com_Transform"))))
 		return E_FAIL;
 
 	if (nullptr == (m_Walls[3] = dynamic_cast<CWall*>(pWall)))
@@ -110,6 +108,16 @@ HRESULT CField::Ready_GameObject(void * pArg)
 
 	if (nullptr == (m_Walls[5] = dynamic_cast<CWall*>(pWall)))
 		return E_FAIL;
+#pragma endregion
+
+	CGoal::STATEDESC desc;
+	desc.eTextureSceneID = SCENE_STATIC;
+	desc.iTextureID = 0;
+	desc.pTextureTag = L"Component_Texture_Goal";
+	desc.iTextureID = 0;
+	desc.tBaseDesc = BASEDESC(_float3(vFieldPos.x, vFieldPos.y, vFieldPos.z - vFieldSize.z * 0.5f), _float3(1.f, 1.f, 0.01f));
+	pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Goal", m_tDesc.eSceneID, L"Layer_Goal", &desc);
+
 
 	return S_OK;
 }

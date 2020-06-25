@@ -124,6 +124,11 @@ _double CManagement::Compute_TimeDelta(const _tchar * pTimerTag)
 	return m_pTimer_Manager->Compute_TimeDelta(pTimerTag);
 }
 
+_double CManagement::Get_TimeDelta(const _tchar * pTimerTag)
+{
+	return m_pTimer_Manager->Get_TimeDelta(pTimerTag);
+}
+
 #pragma endregion
 
 #pragma  region SCENE
