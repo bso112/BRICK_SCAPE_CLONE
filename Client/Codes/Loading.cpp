@@ -100,16 +100,8 @@ HRESULT CLoading::Loading_ForStageOne()
 		return E_FAIL;
 
 
-	CMyImage::STATEDESC bannerDesc;
-	bannerDesc.m_eSceneID = SCENE_STAGE;
-	bannerDesc.m_tBaseDesc = BASEDESC(_float3(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f), _float3((_float)g_iWinSizeX,1.f,1.f));
-	bannerDesc.m_iTextureSceneID = SCENE_STATIC;
-	bannerDesc.m_pTextureTag = L"Component_Texture_Banner";
-	CMyImage* pWinBanner = nullptr;
-	if (nullptr == (pWinBanner = (CMyImage*)pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyImage", SCENE_STAGE, L"GameObject", &bannerDesc)))
-		return E_FAIL;
 
-	pWinBanner->Expand(_float3(g_iWinSizeX, 128.f, 1.f), _float3(0.f, 128.f, 0.f));
+	
 
 #pragma endregion
 

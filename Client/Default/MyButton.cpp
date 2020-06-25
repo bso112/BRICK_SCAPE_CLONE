@@ -49,8 +49,20 @@ HRESULT CMyButton::Ready_GameObject(void* pArg)
 _int CMyButton::Update_GameObject(_double _timeDelta)
 {
 
+	if (m_bDead)
+		return -1;
 
+	if (m_bExpand)
+	{
+		if (nullptr == m_pTransform)
+			return -1;
 
+		_float3 vOldSize = m_pTransform->Get_Scaled();
+		_float3 vSize = _float3(vOldSize.x + _float(m_vExpandSpeed.x * _timeDelta), vOldSize.y + _float(m_vExpandSpeed.y * _timeDelta), vOldSize.z + _float(m_vExpandSpeed.z * _timeDelta));
+		m_pTransform->SetUp_Scale(vSize);
+		if (vSize.x >= m_vMaxExpandSize.x || vSize.y >= m_vMaxExpandSize.y || vSize.z >= m_vMaxExpandSize.z)
+			m_bExpand = false;
+	}
 
 	return 0;
 }
@@ -111,6 +123,13 @@ HRESULT CMyButton::Render_GameObject()
 	ALPHABLEND_END;
 
 	return S_OK;
+}
+
+void CMyButton::Expand(_float3 _vMaxSize, _float3 _fExpandSpeed)
+{
+	m_bExpand = true;
+	m_vMaxExpandSize = _vMaxSize;
+	m_vExpandSpeed = _fExpandSpeed;
 }
 
 

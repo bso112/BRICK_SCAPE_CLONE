@@ -38,6 +38,9 @@ public:
 	virtual HRESULT	OnKeyUp(_int KeyCode);
 
 public:
+	_bool	IsPlayer() { return m_tDesc.bPlayer; }
+
+public:
 	virtual void OnCollisionEnter(CGameObject* _pOther);
 private:
 	CTransform*		m_pTransform = nullptr;

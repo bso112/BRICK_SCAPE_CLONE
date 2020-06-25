@@ -64,20 +64,26 @@
     <Filter Include="02.GameObject\Brick">
       <UniqueIdentifier>{4bfc3608-7b3f-4807-b668-7585476aa4aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\Button">
-      <UniqueIdentifier>{d1571137-965b-4cea-864e-45c353c6554b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\Goal">
       <UniqueIdentifier>{e8c130c9-ba2f-4c37-b88f-e56ef110b4d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\Image">
-      <UniqueIdentifier>{5d4bb0d1-1507-44fb-9ab8-d3aeeec8d854}</UniqueIdentifier>
     </Filter>
     <Filter Include="05.Utility">
       <UniqueIdentifier>{6e80a6a3-b600-4c73-8a3d-7c0049fccd73}</UniqueIdentifier>
     </Filter>
     <Filter Include="05.Utility\00.Clock">
       <UniqueIdentifier>{a7975227-3f0c-47bf-b2a8-490718d88fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\GameEndPanel">
+      <UniqueIdentifier>{ff035084-27e3-4744-a798-a46bd1fc7e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI">
+      <UniqueIdentifier>{9d2e6977-59e0-481f-9c97-6aad1dc3dee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI\Button">
+      <UniqueIdentifier>{d1571137-965b-4cea-864e-45c353c6554b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\UI\Image">
+      <UniqueIdentifier>{5d4bb0d1-1507-44fb-9ab8-d3aeeec8d854}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,16 +151,19 @@
       <Filter>01.Scene\04.Scene_Stage_4</Filter>
     </ClInclude>
     <ClInclude Include="MyButton.h">
-      <Filter>02.GameObject\Button</Filter>
+      <Filter>02.GameObject\UI\Button</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Goal.h">
       <Filter>02.GameObject\Goal</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\MyImage.h">
-      <Filter>02.GameObject\Image</Filter>
+      <Filter>02.GameObject\UI\Image</Filter>
     </ClInclude>
     <ClInclude Include="..\Headers\Clock.h">
       <Filter>05.Utility\00.Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Headers\GameEndPanel.h">
+      <Filter>02.GameObject\GameEndPanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,16 +216,19 @@
       <Filter>01.Scene\04.Scene_Stage_4</Filter>
     </ClCompile>
     <ClCompile Include="MyButton.cpp">
-      <Filter>02.GameObject\Button</Filter>
+      <Filter>02.GameObject\UI\Button</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Goal.cpp">
       <Filter>02.GameObject\Goal</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MyImage.cpp">
-      <Filter>02.GameObject\Image</Filter>
+      <Filter>02.GameObject\UI\Image</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Clock.cpp">
       <Filter>05.Utility\00.Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\GameEndPanel.cpp">
+      <Filter>02.GameObject\GameEndPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

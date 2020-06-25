@@ -27,23 +27,6 @@ protected:
 	virtual ~CMyButton() = default;
 
 
-protected:
-	CVIBuffer_ViewPort*			m_pVIBuffer = nullptr;
-	CTransform*			m_pTransform = nullptr;
-	CTexture*			m_pTexture = nullptr;
-	CShader*			m_pShader = nullptr;
-	CRenderer*			m_pRenderer = nullptr;
-
-protected:
-	STATEDESC		m_tDesc;
-
-protected:
-	//여러개의 리스너
-	vector<function<void()>> m_vecOnListener;
-	//하나의 리스너(계속 덮어쓰는 용도)
-	function<void()>	m_Listener;
-
-
 
 public:
 	virtual HRESULT Ready_GameObject_Prototype();
@@ -53,6 +36,8 @@ public:
 	virtual HRESULT Render_GameObject();
 
 
+public:
+	void	Expand(_float3 _vMaxSize, _float3 _fExpandSpeed);
 
 
 
@@ -75,6 +60,29 @@ public:
 	virtual HRESULT	OnKeyDown(_int KeyCode);
 
 	virtual _uint Get_Depth();
+
+
+protected:
+	CVIBuffer_ViewPort*			m_pVIBuffer = nullptr;
+	CTransform*			m_pTransform = nullptr;
+	CTexture*			m_pTexture = nullptr;
+	CShader*			m_pShader = nullptr;
+	CRenderer*			m_pRenderer = nullptr;
+
+
+public:
+	_bool			m_bExpand = false;
+	_float3			m_vMaxExpandSize;
+	_float3			m_vExpandSpeed;
+
+protected:
+	STATEDESC		m_tDesc;
+
+protected:
+	//여러개의 리스너
+	vector<function<void()>> m_vecOnListener;
+	//하나의 리스너(계속 덮어쓰는 용도)
+	function<void()>	m_Listener;
 
 
 public:

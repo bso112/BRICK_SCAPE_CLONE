@@ -11,6 +11,7 @@ public:
 	typedef struct tagStatedesc
 	{
 		BASEDESC		tBaseDesc;
+		SCENEID			eSceneID = SCENE_END;
 		const _tchar*	pTextureTag = nullptr;
 		SCENEID			eTextureSceneID = SCENE_END;
 		_uint			iTextureID = 0;

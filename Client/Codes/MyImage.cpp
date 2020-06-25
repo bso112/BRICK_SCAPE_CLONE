@@ -58,7 +58,7 @@ _int CMyImage::Update_GameObject(_double _timeDelta)
 		_float3 vOldSize = m_pTransform->Get_Scaled();
 		_float3 vSize =  _float3(vOldSize.x + _float(m_vExpandSpeed.x * _timeDelta), vOldSize.y + _float(m_vExpandSpeed.y * _timeDelta), vOldSize.z + _float(m_vExpandSpeed.z * _timeDelta));
 		m_pTransform->SetUp_Scale(vSize);
-		if (vSize.x >= m_vMaxExpandSize.x && vSize.y >= m_vMaxExpandSize.y && vSize.z >= m_vMaxExpandSize.z)
+		if (vSize.x >= m_vMaxExpandSize.x || vSize.y >= m_vMaxExpandSize.y || vSize.z >= m_vMaxExpandSize.z)
 			m_bExpand = false;
 	}
 
