@@ -2,10 +2,10 @@
 #include "..\Headers\Brick.h"
 #include "KeyMgr.h"
 #include "GameManager.h"
-
+#include "Camera_Free.h"
 USING(Client)
 
-_float CBrick::ZBuffer = 0.f;
+_float CBrick::ZBuffer = 999999.f;
 
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
@@ -142,10 +142,17 @@ HRESULT CBrick::Render_GameObject()
 
 HRESULT CBrick::OnKeyDown(_int KeyCode)
 {
+	CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
+
 	if (VK_LBUTTON == KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
 		{
+			CameraDis = Camera->GetCameraDistance(m_pTransform->Get_State(CTransform::STATE_POSITION));
+			if (ZBuffer >= CameraDis)
+				ZBuffer = CameraDis;
+
+
 			m_bIsPick = true;
 		}
 		else

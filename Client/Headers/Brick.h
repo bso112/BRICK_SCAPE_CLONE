@@ -66,7 +66,10 @@ private:
 private:
 	HRESULT	MoveToMouseDrag();
 	HRESULT	MoveLimitXY();
+
+private:
 	static _float ZBuffer;
+	_float	CameraDis;
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);

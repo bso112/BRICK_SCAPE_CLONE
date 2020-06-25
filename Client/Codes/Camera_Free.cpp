@@ -13,6 +13,13 @@ CCamera_Free::CCamera_Free(const CCamera_Free & rhs)
 
 }
 
+_float CCamera_Free::GetCameraDistance(_float3 Pos)
+{
+	_float3 DirVec = Pos - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+
+	return D3DXVec3Length(&DirVec);
+}
+
 HRESULT CCamera_Free::Ready_GameObject_Prototype()
 {
 	return S_OK;
