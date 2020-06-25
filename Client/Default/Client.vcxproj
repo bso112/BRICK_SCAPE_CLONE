@@ -195,6 +195,7 @@
     <ClInclude Include="..\Headers\GameEndPanel.h" />
     <ClInclude Include="..\Headers\GameManager.h" />
     <ClInclude Include="..\Headers\Goal.h" />
+    <ClInclude Include="..\Headers\Image3D.h" />
     <ClInclude Include="..\Headers\Level.h" />
     <ClInclude Include="..\Headers\Field.h" />
     <ClInclude Include="..\Headers\Loading.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="..\Codes\GameEndPanel.cpp" />
     <ClCompile Include="..\Codes\GameManager.cpp" />
     <ClCompile Include="..\Codes\Goal.cpp" />
+    <ClCompile Include="..\Codes\Image3D.cpp" />
     <ClCompile Include="..\Codes\Level.cpp" />
     <ClCompile Include="..\Codes\Field.cpp" />
     <ClCompile Include="..\Codes\Loading.cpp" />

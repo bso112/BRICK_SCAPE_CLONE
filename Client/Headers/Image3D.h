@@ -1,28 +1,29 @@
 #pragma once
 #include "GameObject.h"
 
+
 #include "Management.h"
 #include "Client_Defines.h"
 
+
 BEGIN(Client)
-class CWall;
-class CImage3D;
-class CGoal : public CGameObject
+
+class CImage3D : public CGameObject
 {
 public:
 	typedef struct tagStatedesc
 	{
-		BASEDESC		tBaseDesc;
-		SCENEID			eSceneID = SCENE_END;
-		const _tchar*	pTextureTag = nullptr;
-		SCENEID			eTextureSceneID = SCENE_END;
-		_uint			iTextureID = 0;
+		BASEDESC			tBaseDesc;
+		const _tchar*		pName = nullptr;
+		const _tchar*		pTextureTag = nullptr;
+		SCENEID				eTextureSceneID = SCENE_END;
+		_uint				iTextureID = 0;
+
 	}STATEDESC;
 protected:
-	explicit CGoal(PDIRECT3DDEVICE9 pGraphic_Device);
-	explicit CGoal(const CGoal& rhs);
-	virtual ~CGoal() = default;
-
+	explicit CImage3D(PDIRECT3DDEVICE9 pGraphic_Device);
+	explicit CImage3D(const CImage3D& rhs);
+	virtual ~CImage3D() = default;
 
 public:
 	virtual HRESULT Ready_GameObject_Prototype();
@@ -31,24 +32,21 @@ public:
 	virtual _int Late_Update_GameObject(_double TimeDelta);
 	virtual HRESULT Render_GameObject();
 
-public:
-	virtual void OnCollisionEnter(CGameObject* _pOther);
 
 private:
+
 	CTransform*	m_pTransform = nullptr;
 	CVIBuffer*	m_pVIBuffer = nullptr;
 	CTexture*	m_pTexture = nullptr;
 	CRenderer*	m_pRenderer = nullptr;
-	CShader*		m_pShader = nullptr;
-	CCollider_Box*	m_pBoxCollider = nullptr;
-	CImage3D*		m_pLight[4];
+	CShader*	m_pShader = nullptr;
+
 
 private:
 	STATEDESC	m_tDesc;
-
 public:
-	static CGoal* Create(PDIRECT3DDEVICE9 pGraphic_Device);
-	virtual CGoal* Clone_GameObject(void* pArg);
+	static CImage3D* Create(PDIRECT3DDEVICE9 pGraphic_Device);
+	virtual CGameObject* Clone_GameObject(void* pArg);
 	virtual void Free();
 
 

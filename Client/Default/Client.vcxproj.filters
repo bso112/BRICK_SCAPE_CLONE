@@ -85,8 +85,8 @@
     <Filter Include="02.GameObject\UI\Image">
       <UniqueIdentifier>{5d4bb0d1-1507-44fb-9ab8-d3aeeec8d854}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\Cube">
-      <UniqueIdentifier>{d4658024-d96b-4ede-9aa0-c4a75f6d75a5}</UniqueIdentifier>
+    <Filter Include="02.GameObject\Image3D">
+      <UniqueIdentifier>{10d92846-3e88-4e7b-9ee7-f0b564f6f06a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,9 @@
     <ClInclude Include="..\Headers\GameEndPanel.h">
       <Filter>02.GameObject\GameEndPanel</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Image3D.h">
+      <Filter>02.GameObject\Image3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\GameEndPanel.cpp">
       <Filter>02.GameObject\GameEndPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Image3D.cpp">
+      <Filter>02.GameObject\Image3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
