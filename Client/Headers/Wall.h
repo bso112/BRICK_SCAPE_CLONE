@@ -14,6 +14,7 @@ public:
 	typedef struct tagStatedesc
 	{
 		BASEDESC			tBaseDesc;
+		const _tchar*		pName = nullptr;
 		const _tchar*		pTextureTag = nullptr;
 		SCENEID				eTextureSceneID = SCENE_END;
 
@@ -32,6 +33,8 @@ public:
 	virtual _int Update_GameObject(_double TimeDelta);
 	virtual _int Late_Update_GameObject(_double TimeDelta);
 	virtual HRESULT Render_GameObject();
+
+
 private:
 
 	CTransform*	m_pTransform = nullptr;

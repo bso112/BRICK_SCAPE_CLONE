@@ -17,6 +17,22 @@ public:
 	virtual	void Reset() { m_TimeAcc = 0.0; m_bUsing = false; }
 };
 
+//false였다가 주어진 시간이 되면 true를 반환하고 계속 false가 되는 시계
+class CClock_Basic final : public CClock
+{
+private:
+	explicit CClock_Basic() {};
+	virtual  ~CClock_Basic() = default;
+
+private:
+	_bool	m_bLock = false;
+public:
+	static CClock_Basic* Create() { return new CClock_Basic; }
+	virtual bool isThreashHoldReached(_double _time, const _tchar* _pTimerKey = L"Timer_60") override;
+	virtual void Free() override;
+};
+
+
 //주어진 시간간격으로 true를 반환하는 시계
 class CClock_Trigger final : public CClock
 {

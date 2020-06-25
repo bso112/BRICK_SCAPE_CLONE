@@ -72,6 +72,10 @@ protected:
 	PDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
 	_bool						m_bActive = true;
 	_bool						m_bDead = false;
+	const _tchar*				m_pName = nullptr;
+
+public:
+	const _tchar*				Get_Name() { return m_pName; }
 
 protected:
 	map<const _tchar*, CComponent*>			m_Components;

@@ -81,3 +81,27 @@ bool CClock_Reversal::isThreashHoldReached(_double _time, const _tchar* _pTimerK
 void CClock_Reversal::Free()
 {
 }
+
+bool CClock_Basic::isThreashHoldReached(_double _time, const _tchar * _pTimerKey)
+{
+	m_bUsing = true;
+
+	if (!m_bLock)
+	{
+		m_TimeAcc += CManagement::Get_Instance()->Get_TimeDelta(_pTimerKey);
+
+		if (m_TimeAcc >= _time)
+		{
+			m_TimeAcc = 0.0;
+			m_bLock = true;
+			return true;
+		}
+
+	}
+
+	return false;
+}
+
+void CClock_Basic::Free()
+{
+}

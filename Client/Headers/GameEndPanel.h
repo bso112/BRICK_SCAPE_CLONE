@@ -5,6 +5,7 @@
 BEGIN(Client)
 class CMyImage;
 class CMyButton;
+class CClock_Basic;
 class CGameEndPanel final : public CGameObject
 {
 public:
@@ -24,7 +25,11 @@ private:
 	STATEDESC		m_tDesc;
 	CMyImage*		m_pWinBanner = nullptr;
 	CMyButton*		m_pNextStageBtn = nullptr;
+
+	CClock_Basic*	m_pBtnActiveClock = nullptr;
+
 	_bool			m_bSceneChange = false;
+
 
 public:
 	virtual HRESULT Ready_GameObject_Prototype();

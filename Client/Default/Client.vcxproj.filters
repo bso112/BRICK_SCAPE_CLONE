@@ -85,6 +85,9 @@
     <Filter Include="02.GameObject\UI\Image">
       <UniqueIdentifier>{5d4bb0d1-1507-44fb-9ab8-d3aeeec8d854}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Cube">
+      <UniqueIdentifier>{d4658024-d96b-4ede-9aa0-c4a75f6d75a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
