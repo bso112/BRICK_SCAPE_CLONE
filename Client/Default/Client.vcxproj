@@ -192,6 +192,7 @@
     <ClInclude Include="..\Headers\Camera_Free.h" />
     <ClInclude Include="..\Headers\Client_Defines.h" />
     <ClInclude Include="..\Headers\GameManager.h" />
+    <ClInclude Include="..\Headers\Goal.h" />
     <ClInclude Include="..\Headers\Level.h" />
     <ClInclude Include="..\Headers\Field.h" />
     <ClInclude Include="..\Headers\Loading.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="..\Codes\Brick.cpp" />
     <ClCompile Include="..\Codes\Camera_Free.cpp" />
     <ClCompile Include="..\Codes\GameManager.cpp" />
+    <ClCompile Include="..\Codes\Goal.cpp" />
     <ClCompile Include="..\Codes\Level.cpp" />
     <ClCompile Include="..\Codes\Field.cpp" />
     <ClCompile Include="..\Codes\Loading.cpp" />

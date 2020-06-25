@@ -67,6 +67,9 @@
     <Filter Include="02.GameObject\Button">
       <UniqueIdentifier>{d1571137-965b-4cea-864e-45c353c6554b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\Goal">
+      <UniqueIdentifier>{e8c130c9-ba2f-4c37-b88f-e56ef110b4d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -135,6 +138,9 @@
     <ClInclude Include="MyButton.h">
       <Filter>02.GameObject\Button</Filter>
     </ClInclude>
+    <ClInclude Include="..\Headers\Goal.h">
+      <Filter>02.GameObject\Goal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -187,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="MyButton.cpp">
       <Filter>02.GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Goal.cpp">
+      <Filter>02.GameObject\Goal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "..\Headers\Loading.h"
-
 #include "GameManager.h"
 #include "Brick.h"
 #include "MyButton.h"
 #include "Field.h"
 #include "BackGround.h"
+
 USING(Client)
 
 CLoading::CLoading(PDIRECT3DDEVICE9 pGraphic_Device)

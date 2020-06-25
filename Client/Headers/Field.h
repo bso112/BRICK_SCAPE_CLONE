@@ -6,6 +6,7 @@
 
 BEGIN(Client)
 class CWall;
+class CGoal;
 class CField : public CGameObject
 {
 public:
@@ -13,6 +14,8 @@ public:
 	{
 		BASEDESC	tBaseDesc;
 		SCENEID		eSceneID = SCENE_END;
+		_uint		iBrickNumX = 0;
+		_uint		iBrickNumY = 0;
 	}STATEDESC;
 protected:
 	explicit CField(PDIRECT3DDEVICE9 pGraphic_Device);
@@ -30,16 +33,11 @@ public:
 public:
 	CWall**	Get_Walls();
 
-private:
-	CTransform*	m_pTransform = nullptr;
-	CVIBuffer*	m_pVIBuffer = nullptr;
-	CTexture*	m_pTexture = nullptr;
-	CRenderer*	m_pRenderer = nullptr;
 
 private:
-	CWall*	m_Walls[6];
 	STATEDESC	m_tDesc;
-
+	CWall*	m_Walls[6];
+	CGoal*	m_pGoal = nullptr;
 public:
 	static CField* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CField* Clone_GameObject(void* pArg);

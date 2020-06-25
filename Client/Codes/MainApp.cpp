@@ -8,6 +8,7 @@
 #include "MyButton.h"
 #include "Wall.h"
 #include "Field.h"
+#include "Goal.h"
 USING(Client)
 
 CMainApp::CMainApp()
@@ -119,6 +120,10 @@ HRESULT CMainApp::Ready_Default_GameObject()
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Background", CBackGround::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
+	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Goal", CGoal::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+
 
 
 	return S_OK;
@@ -168,6 +173,10 @@ HRESULT CMainApp::Ready_Default_Component()
 		return E_FAIL;
 
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Btn", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Button/btn%d.png", 1))))
+		return E_FAIL;
+
+
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Goal", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Goal/goal%d.png", 2))))
 		return E_FAIL;
 
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_BoxCollider", CCollider_Box::Create(m_pGraphic_Device))))
