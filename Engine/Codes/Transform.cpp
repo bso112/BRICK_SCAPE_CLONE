@@ -133,10 +133,12 @@ HRESULT CTransform::SetUp_Position(_float3 _vPos)
 
 HRESULT CTransform::SetUp_Scale(_float3 _vSize)
 {
-
-	Set_State(STATE_RIGHT, Get_State(STATE_RIGHT) * _vSize.x);
-	Set_State(STATE_UP, Get_State(STATE_UP) * _vSize.y);
-	Set_State(STATE_LOOK, Get_State(STATE_LOOK) * _vSize.z);
+	_float3 vRight = *D3DXVec3Normalize(&Get_State(STATE_RIGHT), &Get_State(STATE_RIGHT)) * _vSize.x;
+	_float3 vUp = *D3DXVec3Normalize(&Get_State(STATE_UP), &Get_State(STATE_UP)) * _vSize.y;
+	_float3	vLook = *D3DXVec3Normalize(&Get_State(STATE_LOOK), &Get_State(STATE_LOOK)) * _vSize.z;
+	Set_State(STATE_RIGHT, vRight);
+	Set_State(STATE_UP, vUp);
+	Set_State(STATE_LOOK, vLook);
 	return S_OK;
 }
 

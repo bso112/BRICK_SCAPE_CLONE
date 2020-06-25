@@ -42,6 +42,9 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 	if (FAILED(Add_Component(SCENE_STATIC, L"Component_Renderer", L"Com_Renderer", (CComponent**)&m_pRenderer)))
 		return E_FAIL;
 
+	if (FAILED(Add_Component(SCENE_STATIC, L"Component_BoxCollider", L"Com_Collider", (CComponent**)&m_pBoxCollider)))
+		return E_FAIL;
+
 	m_pTransform->SetUp_Position(m_tDesc.tBaseDesc.vPos);
 
 	m_pTransform->SetUp_Scale(m_tDesc.tBaseDesc.vSize);
@@ -50,7 +53,7 @@ HRESULT CWall::Ready_GameObject(void * pArg)
 
 _int CWall::Update_GameObject(_double TimeDelta)
 {
-
+	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
 	return _int();
 }
 
@@ -58,7 +61,12 @@ _int CWall::Late_Update_GameObject(_double TimeDelta)
 {
 	if (nullptr == m_pRenderer)
 		return E_FAIL;
-	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_NONALPHA, this);
+	m_pRenderer->Add_RenderGroup(CRenderer::RENDER_ALPHABLEND, this);
+
+	CManagement* pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement) return -1;
+	pManagement->Add_CollisionGroup(CCollisionMgr::COL_BOX, this);
+
 	return _int();
 }
 
@@ -102,6 +110,11 @@ HRESULT CWall::Render_GameObject()
 	return S_OK;
 }
 
+void CWall::OnCollisionEnter(CGameObject * _pOther)
+{
+	int i = 3;
+}
+
 CWall * CWall::Create(PDIRECT3DDEVICE9 pGraphic_Device)
 {
 	CWall*	pInstance = new CWall(pGraphic_Device);
@@ -128,6 +141,7 @@ CGameObject* CWall::Clone_GameObject(void * pArg)
 
 void CWall::Free()
 {
+	Safe_Release(m_pBoxCollider);
 	Safe_Release(m_pRenderer);
 	Safe_Release(m_pShader);
 	Safe_Release(m_pTexture);

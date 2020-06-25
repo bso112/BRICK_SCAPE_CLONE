@@ -19,7 +19,7 @@ public:
 	HRESULT Ready_Component_Prototype();
 	HRESULT Ready_Component(void* pArg);
 public:
-	HRESULT Add_CollisionGroup(COLLISION_GROUP eGroup, CGameObject* pCollider);
+	HRESULT Add_CollisionGroup(COLLISION_GROUP eGroup, CGameObject* pGameObject);
 	HRESULT CheckCollision();
 
 private:

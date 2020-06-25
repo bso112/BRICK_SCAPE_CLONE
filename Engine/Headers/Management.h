@@ -38,6 +38,7 @@ public:
 public:
 	HRESULT Add_Timers(const _tchar* pTimerTag);
 	_double Compute_TimeDelta(const _tchar* pTimerTag);
+	_double Get_TimeDelta(const _tchar* pTimerTag);
 #pragma endregion
 
 #pragma region SCENE

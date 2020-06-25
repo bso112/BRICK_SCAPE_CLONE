@@ -94,7 +94,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		if (1.0 / 60.0 <= TimerAcc)
 		{
-			pMainApp->Update_MainApp(pManagement->Compute_TimeDelta(L"Timer_60"));
+			_double timeDelta = pManagement->Compute_TimeDelta(L"Timer_60");
+			if (timeDelta > 0.01)
+				timeDelta = 0.01;
+			pMainApp->Update_MainApp(timeDelta);
 			pMainApp->Render_MainApp();
 
 			TimerAcc = 0.0;

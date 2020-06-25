@@ -9,6 +9,7 @@
 #include "Wall.h"
 #include "Field.h"
 #include "Goal.h"
+#include "MyImage.h"
 USING(Client)
 
 CMainApp::CMainApp()
@@ -112,6 +113,9 @@ HRESULT CMainApp::Ready_Default_GameObject()
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_MyButton", CMyButton::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
+	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_MyImage", CMyImage::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Field", CField::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
@@ -122,6 +126,9 @@ HRESULT CMainApp::Ready_Default_GameObject()
 
 	if (FAILED(m_pManagement->Add_GameObject_Prototype(SCENE_STATIC, L"GameObject_Goal", CGoal::Create(m_pGraphic_Device))))
 		return E_FAIL;
+
+
+
 
 
 
@@ -179,9 +186,11 @@ HRESULT CMainApp::Ready_Default_Component()
 	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Goal", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Goal/goal%d.png", 2))))
 		return E_FAIL;
 
-	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_BoxCollider", CCollider_Box::Create(m_pGraphic_Device))))
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_Texture_Banner", CTexture::Create(m_pGraphic_Device, L"../../Client/Bin/Resources/Textures/Banner/banner%d.png", 1))))
 		return E_FAIL;
 
+	if (FAILED(m_pManagement->Add_Component_Prototype(SCENE_STATIC, L"Component_BoxCollider", CCollider_Box::Create(m_pGraphic_Device))))
+		return E_FAIL;
 	return S_OK;
 }
 

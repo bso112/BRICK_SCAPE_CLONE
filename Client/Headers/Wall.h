@@ -31,12 +31,17 @@ public:
 	virtual _int Late_Update_GameObject(_double TimeDelta);
 	virtual HRESULT Render_GameObject();
 
+public:
+	virtual void OnCollisionEnter(CGameObject* _pOther);
+
 private:
 	CTransform*	m_pTransform = nullptr;
 	CVIBuffer*	m_pVIBuffer = nullptr;
 	CTexture*	m_pTexture = nullptr;
 	CRenderer*	m_pRenderer = nullptr;
 	CShader*	m_pShader = nullptr;
+	CCollider_Box*	m_pBoxCollider = nullptr;
+	
 
 private:
 	STATEDESC	m_tDesc;
