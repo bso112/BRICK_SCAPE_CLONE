@@ -147,7 +147,7 @@ HRESULT CBrick::OnKeyDown(_int KeyCode)
 	{
 		if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
 		{
-			CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
+			CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(CManagement::Get_Instance()->Get_CurrScene(), L"Layer_Camera");
 			CameraDis = Camera->GetCameraDistance(m_pTransform->Get_State(CTransform::STATE_POSITION));
 			if (ZBuffer >= CameraDis)
 				ZBuffer = CameraDis;
@@ -291,7 +291,7 @@ HRESULT CBrick::MoveLimitXY()
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return -1;
 
-	CTransform* pTargetTransform = (CTransform*)(pManagement->Get_ObjectPointer(SCENE_STAGE, L"Layer_Field")->Find_Component(L"Com_Transform"));
+	CTransform* pTargetTransform = (CTransform*)(pManagement->Get_ObjectPointer(CManagement::Get_Instance()->Get_CurrScene(), L"Layer_Field")->Find_Component(L"Com_Transform"));
 	_float3	MyPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 
 	_float FieldCX = pTargetTransform->Get_State(CTransform::STATE_RIGHT).x / 2.f;

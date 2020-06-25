@@ -44,6 +44,7 @@ public:
 #pragma region SCENE
 public:
 	HRESULT SetUp_CurrentScene(CScene* pCurrentScene, _uint iSceneID);
+	_uint	Get_CurrScene();
 #pragma endregion
 
 

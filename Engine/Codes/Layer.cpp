@@ -56,12 +56,8 @@ _int CLayer::Update_Layer(_double TimeDelta)
 	{
 		if (nullptr != pGameObject)
 		{
-			_int Event = 0;
-
-			Event = pGameObject->Update_GameObject(TimeDelta);
-
-			if(Event & 0x8000 || Event == 1)
-				return Event;
+			if(1 == pGameObject->Update_GameObject(TimeDelta))
+				return 1;
 		}
 	}
 

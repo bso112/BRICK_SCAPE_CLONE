@@ -40,6 +40,11 @@ HRESULT CMainApp::Ready_MainApp()
 
 _int CMainApp::Update_MainApp(_double TimeDelta)
 {
+	if (0x8000 & GetKeyState(VK_LBUTTON))
+	{
+		int a = 10;
+	}
+
 	if (nullptr == m_pManagement)
 		return -1;
 

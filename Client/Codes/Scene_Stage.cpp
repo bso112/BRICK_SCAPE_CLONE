@@ -19,7 +19,6 @@ HRESULT CScene_Stage::Ready_Scene()
 	if (nullptr == pManagement)
 		return E_FAIL;
 
-
 	CCamera::STATEDESC			StateDesc;
 	StateDesc.vEye = _float3(5.f, 5.f, -5.f);
 	StateDesc.vAt = _float3(0.f, 0.f, 0.f);
@@ -46,11 +45,9 @@ HRESULT CScene_Stage::Ready_Scene()
 
 _int CScene_Stage::Update_Scene(_double TimeDelta)
 {
-
 	//CCamera_Free* Camera = (CCamera_Free*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"Layer_Camera");
 	//CMyButton* Btn = (CMyButton*)CManagement::Get_Instance()->Get_ObjectPointer(SCENE_STAGE, L"GameObject");
 	////Btn->Add_Listener([=]() { Camera->Set_DestCameraFovy(D3DXToRadian(60.f)); CGameManager::Get_Instance()->Set_IsGameStart(true); Btn->Set_Dead(); });
-
 
 	CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON, SCENE_STAGE);
 	CKeyMgr::Get_Instance()->Key_Up(VK_LBUTTON, SCENE_STAGE);
@@ -80,6 +77,9 @@ CScene_Stage * CScene_Stage::Create(PDIRECT3DDEVICE9 pGraphic_Device)
 
 void CScene_Stage::Free()
 {
+	//CManagement*	pManagement = CManagement::Get_Instance();
+	//pManagement->Clear_Component_Manager(SCENE_STAGE);
+	//pManagement->Clear_Object_Manager(SCENE_STAGE);
 
 	CScene::Free();
 }
