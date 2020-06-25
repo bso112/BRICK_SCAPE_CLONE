@@ -86,7 +86,7 @@ HRESULT CLoading::Loading_ForStageOne()
 	CField::STATEDESC fieldDesc;
 	fieldDesc.tBaseDesc = BASEDESC(_float3(0.f, 0.f, 0.f), _float3(6.f, 6.f, 6.f));
 	fieldDesc.eSceneID = SCENE_STAGE;
-	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE, L"GameObject", &fieldDesc)))
+	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE, L"Layer_Field", &fieldDesc)))
 		return E_FAIL;
 
 	CBackGround::STATEDESC tBackgroundDesc;

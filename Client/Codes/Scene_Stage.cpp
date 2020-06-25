@@ -34,7 +34,6 @@ HRESULT CScene_Stage::Ready_Scene()
 
 	if (FAILED(pManagement->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Camera_Free", SCENE_STAGE, L"Layer_Camera", &StateDesc)))
 		return E_FAIL;
-
 	
 	return S_OK;
 }

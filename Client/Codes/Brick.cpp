@@ -81,6 +81,11 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 		return E_FAIL;
 
 	m_pBoxCollider->Update_Collider(m_pTransform->Get_WorldMatrix());
+
+	if(true == m_bIsDoneIntro)
+		MoveLimitXY();
+
+
 	return _int();
 }
 
@@ -91,7 +96,6 @@ _int CBrick::Late_Update_GameObject(_double TimeDelta)
 
 	CManagement* pManagement = CManagement::Get_Instance();
 	if (nullptr == pManagement) return -1;
-	//if(true == m_bIsDoneIntro)
 	pManagement->Add_CollisionGroup(CCollisionMgr::COL_BOX, this);
 	return 0;
 }
@@ -276,6 +280,39 @@ HRESULT CBrick::MoveToMouseDrag()
 
 
 	Safe_Release(pManagement);
+
+	return S_OK;
+}
+
+HRESULT CBrick::MoveLimitXY()
+{
+	CManagement* pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement) return -1;
+
+	CTransform* pTargetTransform = (CTransform*)(pManagement->Get_ObjectPointer(SCENE_STAGE, L"Layer_Field")->Find_Component(L"Com_Transform"));
+	_float3	MyPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
+
+	_float FieldCX = pTargetTransform->Get_State(CTransform::STATE_RIGHT).x / 2.f;
+	_float FieldCY = pTargetTransform->Get_State(CTransform::STATE_UP).y / 2.f;
+	
+	_float MyTopY = m_pTransform->Get_State(CTransform::STATE_POSITION).y + (m_pTransform->Get_State(CTransform::STATE_UP).y / 2);
+	_float MyBottomY = m_pTransform->Get_State(CTransform::STATE_POSITION).y - (m_pTransform->Get_State(CTransform::STATE_UP).y / 2);
+
+	_float MyRightX = m_pTransform->Get_State(CTransform::STATE_POSITION).x + (m_pTransform->Get_State(CTransform::STATE_RIGHT).x / 2);
+	_float MyLeftX = m_pTransform->Get_State(CTransform::STATE_POSITION).x - (m_pTransform->Get_State(CTransform::STATE_RIGHT).x / 2);
+
+	if (_float3(0.f, FieldCY, 0.f).y < MyTopY)
+		m_pTransform->SetUp_Position(_float3(MyPos.x, MyPos.y - (MyTopY - FieldCY), MyPos.z));
+
+	if (_float3(0.f, -FieldCY, 0.f).y > MyBottomY)
+		m_pTransform->SetUp_Position(_float3(MyPos.x, MyPos.y + -(MyBottomY + FieldCY), MyPos.z));
+
+	if (_float3(FieldCX, 0.f, 0.f).x < MyRightX)
+		m_pTransform->SetUp_Position(_float3(MyPos.x - (MyRightX - FieldCX), MyPos.y, MyPos.z));
+
+	if (_float3(-FieldCX, 0.f, 0.f).x > MyLeftX)
+		m_pTransform->SetUp_Position(_float3(MyPos.x + -(MyLeftX + FieldCX), MyPos.y, MyPos.z));
+
 
 	return S_OK;
 }

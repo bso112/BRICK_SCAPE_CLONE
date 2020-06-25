@@ -62,6 +62,7 @@ private:
 	_bool	m_bIsPick = false;
 private:
 	HRESULT	MoveToMouseDrag();
+	HRESULT	MoveLimitXY();
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone_GameObject(void* pArg);

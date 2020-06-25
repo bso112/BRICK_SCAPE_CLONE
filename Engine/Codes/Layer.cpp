@@ -20,7 +20,7 @@ CGameObject * CLayer::Get_ObjectPointer(_uint iIndex)
 
 CComponent * CLayer::Get_ComponentPointer(const _tchar * pComponentTag, _uint iIndex)
 {
-	/*if (m_ObjectList.size() <= iIndex)
+	if (m_ObjectList.size() <= iIndex)
 		return nullptr;
 
 	auto	iter = m_ObjectList.begin();
@@ -28,7 +28,7 @@ CComponent * CLayer::Get_ComponentPointer(const _tchar * pComponentTag, _uint iI
 	for (size_t i = 0; i < iIndex; ++i)
 		++iter;	
 
-	return (*iter)->Find_Component(pComponentTag);*/
+	return (*iter)->Find_Component(pComponentTag);
 
 	return nullptr;
 }

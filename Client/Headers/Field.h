@@ -32,9 +32,6 @@ public:
 
 private:
 	CTransform*	m_pTransform = nullptr;
-	CVIBuffer*	m_pVIBuffer = nullptr;
-	CTexture*	m_pTexture = nullptr;
-	CRenderer*	m_pRenderer = nullptr;
 
 private:
 	CWall*	m_Walls[6];
