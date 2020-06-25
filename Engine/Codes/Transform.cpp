@@ -154,6 +154,31 @@ HRESULT CTransform::SetUp_Rotation(_float3 vAxis, _float fRadian)
 	vUp = _float3(0.f, 1.f, 0.f) * vScale.y;
 	vLook = _float3(0.f, 0.f, 1.f) * vScale.z;
 
+
+	_matrix		RotationMatrix;
+	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, fRadian);
+
+	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrix);
+	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrix);
+	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrix);
+
+	Set_State(CTransform::STATE_RIGHT, vRight);
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_LOOK, vLook);
+
+	return S_OK;
+}
+
+HRESULT CTransform::Rotate(_float3 vAxis, _float fRadian)
+{
+	// 행렬에 회전의 상태를 담는다. == 행렬의 1, 2, 3행에 해당하는 방향벡터들을 회전시켜놓는다.
+	_float3		vRight, vUp, vLook;
+
+
+	vRight = Get_State(CTransform::STATE_RIGHT);
+	vUp = Get_State(CTransform::STATE_UP);
+	vLook = Get_State(CTransform::STATE_LOOK);
+
 	_matrix		RotationMatrix;
 	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, fRadian);
 

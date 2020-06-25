@@ -51,6 +51,7 @@ public:
 
 public: // For.Rotation
 	HRESULT SetUp_Rotation(_float3 vAxis, _float fRadian);
+	HRESULT	Rotate(_float3 vAxis, _float fRadian);
 	HRESULT Rotation_Axis(_float3 vAxis, _double TimeDelta);
 private:
 	STATEDESC		m_StateDesc;

@@ -83,32 +83,30 @@ HRESULT CGoal::Ready_GameObject(void * pArg)
 
 
 
-	//tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y + vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+	tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y + vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
 
-	//if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
-	//	return E_FAIL;
+	if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+		return E_FAIL;
 
-	//pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
-	//if (nullptr == pLightTransform) return E_FAIL;
-	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
-	//pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
-	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
-
+	pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	if (nullptr == pLightTransform) return E_FAIL;
+	pLightTransform->Rotate(_float3(0.f, 0.f, 1.f), D3DXToRadian(-90.f));
+	pLightTransform->Rotate(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
 
 
 
 
 
+	tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y - vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
 
-	//tImgDesc.tBaseDesc = BASEDESC(_float3(vGoalPos.x, vGoalPos.y - vGoalSize.y * 0.5f, vGoalPos.z - vGoalSize.x * 0.5f), vGoalSize);
+	if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
+		return E_FAIL;
 
-	//if (nullptr == (pLightImage = pManagment->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Image3D", m_tDesc.eSceneID, L"GameObject", &tImgDesc)))
-	//	return E_FAIL;
+	pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
+	if (nullptr == pLightTransform) return E_FAIL;
+	pLightTransform->Rotate(_float3(0.f, 0.f, 1.f), D3DXToRadian(-90.f));
+	pLightTransform->Rotate(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
 
-	//pLightTransform = (CTransform*)pLightImage->Find_Component(L"Com_Transform");
-	//if (nullptr == pLightTransform) return E_FAIL;
-	//pLightTransform->SetUp_Rotation(_float3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
-	//pLightTransform->SetUp_Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(90.f));
 
 
 
