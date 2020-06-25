@@ -38,16 +38,18 @@ HRESULT CGameEndPanel::Ready_GameObject(void* pArg)
 	pWinBanner->Expand(_float3(g_iWinSizeX, 128.f, 1.f), _float3(0.f, 500.f, 0.f));
 
 
-	CMyButton::STATEDESC btnDesc;
-	btnDesc.m_eSceneID = SCENE_STAGE;
-	btnDesc.m_tBaseDesc = BASEDESC(_float3((g_iWinSizeX >> 1) + 100.f, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
-	btnDesc.m_iTextureSceneID = SCENE_STATIC;
-	btnDesc.m_pTextureTag = L"Component_Texture_Btn";
-	btnDesc.m_iTextureID = 1;
+	//CMyButton::STATEDESC btnDesc;
+	//btnDesc.m_eSceneID = SCENE_STAGE;
+	//btnDesc.m_tBaseDesc = BASEDESC(_float3((g_iWinSizeX >> 1) + 100.f, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+	//btnDesc.m_iTextureSceneID = SCENE_STATIC;
+	//btnDesc.m_pTextureTag = L"Component_Texture_Btn";
+	//btnDesc.m_iTextureID = 1;
 
-	CGameObject* pObj;
-	if (nullptr == (pObj = pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
-		return E_FAIL;
+	//CGameObject* pObj;
+	//if (nullptr == (pObj = pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
+	//	return E_FAIL;
+
+	m_pBtnActiveClock = CClock_Basic::Create();
 
 	return S_OK;
 }
@@ -60,6 +62,22 @@ _int CGameEndPanel::Update_GameObject(_double _timeDelta)
 	if (m_bDead)
 		return -1;
 
+	if (m_pBtnActiveClock->isThreashHoldReached(1.5))
+	{
+		CManagement* pEngineMgr = CManagement::Get_Instance();
+		if (nullptr == pEngineMgr) return E_FAIL;
+
+		CMyButton::STATEDESC btnDesc;
+		btnDesc.m_eSceneID = SCENE_STAGE;
+		btnDesc.m_tBaseDesc = BASEDESC(_float3((g_iWinSizeX >> 1) + 100.f, (g_iWinSizeY >> 1) + 100.f, 0.f), _float3(100.f, 100.f, 10.f));
+		btnDesc.m_iTextureSceneID = SCENE_STATIC;
+		btnDesc.m_pTextureTag = L"Component_Texture_Btn";
+		btnDesc.m_iTextureID = 1;
+
+		CGameObject* pObj;
+		if (nullptr == (pObj = pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_MyButton", SCENE_STAGE, L"GameObject", &btnDesc)))
+			return E_FAIL;
+	}
 
 	return 0;
 }
@@ -107,6 +125,7 @@ CGameObject * CGameEndPanel::Clone_GameObject(void * pArg)
 
 void CGameEndPanel::Free()
 {
+	Safe_Release(m_pBtnActiveClock);
 	CGameObject::Free();
 
 }

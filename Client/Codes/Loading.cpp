@@ -90,8 +90,8 @@ HRESULT CLoading::Loading_ForStageOne()
 	fieldDesc.iBrickNumZ = 6;
 	fieldDesc.eSceneID = SCENE_STAGE;
 	fieldDesc.eWhereGoal = CField::WALL_FRONT;
-	fieldDesc.iGoalX = 1;
-	fieldDesc.iGoalY = 1;
+	fieldDesc.iGoalX = 0;
+	fieldDesc.iGoalY = 0;
 	if (FAILED(pEngineMgr->Add_Object_ToLayer(SCENE_STATIC, L"GameObject_Field", SCENE_STAGE, L"Layer_Field", &fieldDesc)))
 		return E_FAIL;
 
