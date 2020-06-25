@@ -21,7 +21,7 @@ HRESULT CScene_Stage::Ready_Scene()
 
 
 	CCamera::STATEDESC			StateDesc;
-	StateDesc.vEye = _float3(0.f, 5.f, -5.f);
+	StateDesc.vEye = _float3(5.f, 5.f, -5.f);
 	StateDesc.vAt = _float3(0.f, 0.f, 0.f);
 	StateDesc.vAxisY = _float3(0.f, 1.f, 0.f);
 
