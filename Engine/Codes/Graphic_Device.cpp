@@ -32,6 +32,8 @@ HRESULT CGraphic_Device::Ready_Graphic_Device(HWND hWnd, WINMODE eMode, _uint iB
 	else
 		dwBehaviorFlag |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;	
 
+	dwBehaviorFlag |= D3DCREATE_MULTITHREADED;
+
 	D3DPRESENT_PARAMETERS			PresentParameter;
 	ZeroMemory(&PresentParameter, sizeof(D3DPRESENT_PARAMETERS));
 

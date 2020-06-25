@@ -2,6 +2,7 @@
 #include "..\Headers\Brick.h"
 #include "KeyMgr.h"
 #include "GameManager.h"
+
 USING(Client)
 
 CBrick::CBrick(PDIRECT3DDEVICE9 pGraphic_Device)
@@ -57,6 +58,9 @@ HRESULT CBrick::Ready_GameObject(void * pArg)
 _int CBrick::Update_GameObject(_double TimeDelta)
 {
 
+	CGameManager::Get_Instance()->Set_PickObject(true);
+
+
 	if (0.0 < m_tDesc.m_dStartFall)
 		m_tDesc.m_dStartFall -= TimeDelta;
 
@@ -65,7 +69,10 @@ _int CBrick::Update_GameObject(_double TimeDelta)
 		m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_pTransform->Get_State(CTransform::STATE_POSITION).y - 0.3f, m_tDesc.tBaseDesc.vPos.z));
 
 		if (m_pTransform->Get_State(CTransform::STATE_POSITION).y <= m_tDesc.tBaseDesc.vPos.y)
+		{
+			m_pTransform->SetUp_Position(_float3(m_tDesc.tBaseDesc.vPos.x, m_tDesc.tBaseDesc.vPos.y, m_tDesc.tBaseDesc.vPos.z));
 			m_bIsDoneIntro = true;
+		}
 	}
 
 	if (nullptr == m_pBoxCollider	||
@@ -123,11 +130,53 @@ HRESULT CBrick::Render_GameObject()
 
 HRESULT CBrick::OnKeyDown(_int KeyCode)
 {
-	if (KeyCode == VK_LBUTTON)
-	{
-		//if (m_pVIBuffer->Pick_Polygon(g_hWnd, m_pTransform->Get_WorldMatrix(), &_float3()))
-		//	CGameManager::Get_Instance()->Set_PickObject(true);
-	}
+	return S_OK;
+}
+
+HRESULT CBrick::MoveToMouseDrag()
+{
+	POINT		ptMouse;
+
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+
+	D3DVIEWPORT9		ViewPort;
+	m_pGraphic_Device->GetViewport(&ViewPort);
+
+	_float3		vMousePos = _float3((_float)ptMouse.x, (_float)ptMouse.y, 0.0f);
+
+	// 2차원 투영 스페이스로 변환한다.(0, 0, g_iWinCX, g_iWinCY -> -1, 1, 1, -1)
+	vMousePos.x = vMousePos.x / (ViewPort.Width * 0.5f) - 1.f;
+	vMousePos.y = vMousePos.y / -(ViewPort.Height * 0.5f) + 1.f;
+	vMousePos.z = 0.f;
+
+	// 투영스페이스 -> 뷰스페이스 (투영행렬의 역행렬 곱하기)
+	CManagement* pManagement = CManagement::Get_Instance();
+	if (nullptr == pManagement)
+		return false;
+	Safe_AddRef(pManagement);
+
+	_matrix InverseProjetion = pManagement->Get_Transform(D3DTS_PROJECTION);
+	D3DXMatrixInverse(&InverseProjetion, nullptr, &InverseProjetion);
+
+	D3DXVec3TransformCoord(&vMousePos, &vMousePos, &InverseProjetion);
+
+	// 뷰 스페이스에서의 마우스의 시작점, 레이를 구한다
+	_float3		vMousePivot = _float3(0.f, 0.f, 0.f);
+	_float3		vMouseRay = _float3(vMousePos.x, vMousePos.y, vMousePos.z) - vMousePivot;
+
+	// 뷰스페이스 -> 월드스페이스 (뷰행렬의 역행렬을 구한다)
+	_matrix ViewMatrix = pManagement->Get_Transform(D3DTS_VIEW);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	// 구한 뷰 공간의 역행렬을 마우스의 좌표에 곱한다. ( 마우스 좌표의 월드행렬화 )
+	D3DXVec3TransformCoord(&vMousePivot, &vMousePivot, &ViewMatrix);
+	D3DXVec3TransformNormal(&vMouseRay, &vMouseRay, &ViewMatrix);
+
+	D3DXVec3Normalize(&vMouseRay, & vMouseRay);
+	m_pTransform->SetUp_Position(vMousePivot + (vMouseRay * 10.f) ); 
+
+	Safe_Release(pManagement);
 
 	return S_OK;
 }

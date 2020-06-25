@@ -19,6 +19,7 @@ public:
 		_bool			bPlayer;
 		_double			m_dStartFall;
 
+		_float3			m_vAxis;
 	}STATEDESC;
 protected:
 	explicit CBrick(PDIRECT3DDEVICE9 pGraphic_Device);
@@ -32,8 +33,6 @@ public:
 	virtual _int Update_GameObject(_double TimeDelta);
 	virtual _int Late_Update_GameObject(_double TimeDelta);
 	virtual HRESULT Render_GameObject();
-
-
 public:
 	virtual HRESULT	OnKeyDown(_int KeyCode);
 private:
@@ -51,6 +50,8 @@ private:
 	_float3 CurMousePos;
 	_float3 OldMousePos;
 	_float3	fDir;
+private:
+	HRESULT	MoveToMouseDrag();
 
 public:
 	static CBrick* Create(PDIRECT3DDEVICE9 pGraphic_Device);
