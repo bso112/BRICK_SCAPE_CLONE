@@ -32,7 +32,7 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Default_GameObject()))
 		return E_FAIL;
 
-	if (FAILED(Ready_Start_Scene(SCENE_STAGE4)))
+	if (FAILED(Ready_Start_Scene(SCENE_STAGE)))
 		return E_FAIL;
 
 	return S_OK;
